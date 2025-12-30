@@ -56,7 +56,7 @@ export default function ChartsPage() {
       setError('投資組合總值走勢圖功能開發中。目前請選擇個別股票查看歷史走勢。');
       setLoading(false);
     } else {
-      fetch(`/api/prices?symbol=${selectedView}&days=30`)
+      fetch(`/api/prices?symbol=${selectedView}&days=90`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch data');
           return res.json();
@@ -147,7 +147,7 @@ export default function ChartsPage() {
       <Card className="bg-white/95 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-xl">
-            {CHART_VIEWS.find(v => v.value === selectedView)?.label} - 30 天走勢
+            {CHART_VIEWS.find(v => v.value === selectedView)?.label} - 90 天走勢
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -174,7 +174,7 @@ export default function ChartsPage() {
           <strong>📊 投資組合總值：</strong>由於需要計算所有股票的歷史價格，此功能將在後續版本中實作。
         </p>
         <p>
-          <strong>📈 個股走勢：</strong>資料來源為 Yahoo Finance API，免費且即時更新。
+          <strong>📈 個股走勢：</strong>資料來源為 Yahoo Finance API，免費且即時更新。顯示過去 90 天價格走勢。
         </p>
       </div>
     </div>

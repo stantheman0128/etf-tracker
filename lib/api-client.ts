@@ -187,39 +187,60 @@ export async function getExchangeRate(): Promise<number> {
   }
 }
 
-// ============ 歷史價格 (Alpha Vantage) ============
+// ============ 歷史價格 (Yahoo Finance - 免費無需 API Key) ============
 export async function getHistoricalPrices(
   symbol: string,
-  days: number = 30
+  days: number = 90
 ): Promise<HistoricalPrice[]> {
   try {
-    const url = `${API_CONFIG.alphaVantage.baseUrl}?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${API_CONFIG.alphaVantage.apiKey}`;
+    // 為台股加上 .TW 後綴
+    const yahooSymbol = symbol.match(/^\d{4}$/) ? `${symbol}.TW` : symbol;
+
+    // Yahoo Finance 支援的時間範圍：1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max
+    let range = '3mo'; // 預設 3 個月
+    if (days <= 5) range = '5d';
+    else if (days <= 30) range = '1mo';
+    else if (days <= 90) range = '3mo';
+    else if (days <= 180) range = '6mo';
+    else range = '1y';
+
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbol}?range=${range}&interval=1d`;
 
     const response = await fetch(url, {
-      next: { revalidate: 86400 } // 快取 24 小時
+      next: { revalidate: 86400 }, // 快取 24 小時
+      signal: AbortSignal.timeout(10000)
     });
 
-    const data = await response.json();
-    const timeSeries = data['Time Series (Daily)'];
-
-    if (!timeSeries) {
-      console.error('No historical data for', symbol);
+    if (!response.ok) {
+      console.error(`Yahoo Finance historical data error for ${yahooSymbol}: ${response.status}`);
       return [];
     }
 
-    return Object.entries(timeSeries)
-      .slice(0, days)
-      .map(([date, values]: [string, any]) => ({
-        date,
-        open: parseFloat(values['1. open']),
-        high: parseFloat(values['2. high']),
-        low: parseFloat(values['3. low']),
-        close: parseFloat(values['4. close']),
-        volume: parseInt(values['5. volume'])
-      }))
-      .reverse(); // 從舊到新排序
-  } catch (error) {
-    console.error(`Error fetching historical data for ${symbol}:`, error);
+    const data = await response.json();
+    const result = data.chart?.result?.[0];
+
+    if (!result || !result.timestamp || !result.indicators?.quote?.[0]) {
+      console.error('Invalid historical data response for', yahooSymbol);
+      return [];
+    }
+
+    const timestamps = result.timestamp;
+    const quote = result.indicators.quote[0];
+
+    // 將資料轉換為 HistoricalPrice 格式
+    const historicalData: HistoricalPrice[] = timestamps.map((timestamp: number, index: number) => ({
+      date: new Date(timestamp * 1000).toISOString().split('T')[0],
+      close: quote.close[index] || 0,
+      open: quote.open[index],
+      high: quote.high[index],
+      low: quote.low[index],
+      volume: quote.volume[index]
+    })).filter((item: HistoricalPrice) => item.close > 0); // 過濾掉無效資料
+
+    console.log(`✅ Got ${historicalData.length} days of historical data for ${yahooSymbol}`);
+    return historicalData;
+  } catch (error: any) {
+    console.error(`Error fetching historical data for ${symbol}:`, error?.message || error);
     return [];
   }
 }

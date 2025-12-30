@@ -227,7 +227,7 @@ export default async function Dashboard() {
 
       {/* Footer */}
       <footer className="mt-12 bg-white/10 backdrop-blur rounded-2xl p-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-6">
           {/* 關於 */}
           <div>
             <h3 className="text-lg font-semibold text-white mb-3">關於什錦雜貨鋪 ETF</h3>
@@ -268,6 +268,20 @@ export default async function Dashboard() {
               <div>📊 Yahoo Finance API</div>
               <div>🪙 Kraken / Coinbase API</div>
               <div>📈 TradingView Charts</div>
+            </div>
+          </div>
+
+          {/* 精選文章 */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-3">精選文章</h3>
+            <div className="rounded-lg overflow-hidden bg-white/5">
+              <iframe
+                src="https://embed.dcard.tw/post/256127114"
+                style={{ border: 'none' }}
+                width="100%"
+                height="310px"
+                title="Dcard 精選文章"
+              />
             </div>
           </div>
         </div>
