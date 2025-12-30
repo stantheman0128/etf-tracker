@@ -14,11 +14,20 @@ const CHART_VIEWS = [
   { value: 'META', label: 'Meta' },
   { value: 'TSM', label: '台積電 ADR' },
   { value: '2330', label: '台積電 (TW)' },
+  { value: 'BTC', label: '₿ Bitcoin' },
+];
+
+const TIME_RANGES = [
+  { value: 30, label: '1 個月' },
+  { value: 90, label: '3 個月' },
+  { value: 180, label: '6 個月' },
+  { value: 365, label: '1 年' },
 ];
 
 export default function ChartsPage() {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [selectedView, setSelectedView] = useState('portfolio');
+  const [selectedRange, setSelectedRange] = useState(90);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -56,7 +65,7 @@ export default function ChartsPage() {
       setError('投資組合總值走勢圖功能開發中。目前請選擇個別股票查看歷史走勢。');
       setLoading(false);
     } else {
-      fetch(`/api/prices?symbol=${selectedView}&days=90`)
+      fetch(`/api/prices?symbol=${selectedView}&days=${selectedRange}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch data');
           return res.json();
@@ -98,7 +107,7 @@ export default function ChartsPage() {
       window.removeEventListener('resize', handleResize);
       chart.remove();
     };
-  }, [selectedView]);
+  }, [selectedView, selectedRange]);
 
   return (
     <div className="container mx-auto p-4 md:p-6 max-w-7xl">
@@ -143,11 +152,37 @@ export default function ChartsPage() {
         </CardContent>
       </Card>
 
+      {/* Time Range Selector */}
+      {selectedView !== 'portfolio' && (
+        <Card className="bg-white/95 backdrop-blur mb-6">
+          <CardHeader>
+            <CardTitle className="text-lg">選擇時間範圍</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {TIME_RANGES.map((range) => (
+                <button
+                  key={range.value}
+                  onClick={() => setSelectedRange(range.value)}
+                  className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                    selectedRange === range.value
+                      ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {range.label}
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Chart */}
       <Card className="bg-white/95 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-xl">
-            {CHART_VIEWS.find(v => v.value === selectedView)?.label} - 90 天走勢
+            {CHART_VIEWS.find(v => v.value === selectedView)?.label} - {TIME_RANGES.find(r => r.value === selectedRange)?.label || '歷史走勢'}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -174,7 +209,7 @@ export default function ChartsPage() {
           <strong>📊 投資組合總值：</strong>由於需要計算所有股票的歷史價格，此功能將在後續版本中實作。
         </p>
         <p>
-          <strong>📈 個股走勢：</strong>資料來源為 Yahoo Finance API，免費且即時更新。顯示過去 90 天價格走勢。
+          <strong>📈 個股走勢：</strong>資料來源為 Yahoo Finance 與 CoinGecko API，免費且即時更新。可選擇 1 個月到 1 年的歷史資料。
         </p>
       </div>
     </div>
