@@ -226,9 +226,60 @@ export default async function Dashboard() {
       </Card>
 
       {/* Footer */}
-      <div className="mt-6 text-center text-white/80 text-sm">
-        <p>© 2025 什錦雜貨鋪 ETF | Made with 🦔 by Stan Shih</p>
-      </div>
+      <footer className="mt-12 bg-white/10 backdrop-blur rounded-2xl p-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
+          {/* 關於 */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-3">關於什錦雜貨鋪 ETF</h3>
+            <p className="text-white/70 text-sm leading-relaxed">
+              個人投資組合追蹤工具，結合台股、美股和加密貨幣的即時數據。
+              使用 Next.js 14 + Yahoo Finance API，完全免費且開源。
+            </p>
+            <p className="text-white/60 text-xs mt-2">
+              ⚡ 頁面每分鐘自動更新 | 💯 完全免費無需 API Key
+            </p>
+          </div>
+
+          {/* 聯繫方式 */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-3">聯繫我</h3>
+            <div className="flex flex-col gap-2">
+              <a href="mailto:stan@stan-shih.com" className="text-white/70 hover:text-white transition-colors text-sm flex items-center gap-2">
+                <span>📧</span> stan@stan-shih.com
+              </a>
+              <a href="https://www.dcard.tw/@stantheman" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors text-sm flex items-center gap-2">
+                <span>🦔</span> Dcard: @stantheman
+              </a>
+              <a href="https://www.instagram.com/shijin.store/" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors text-sm flex items-center gap-2">
+                <span>📷</span> Instagram: @shijin.store
+              </a>
+              <a href="https://www.threads.net/@shijin.store" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors text-sm flex items-center gap-2">
+                <span>🧵</span> Threads: @shijin.store
+              </a>
+            </div>
+          </div>
+
+          {/* 技術棧 */}
+          <div>
+            <h3 className="text-lg font-semibold text-white mb-3">技術棧</h3>
+            <div className="flex flex-col gap-2 text-sm text-white/70">
+              <div>⚡ Next.js 14 + React 19</div>
+              <div>🎨 Tailwind CSS + shadcn/ui</div>
+              <div>📊 Yahoo Finance API</div>
+              <div>🪙 Kraken / Coinbase API</div>
+              <div>📈 TradingView Charts</div>
+            </div>
+          </div>
+        </div>
+
+        {/* 底部版權 */}
+        <div className="pt-6 border-t border-white/10 text-center text-white/60 text-sm">
+          <p>© 2025 什錦雜貨鋪 ETF | Made with 🦔 by Stan Shih</p>
+          <p className="text-xs mt-2 text-white/40">
+            Open Source • MIT License • Powered by Yahoo Finance
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }

@@ -6,17 +6,19 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const SYMBOLS = [
+const CHART_VIEWS = [
+  { value: 'portfolio', label: '📊 投資組合總值' },
   { value: 'TSLA', label: 'Tesla' },
   { value: 'AMZN', label: 'Amazon' },
   { value: 'NVDA', label: 'Nvidia' },
   { value: 'META', label: 'Meta' },
   { value: 'TSM', label: '台積電 ADR' },
+  { value: '2330', label: '台積電 (TW)' },
 ];
 
 export default function ChartsPage() {
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  const [selectedSymbol, setSelectedSymbol] = useState('TSLA');
+  const [selectedView, setSelectedView] = useState('portfolio');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -49,31 +51,37 @@ export default function ChartsPage() {
     setLoading(true);
     setError(null);
 
-    fetch(`/api/prices?symbol=${selectedSymbol}&days=30`)
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch data');
-        return res.json();
-      })
-      .then(data => {
-        if (data.error) {
-          setError(data.error);
-          return;
-        }
+    if (selectedView === 'portfolio') {
+      // 投資組合總值：使用模擬資料（因為需要所有股票的歷史資料會很慢）
+      setError('投資組合總值走勢圖功能開發中。目前請選擇個別股票查看歷史走勢。');
+      setLoading(false);
+    } else {
+      fetch(`/api/prices?symbol=${selectedView}&days=30`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch data');
+          return res.json();
+        })
+        .then(data => {
+          if (data.error) {
+            setError(data.error);
+            return;
+          }
 
-        const formattedData = data.map((item: any) => ({
-          time: item.date,
-          value: item.close,
-        }));
+          const formattedData = data.map((item: any) => ({
+            time: item.date,
+            value: item.close,
+          }));
 
-        lineSeries.setData(formattedData);
-        chart.timeScale().fitContent();
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching chart data:', err);
-        setError('無法載入圖表資料');
-        setLoading(false);
-      });
+          lineSeries.setData(formattedData);
+          chart.timeScale().fitContent();
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('Error fetching chart data:', err);
+          setError('無法載入圖表資料');
+          setLoading(false);
+        });
+    }
 
     // 響應式調整
     const handleResize = () => {
@@ -90,7 +98,7 @@ export default function ChartsPage() {
       window.removeEventListener('resize', handleResize);
       chart.remove();
     };
-  }, [selectedSymbol]);
+  }, [selectedView]);
 
   return (
     <div className="container mx-auto p-4 md:p-6 max-w-7xl">
@@ -111,24 +119,24 @@ export default function ChartsPage() {
         </div>
       </div>
 
-      {/* Symbol Selector */}
+      {/* View Selector */}
       <Card className="bg-white/95 backdrop-blur mb-6">
         <CardHeader>
-          <CardTitle className="text-lg">選擇股票</CardTitle>
+          <CardTitle className="text-lg">選擇圖表</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {SYMBOLS.map((symbol) => (
+            {CHART_VIEWS.map((view) => (
               <button
-                key={symbol.value}
-                onClick={() => setSelectedSymbol(symbol.value)}
+                key={view.value}
+                onClick={() => setSelectedView(view.value)}
                 className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
-                  selectedSymbol === symbol.value
+                  selectedView === view.value
                     ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white'
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                {symbol.label}
+                {view.label}
               </button>
             ))}
           </div>
@@ -139,7 +147,7 @@ export default function ChartsPage() {
       <Card className="bg-white/95 backdrop-blur">
         <CardHeader>
           <CardTitle className="text-xl">
-            {SYMBOLS.find(s => s.value === selectedSymbol)?.label} - 30 天走勢
+            {CHART_VIEWS.find(v => v.value === selectedView)?.label} - 30 天走勢
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -161,8 +169,13 @@ export default function ChartsPage() {
       </Card>
 
       {/* Info */}
-      <div className="mt-6 text-center text-white/80 text-sm">
-        <p>資料來源: Alpha Vantage API</p>
+      <div className="mt-6 bg-white/10 backdrop-blur rounded-xl p-4 text-white/80 text-sm">
+        <p className="mb-2">
+          <strong>📊 投資組合總值：</strong>由於需要計算所有股票的歷史價格，此功能將在後續版本中實作。
+        </p>
+        <p>
+          <strong>📈 個股走勢：</strong>資料來源為 Yahoo Finance API，免費且即時更新。
+        </p>
       </div>
     </div>
   );
