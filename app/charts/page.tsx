@@ -61,9 +61,46 @@ export default function ChartsPage() {
     setError(null);
 
     if (selectedView === 'portfolio') {
-      // 投資組合總值：使用模擬資料（因為需要所有股票的歷史資料會很慢）
-      setError('投資組合總值走勢圖功能開發中。目前請選擇個別股票查看歷史走勢。');
-      setLoading(false);
+      // 投資組合總值：並行獲取所有股票的歷史資料並計算總值
+      fetch(`/api/portfolio-history?days=${selectedRange}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch portfolio data');
+          return res.json();
+        })
+        .then(data => {
+          if (data.error) {
+            setError(data.error);
+            return;
+          }
+
+          // 將資料格式化並去重
+          const dataMap = new Map<string, number>();
+          data.forEach((item: any) => {
+            if (item.date && item.close && item.close > 0) {
+              dataMap.set(item.date, item.close);
+            }
+          });
+
+          // 轉換為陣列並排序
+          const formattedData = Array.from(dataMap.entries())
+            .map(([date, value]) => ({ time: date, value }))
+            .sort((a, b) => a.time.localeCompare(b.time));
+
+          if (formattedData.length === 0) {
+            setError('無法載入圖表資料：沒有有效的歷史價格');
+            setLoading(false);
+            return;
+          }
+
+          lineSeries.setData(formattedData);
+          chart.timeScale().fitContent();
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('Error fetching portfolio chart data:', err);
+          setError('無法載入投資組合資料，請稍後再試');
+          setLoading(false);
+        });
     } else {
       fetch(`/api/prices?symbol=${selectedView}&days=${selectedRange}`)
         .then(res => {
@@ -167,30 +204,33 @@ export default function ChartsPage() {
       </Card>
 
       {/* Time Range Selector */}
-      {selectedView !== 'portfolio' && (
-        <Card className="bg-white/95 backdrop-blur mb-6">
-          <CardHeader>
-            <CardTitle className="text-lg">選擇時間範圍</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-2">
-              {TIME_RANGES.map((range) => (
-                <button
-                  key={range.value}
-                  onClick={() => setSelectedRange(range.value)}
-                  className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
-                    selectedRange === range.value
-                      ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {range.label}
-                </button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      <Card className="bg-white/95 backdrop-blur mb-6">
+        <CardHeader>
+          <CardTitle className="text-lg">選擇時間範圍</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-2">
+            {TIME_RANGES.map((range) => (
+              <button
+                key={range.value}
+                onClick={() => setSelectedRange(range.value)}
+                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                  selectedRange === range.value
+                    ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                {range.label}
+              </button>
+            ))}
+          </div>
+          {selectedView === 'portfolio' && (
+            <p className="text-sm text-gray-500 mt-3">
+              ⏱️ 投資組合圖表需要載入所有股票的歷史資料，可能需要 2-3 秒
+            </p>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Chart */}
       <Card className="bg-white/95 backdrop-blur">
@@ -220,7 +260,7 @@ export default function ChartsPage() {
       {/* Info */}
       <div className="mt-6 bg-white/10 backdrop-blur rounded-xl p-4 text-white/80 text-sm">
         <p className="mb-2">
-          <strong>📊 投資組合總值：</strong>由於需要計算所有股票的歷史價格，此功能將在後續版本中實作。
+          <strong>📊 投資組合總值：</strong>即時計算所有持股的歷史價值總和，以台幣顯示。載入時間約 2-3 秒。
         </p>
         <p>
           <strong>📈 個股走勢：</strong>資料來源為 Yahoo Finance 與 CoinGecko API，免費且即時更新。可選擇 1 個月到 1 年的歷史資料。
