@@ -76,10 +76,24 @@ export default function ChartsPage() {
             return;
           }
 
-          const formattedData = data.map((item: any) => ({
-            time: item.date,
-            value: item.close,
-          }));
+          // 將資料格式化並去重
+          const dataMap = new Map<string, number>();
+          data.forEach((item: any) => {
+            if (item.date && item.close && item.close > 0) {
+              dataMap.set(item.date, item.close);
+            }
+          });
+
+          // 轉換為陣列並排序
+          const formattedData = Array.from(dataMap.entries())
+            .map(([date, value]) => ({ time: date, value }))
+            .sort((a, b) => a.time.localeCompare(b.time));
+
+          if (formattedData.length === 0) {
+            setError('無法載入圖表資料：沒有有效的歷史價格');
+            setLoading(false);
+            return;
+          }
 
           lineSeries.setData(formattedData);
           chart.timeScale().fitContent();
