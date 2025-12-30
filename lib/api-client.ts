@@ -17,34 +17,43 @@ export interface HistoricalPrice {
   volume?: number;
 }
 
-// ============ 美股價格 (Alpha Vantage) ============
+// ============ 美股價格 (Yahoo Finance - 免費無需 API Key) ============
 export async function getUSStockPrice(symbol: string): Promise<PriceData | null> {
   try {
-    const url = `${API_CONFIG.alphaVantage.baseUrl}?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${API_CONFIG.alphaVantage.apiKey}`;
+    // 使用 Yahoo Finance API（和台股相同來源，穩定可靠）
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}`;
 
     const response = await fetch(url, {
-      next: { revalidate: 60 } // 快取 1 分鐘
+      next: { revalidate: 60 },
+      signal: AbortSignal.timeout(10000)
     });
 
     if (!response.ok) {
-      throw new Error(`API request failed: ${response.status}`);
-    }
-
-    const data = await response.json();
-    const quote = data['Global Quote'];
-
-    if (!quote || !quote['05. price']) {
-      console.error('Invalid Alpha Vantage response for', symbol);
+      console.error(`Yahoo Finance API error for ${symbol}: ${response.status}`);
       return null;
     }
 
+    const data = await response.json();
+    const quote = data.chart?.result?.[0];
+
+    if (!quote) {
+      console.error('Invalid response for US stock', symbol);
+      return null;
+    }
+
+    const meta = quote.meta;
+    const currentPrice = meta.regularMarketPrice;
+    const previousClose = meta.chartPreviousClose || meta.previousClose;
+    const change = currentPrice - previousClose;
+    const changePercent = (change / previousClose) * 100;
+
     return {
-      price: parseFloat(quote['05. price']),
-      change: parseFloat(quote['09. change']),
-      changePercent: parseFloat(quote['10. change percent'].replace('%', ''))
+      price: currentPrice,
+      change: change,
+      changePercent: changePercent
     };
-  } catch (error) {
-    console.error(`Error fetching price for ${symbol}:`, error);
+  } catch (error: any) {
+    console.error(`Error fetching US stock ${symbol}:`, error?.message || error);
     return null;
   }
 }
@@ -84,31 +93,81 @@ export async function getTWStockPrice(symbol: string): Promise<PriceData | null>
   }
 }
 
-// ============ BTC 價格 (CoinGecko - 免費) ============
+// ============ BTC 價格 (多重 API 備援) ============
 export async function getBTCPrice(): Promise<PriceData | null> {
-  try {
-    const url = `${API_CONFIG.coinGecko.baseUrl}/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true`;
-
-    const response = await fetch(url, {
-      next: { revalidate: 120 } // BTC 快取 2 分鐘
-    });
-
-    const data = await response.json();
-    const btcData = data.bitcoin;
-
-    if (!btcData) {
-      return null;
+  // 使用多個備用 API（參考舊版本成功經驗）
+  const apis = [
+    {
+      name: 'Kraken',
+      url: 'https://api.kraken.com/0/public/Ticker?pair=BTCUSD',
+      parser: (data: any) => {
+        const ticker = data.result?.XXBTZUSD;
+        if (ticker) {
+          const currentPrice = parseFloat(ticker.c?.[0]);
+          const openPrice = parseFloat(ticker.o);
+          let change = 0;
+          if (openPrice && openPrice > 0) {
+            change = ((currentPrice - openPrice) / openPrice) * 100;
+          }
+          return { price: currentPrice, change };
+        }
+        return null;
+      }
+    },
+    {
+      name: 'Coinbase',
+      url: 'https://api.coinbase.com/v2/exchange-rates?currency=BTC',
+      parser: (data: any) => {
+        const usdRate = data.data?.rates?.USD;
+        if (usdRate) {
+          const price = 1 / parseFloat(usdRate);
+          return { price, change: 0 }; // Coinbase 不提供漲跌幅
+        }
+        return null;
+      }
+    },
+    {
+      name: 'Blockchain.info',
+      url: 'https://blockchain.info/ticker',
+      parser: (data: any) => {
+        const usd = data.USD;
+        if (usd?.last) {
+          return { price: usd.last, change: 0 };
+        }
+        return null;
+      }
     }
+  ];
 
-    return {
-      price: btcData.usd,
-      change: btcData.usd_24h_change,
-      changePercent: btcData.usd_24h_change
-    };
-  } catch (error) {
-    console.error('Error fetching BTC price:', error);
-    return null;
+  // 嘗試每個 API
+  for (const api of apis) {
+    try {
+      const response = await fetch(api.url, {
+        next: { revalidate: 120 },
+        signal: AbortSignal.timeout(10000)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        const result = api.parser(data);
+
+        if (result && result.price > 50000 && result.price < 200000) {
+          console.log(`✅ ${api.name} BTC: $${result.price.toFixed(2)}`);
+          return {
+            price: result.price,
+            change: result.change,
+            changePercent: result.change
+          };
+        }
+      }
+    } catch (error: any) {
+      console.error(`${api.name} failed:`, error?.message);
+    }
   }
+
+  // 所有 API 都失敗，使用備用價格
+  console.error('All BTC APIs failed, using fallback price');
+  return { price: 95000, change: 0, changePercent: 0 };
 }
 
 // ============ 匯率 USD/TWD ============

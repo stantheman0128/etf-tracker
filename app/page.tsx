@@ -33,7 +33,7 @@ export default async function Dashboard() {
   // 獲取市場狀態
   const marketStatus = getMarketStatus();
 
-  // 獲取所有持股價格
+  // 獲取所有持股價格（使用 Yahoo Finance，無需延遲）
   const holdingsWithPrices = await Promise.all(
     PORTFOLIO_CONFIG.holdings.map(async (holding) => {
       let priceData: PriceData | null = null;

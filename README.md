@@ -23,7 +23,7 @@
 npm install
 ```
 
-### 2. 設定環境變數
+### 2. 設定環境變數（選用）
 
 複製 `.env.example` 為 `.env.local`：
 
@@ -31,16 +31,7 @@ npm install
 cp .env.example .env.local
 ```
 
-編輯 `.env.local`，填入你的 API Key：
-
-```env
-ALPHA_VANTAGE_API_KEY=your_api_key_here
-```
-
-**獲取 Alpha Vantage API Key (免費)**:
-1. 前往 https://www.alphavantage.co/support/#api-key
-2. 填寫信箱即可獲得免費 API Key
-3. 免費方案: 每天 500 次請求，足夠個人使用
+**注意：** 本專案主要使用免費的 Yahoo Finance API，**不需要** API Key 即可運行！Alpha Vantage API Key 已經不再需要。
 
 ### 3. 設定你的投資組合
 
@@ -63,7 +54,7 @@ export const PORTFOLIO_CONFIG: PortfolioConfig = {
 };
 ```
 
-### 4. 啟動開發伺服器
+### 3. 啟動開發伺服器
 
 ```bash
 npm run dev
@@ -100,12 +91,14 @@ etf-tracker/
 
 ## 📡 資料來源
 
-| 資料類型 | API 來源 | 免費額度 |
-|---------|---------|---------|
-| 美股即時價格 | Alpha Vantage | 500 次/天 |
-| 台股即時價格 | Yahoo Finance | 無限制 |
-| BTC 價格 | CoinGecko | 無限制 |
-| USD/TWD 匯率 | ExchangeRate-API | 1500 次/月 |
+| 資料類型 | API 來源 | 免費額度 | 需要 API Key |
+|---------|---------|---------|-------------|
+| 美股即時價格 | Yahoo Finance | 無限制 | ❌ 不需要 |
+| 台股即時價格 | Yahoo Finance | 無限制 | ❌ 不需要 |
+| BTC 價格 | Kraken / Coinbase / Blockchain.info | 無限制 | ❌ 不需要 |
+| USD/TWD 匯率 | ExchangeRate-API | 1500 次/月 | ❌ 不需要 |
+
+**✨ 完全免費，無需註冊任何 API Key！**
 
 ## 🚀 部署到 Vercel
 
@@ -115,7 +108,7 @@ etf-tracker/
 2. 前往 [Vercel Dashboard](https://vercel.com/dashboard)
 3. 點擊 "Import Project"
 4. 選擇你的 GitHub 儲存庫
-5. 設定環境變數 `ALPHA_VANTAGE_API_KEY`
+5. **無需設定任何環境變數**
 6. 點擊 Deploy！
 
 ### 方法 2: 使用 Vercel CLI
@@ -158,11 +151,12 @@ export const CACHE_CONFIG = {
 };
 ```
 
-## 🔒 資料安全
+## 🔒 資料安全與隱私
 
-- 所有 API Key 都儲存在環境變數中
-- `.env.local` 不會被提交到 Git
-- 使用 Next.js 的內建 API Routes，API Key 不會暴露給前端
+- ✅ **完全不需要 API Key** - 使用公開免費的 Yahoo Finance API
+- ✅ **無個人資料收集** - 所有持股資訊僅存於本地設定檔
+- ✅ **開源透明** - 所有程式碼公開可查
+- ✅ **隱私優先** - `.env.local` 和個人設定不會被提交到 Git
 
 ## 📄 授權
 
