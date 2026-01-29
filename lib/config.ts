@@ -1,5 +1,20 @@
 // 🦔 什錦雜貨鋪 ETF - 投資組合配置
 
+// ============================================
+// 環境設定
+// ============================================
+export const IS_DEV = process.env.NODE_ENV === 'development';
+export const IS_PROD = process.env.NODE_ENV === 'production';
+export const ENV_NAME = IS_DEV ? '🔧 Development' : '🚀 Production';
+export const DEBUG = process.env.NEXT_PUBLIC_DEBUG === 'true';
+
+// 開發模式 console log（Production 自動隱藏）
+export const devLog = (...args: unknown[]) => {
+  if (IS_DEV || DEBUG) {
+    console.log('[DEV]', ...args);
+  }
+};
+
 export interface Holding {
   symbol: string;
   name: string;
@@ -95,15 +110,15 @@ export const API_CONFIG = {
   }
 };
 
-// 快取配置（秒）
+// 快取配置（秒）- 開發環境使用較短的快取時間
 export const CACHE_CONFIG = {
   prices: {
-    revalidate: 60, // 1 分鐘
+    revalidate: IS_DEV ? 30 : 60, // 開發 30 秒，生產 1 分鐘
   },
   exchangeRate: {
-    revalidate: 3600, // 1 小時
+    revalidate: IS_DEV ? 600 : 3600, // 開發 10 分鐘，生產 1 小時
   },
   historicalData: {
-    revalidate: 86400, // 24 小時
+    revalidate: IS_DEV ? 3600 : 86400, // 開發 1 小時，生產 24 小時
   }
 };

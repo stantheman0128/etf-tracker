@@ -19,15 +19,24 @@ export default function RefreshButton() {
     <button
       onClick={handleRefresh}
       disabled={isRefreshing}
-      className="flex items-center gap-2 px-4 py-2 bg-white/90 hover:bg-white rounded-lg shadow-md transition-all disabled:opacity-50"
+      className="
+        group flex items-center gap-2 px-4 py-2.5 
+        bg-gradient-to-r from-blue-500 to-purple-500 
+        hover:from-blue-600 hover:to-purple-600 
+        text-white rounded-xl shadow-lg 
+        hover:shadow-xl hover:scale-105
+        transition-all duration-200 
+        disabled:opacity-70 disabled:cursor-not-allowed
+        disabled:hover:scale-100
+      "
       title="重新整理資料"
     >
       <RefreshCw
         size={18}
-        className={isRefreshing ? 'animate-spin' : ''}
+        className={`transition-transform ${isRefreshing ? 'animate-spin' : 'group-hover:rotate-180'}`}
       />
-      <span className="text-sm font-medium text-gray-700">
-        {isRefreshing ? '更新中...' : '重新整理'}
+      <span className="text-sm font-semibold">
+        {isRefreshing ? '更新中...' : '刷新'}
       </span>
     </button>
   );

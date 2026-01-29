@@ -187,6 +187,120 @@ export async function getExchangeRate(): Promise<number> {
   }
 }
 
+// ============ 歷史匯率 (Yahoo Finance USDTWD=X) ============
+export async function getHistoricalExchangeRates(
+  days: number = 365
+): Promise<HistoricalPrice[]> {
+  try {
+    // USD/TWD 匯率的 Yahoo Finance 代碼
+    const symbol = 'USDTWD=X';
+
+    let range = '1y';
+    if (days <= 30) range = '1mo';
+    else if (days <= 90) range = '3mo';
+    else if (days <= 180) range = '6mo';
+    else range = '1y';
+
+    // 先嘗試日線資料
+    const dailyUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=1d`;
+
+    const response = await fetch(dailyUrl, {
+      next: { revalidate: 86400 },
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
+
+    const data = await response.json();
+    const result = data.chart?.result?.[0];
+
+    if (!result) return [];
+
+    const timestamps = result.timestamp || [];
+    const closes = result.indicators?.quote?.[0]?.close || [];
+
+    // 建立日期到匯率的 Map
+    const ratesMap = new Map<string, number>();
+    timestamps.forEach((ts: number, i: number) => {
+      const date = new Date(ts * 1000).toISOString().split('T')[0];
+      if (closes[i] && closes[i] > 0) {
+        ratesMap.set(date, closes[i]);
+      }
+    });
+
+    // 檢查是否有缺失的日期（特別是週五），用小時線補齊
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - days);
+    const endDate = new Date();
+    
+    const missingDates: string[] = [];
+    const current = new Date(startDate);
+    while (current <= endDate) {
+      const dateStr = current.toISOString().split('T')[0];
+      // 只檢查工作日（週一到週五）
+      if (current.getDay() >= 1 && current.getDay() <= 5) {
+        if (!ratesMap.has(dateStr)) {
+          missingDates.push(dateStr);
+        }
+      }
+      current.setDate(current.getDate() + 1);
+    }
+
+    // 如果有缺失的工作日，嘗試用小時線補齊
+    if (missingDates.length > 0) {
+      console.log(`📊 Found ${missingDates.length} missing weekday exchange rates, fetching hourly data...`);
+      
+      // 用小時線抓取整個範圍
+      const hourlyUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=1h`;
+      
+      try {
+        const hourlyResponse = await fetch(hourlyUrl, {
+          next: { revalidate: 86400 },
+          headers: { 'User-Agent': 'Mozilla/5.0' }
+        });
+
+        const hourlyData = await hourlyResponse.json();
+        const hourlyResult = hourlyData.chart?.result?.[0];
+
+        if (hourlyResult) {
+          const hourlyTimestamps = hourlyResult.timestamp || [];
+          const hourlyCloses = hourlyResult.indicators?.quote?.[0]?.close || [];
+          
+          // 為每個缺失的日期找最後一個有效的小時收盤價
+          const dailyFromHourly = new Map<string, number>();
+          
+          hourlyTimestamps.forEach((ts: number, i: number) => {
+            const date = new Date(ts * 1000).toISOString().split('T')[0];
+            if (hourlyCloses[i] && hourlyCloses[i] > 0) {
+              dailyFromHourly.set(date, hourlyCloses[i]); // 會被覆蓋，最後保留當天最後的值
+            }
+          });
+
+          // 補齊缺失的資料
+          let filledCount = 0;
+          for (const date of missingDates) {
+            if (dailyFromHourly.has(date)) {
+              ratesMap.set(date, dailyFromHourly.get(date)!);
+              filledCount++;
+            }
+          }
+          console.log(`📊 Filled ${filledCount} missing dates from hourly data`);
+        }
+      } catch (hourlyError) {
+        console.error('Error fetching hourly exchange rates:', hourlyError);
+      }
+    }
+
+    // 轉換回陣列
+    const rates: HistoricalPrice[] = Array.from(ratesMap.entries())
+      .map(([date, close]) => ({ date, close }))
+      .sort((a, b) => a.date.localeCompare(b.date));
+
+    return rates;
+  } catch (error) {
+    console.error('Error fetching historical exchange rates:', error);
+    return [];
+  }
+}
+
 // ============ 歷史價格 (Yahoo Finance - 免費無需 API Key) ============
 export async function getHistoricalPrices(
   symbol: string,
