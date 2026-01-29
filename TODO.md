@@ -6,15 +6,23 @@
 - **描述**：建立伺服器端快取機制，定期抓取資料存入快取/資料庫
 - **目的**：多人訪問時不會每次都呼叫外部 API，避免被限速/封鎖
 - **技術方案**：
-  - 使用 Upstash Redis 或 Vercel KV 作為快取
-  - 設定 Cron Job 每 5 分鐘抓取最新資料
+  - 使用 Upstash Redis 作為快取
+  - 設定 Vercel Cron Job 每 5 分鐘抓取最新資料
   - API 從快取讀取，毫秒級回應
 - **架構**：
   ```
   Cron Job（每5分鐘）→ 抓取 Yahoo Finance → 存入 Redis
   用戶訪問 → 讀取 Redis 快取 → 毫秒級回應
   ```
-- **狀態**：待開發
+- **進度**：
+  - ✅ 安裝 @upstash/redis 套件
+  - ✅ 建立快取讀寫層 (lib/redis-cache.ts)
+  - ✅ 建立 Cron API (/api/cron/refresh-cache)
+  - ✅ 建立快取優先的 Portfolio API (/api/portfolio)
+  - ✅ 建立快取狀態 API (/api/cache-status)
+  - ⏳ 待設定 Vercel 環境變數
+  - ⏳ 待建立 Upstash Redis 資料庫
+- **狀態**：開發中 🚧
 - **優先度**：🔥 最高
 
 ### 2. 錯誤監控
