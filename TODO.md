@@ -1,6 +1,116 @@
 # 🦔 什錦雜貨鋪 ETF - 未來功能規劃
 
+<<<<<<< HEAD
 ## 🎯 當前要做
+=======
+## 🐛 Bug 修復 / 技術債（Code Review 2025-01-07）
+
+### 🔴 嚴重問題
+
+#### B1. Coinbase API 解析錯誤
+- **位置**：`lib/api-client.ts:122-124`
+- **問題**：`const price = 1 / parseFloat(usdRate)` 是錯的，Coinbase 回傳的 USD rate 本身就是價格
+- **影響**：當 Kraken API 失敗時，Coinbase 會回傳錯誤的 BTC 價格（約 0.00001）
+- **修復**：改為 `const price = parseFloat(usdRate)`
+- **狀態**：⏳ 待修復
+
+#### B2. API 參數沒有驗證
+- **位置**：`app/api/prices/route.ts:8`
+- **問題**：
+  - `days` 參數沒有範圍限制，可傳入 `999999`
+  - `symbol` 參數沒有白名單驗證
+- **修復**：加入參數驗證
+  ```typescript
+  const days = Math.min(Math.max(parseInt(...), 1), 365);
+  const allowedSymbols = ['TSLA', 'AMZN', ...];
+  ```
+- **狀態**：⏳ 待修復
+
+#### B3. BTC 價格範圍檢查太嚴格
+- **位置**：`lib/api-client.ts:154`
+- **問題**：`price > 50000 && price < 200000` 太死，BTC 超出範圍會導致 API 失敗
+- **修復**：改為 `price > 1000 && price < 1000000`
+- **狀態**：⏳ 待修復
+
+### 🟠 中等問題
+
+#### B4. 備用價格已過時
+- **位置**：`lib/api-client.ts:170`
+- **問題**：硬編碼的 `$95,000` 會過時
+- **修復**：移到 `config.ts` 或改為顯示「價格暫時無法取得」
+- **狀態**：⏳ 待修復
+
+#### B5. 硬編碼值散落各處
+- **問題**：以下值應該集中到 `config.ts`
+  - `'2024-05-30'` - portfolio 起始日期（route.ts）
+  - `95000` - BTC fallback 價格（api-client.ts）
+  - `31.5` - 匯率 fallback（api-client.ts）
+- **狀態**：⏳ 待修復
+
+#### B6. 未使用的設定
+- **位置**：`lib/config.ts:82-95`
+- **問題**：`alphaVantage` 和 `twse` 設定已不再使用，造成混淆
+- **修復**：刪除未使用的設定
+- **狀態**：⏳ 待修復
+
+### 🟡 程式碼品質
+
+#### B7. 重複的程式碼
+- **位置**：`app/charts/page.tsx:65-92` vs `105-132`
+- **問題**：Map 去重 + 排序邏輯重複兩次
+- **修復**：抽取成 `lib/utils/chart-helpers.ts` 共用函數
+- **狀態**：⏳ 待修復
+
+#### B8. CHART_VIEWS 與 PORTFOLIO_CONFIG 不同步
+- **位置**：`app/charts/page.tsx:9-18`
+- **問題**：圖表選項硬編碼，新增持股時需手動更新
+- **修復**：從 `PORTFOLIO_CONFIG.holdings` 動態生成
+- **狀態**：⏳ 待修復
+
+#### B9. 大量使用 `any` 型別
+- **位置**：`api-client.ts`、`charts/page.tsx` 多處
+- **修復**：定義正確的 TypeScript 介面（YahooChartResponse 等）
+- **狀態**：⏳ 待修復
+
+#### B10. CardTitle 型別不一致
+- **位置**：`components/ui/card.tsx:31-43`
+- **問題**：ref 型別是 `HTMLParagraphElement` 但實際渲染 `<h3>`
+- **修復**：改為 `HTMLHeadingElement`
+- **狀態**：⏳ 待修復
+
+### 🔵 建議改進
+
+#### B11. 缺少錯誤處理頁面
+- **問題**：沒有 `error.tsx`、`loading.tsx`、`not-found.tsx`
+- **狀態**：⏳ 待新增
+
+#### B12. 套件版本不一致
+- **問題**：
+  - `next: ^16.1.1` 但 `eslint-config-next: 14.2.18`
+  - `react: ^19` 但 `@types/react: ^18`
+- **修復**：`npm install eslint-config-next@latest @types/react@latest`
+- **狀態**：⏳ 待修復
+
+#### B13. Console.log 在 Production
+- **問題**：大量 console 輸出會在生產環境顯示
+- **修復**：使用環境變數控制或移除
+- **狀態**：⏳ 待處理
+
+#### B14. 時區處理不可靠
+- **位置**：`lib/api-client.ts:276-277`
+- **問題**：`toLocaleString` 轉時區再轉回 Date 不可靠
+- **修復**：使用 `date-fns-tz`
+- **狀態**：⏳ 待評估
+
+#### B15. 沒有測試
+- **問題**：專案沒有任何測試檔案
+- **修復**：加入 Jest + React Testing Library
+- **狀態**：⏳ 待評估
+
+---
+
+## 🎯 高優先度
+>>>>>>> 6c227ed2cb8cb2c2b8e22668749415c25c7efec6
 
 ### 1. 伺服器端資料快取 🔴 重要
 - **描述**：建立伺服器端快取機制，定期抓取資料存入快取/資料庫
@@ -144,4 +254,8 @@
 - 優先考慮 MVP (Minimum Viable Product) 原則
 - 保持程式碼簡潔，避免過度工程化
 
+<<<<<<< HEAD
 最後更新：2026-01-29
+=======
+最後更新：2025-01-07
+>>>>>>> 6c227ed2cb8cb2c2b8e22668749415c25c7efec6
