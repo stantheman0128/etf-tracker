@@ -30,16 +30,19 @@ export interface InitialPortfolioData {
 
 const CSV_PATH = path.join(process.cwd(), 'data', 'initial-holdings.csv');
 
-// 初始匯率（2025-05-30 實際值）
-const INITIAL_EXCHANGE_RATE = 29.9;
+// 初始匯率（2025-05-30 實際值）— 也用於固定匯率報酬率計算
+export const INITIAL_EXCHANGE_RATE = 29.9;
+
+// Module-level cache：避免每次呼叫都重新讀取和解析 CSV
+let _cachedData: InitialPortfolioData | null | undefined = undefined;
 
 /**
  * 解析 CSV 內容
  */
 function parseCSV(content: string): InitialHolding[] {
-  const lines = content.trim().split('\n');
-  const headers = lines[0].split(',');
-  
+  const lines = content.trim().replace(/\r\n/g, '\n').split('\n');
+  const headers = lines[0].split(',').map(h => h.trim());
+
   return lines.slice(1).map(line => {
     const values = line.split(',');
     const row: Record<string, string> = {};
@@ -66,6 +69,9 @@ function parseCSV(content: string): InitialHolding[] {
  * 讀取初始持股資料
  */
 export function getInitialHoldings(): InitialPortfolioData | null {
+  // 使用 module-level cache，避免重複讀取
+  if (_cachedData !== undefined) return _cachedData;
+
   try {
     if (!fs.existsSync(CSV_PATH)) {
       devLog('⚠️ Initial holdings CSV not found:', CSV_PATH);
@@ -100,9 +106,11 @@ export function getInitialHoldings(): InitialPortfolioData | null {
       totalValueTWD: result.totalValueTWD,
     });
 
+    _cachedData = result;
     return result;
   } catch (error) {
     devLog('❌ Error reading initial holdings:', error);
+    _cachedData = null;
     return null;
   }
 }

@@ -2,18 +2,19 @@
 
 import { RefreshCw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useTransition } from 'react';
 
 export default function RefreshButton() {
   const router = useRouter();
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
-  const handleRefresh = async () => {
-    setIsRefreshing(true);
-    router.refresh();
-    // 給予視覺回饋，1.5 秒後結束動畫
-    setTimeout(() => setIsRefreshing(false), 1500);
+  const handleRefresh = () => {
+    startTransition(() => {
+      router.refresh();
+    });
   };
+
+  const isRefreshing = isPending;
 
   return (
     <button

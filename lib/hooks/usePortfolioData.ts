@@ -64,7 +64,9 @@ interface UsePortfolioDataOptions {
 }
 
 export function usePortfolioData({ days = 365, marketStatus }: UsePortfolioDataOptions) {
-  const refreshInterval = useMemo(() => getRefreshInterval(marketStatus), [marketStatus]);
+  // 使用 primitive 值作為依賴，避免 object reference 變化導致 useMemo 失效
+  const isAnyOpen = marketStatus.isAnyOpen;
+  const refreshInterval = useMemo(() => getRefreshInterval(marketStatus), [isAnyOpen]); // eslint-disable-line react-hooks/exhaustive-deps
   
   const { data, error, isLoading, isValidating, mutate } = useSWR<DailyPortfolioDetail[]>(
     `/api/portfolio-detail?days=${days}`,

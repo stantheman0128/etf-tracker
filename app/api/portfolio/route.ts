@@ -21,6 +21,7 @@ import {
   CACHE_KEYS,
   CACHE_TTL,
 } from '@/lib/redis-cache';
+import { calculateValue } from '@/lib/utils/calculate';
 
 // 快取的資料結構
 interface CachedPortfolioData {
@@ -39,26 +40,6 @@ interface CachedPortfolioData {
     valueUSD: number;
     valueTWD: number;
   }>;
-}
-
-// 計算持股價值
-function calculateValue(
-  shares: number,
-  price: number,
-  currency: string,
-  exchangeRate: number
-) {
-  if (currency === 'USD') {
-    return {
-      usd: shares * price,
-      twd: shares * price * exchangeRate,
-    };
-  } else {
-    return {
-      usd: (shares * price) / exchangeRate,
-      twd: shares * price,
-    };
-  }
 }
 
 // 直接抓取資料（當快取不存在時）

@@ -13,20 +13,13 @@ export async function GET() {
     const status = await getCacheStatus();
 
     return NextResponse.json({
-      redis: {
-        available,
-        ...status,
-      },
-      environment: process.env.NODE_ENV,
-      hasCredentials: !!(
-        process.env.UPSTASH_REDIS_REST_URL && 
-        process.env.UPSTASH_REDIS_REST_TOKEN
-      ),
+      healthy: available,
+      lastUpdate: status.lastUpdate,
+      cachedKeys: status.keys.length,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({
-      redis: { available: false },
-      error: String(error),
+      healthy: false,
     });
   }
 }

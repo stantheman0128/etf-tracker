@@ -19,44 +19,24 @@ import {
   CACHE_KEYS,
   CACHE_TTL,
 } from '@/lib/redis-cache';
+import { calculateValue } from '@/lib/utils/calculate';
 
 // 驗證 Cron 請求（防止外部呼叫）
 function verifyCronRequest(request: NextRequest): boolean {
-  const authHeader = request.headers.get('authorization');
-  
-  // Vercel Cron 會帶 CRON_SECRET
-  if (process.env.CRON_SECRET) {
-    return authHeader === `Bearer ${process.env.CRON_SECRET}`;
-  }
-  
   // 開發環境允許無驗證
   if (process.env.NODE_ENV === 'development') {
     return true;
   }
-  
-  // 檢查是否來自 Vercel
-  const isVercel = request.headers.get('x-vercel-id');
-  return !!isVercel;
-}
 
-// 計算持股價值
-function calculateValue(
-  shares: number,
-  price: number,
-  currency: string,
-  exchangeRate: number
-) {
-  if (currency === 'USD') {
-    return {
-      usd: shares * price,
-      twd: shares * price * exchangeRate,
-    };
-  } else {
-    return {
-      usd: (shares * price) / exchangeRate,
-      twd: shares * price,
-    };
+  // 生產環境必須有 CRON_SECRET
+  const secret = process.env.CRON_SECRET;
+  if (!secret) {
+    console.error('❌ CRON_SECRET not set in production');
+    return false; // fail closed
   }
+
+  const authHeader = request.headers.get('authorization');
+  return authHeader === `Bearer ${secret}`;
 }
 
 export async function GET(request: NextRequest) {

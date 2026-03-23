@@ -65,8 +65,14 @@ export async function getTWStockPrice(symbol: string): Promise<PriceData | null>
     const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}.TW`;
 
     const response = await fetch(url, {
-      next: { revalidate: 60 }
+      next: { revalidate: 60 },
+      signal: AbortSignal.timeout(10000)
     });
+
+    if (!response.ok) {
+      console.error(`Yahoo Finance API error for ${symbol}.TW: ${response.status}`);
+      return null;
+    }
 
     const data = await response.json();
     const quote = data.chart?.result?.[0];
@@ -139,35 +145,40 @@ export async function getBTCPrice(): Promise<PriceData | null> {
     }
   ];
 
-  // 嘗試每個 API
-  for (const api of apis) {
-    try {
-      const response = await fetch(api.url, {
-        next: { revalidate: 120 },
-        signal: AbortSignal.timeout(10000)
-      });
+  // 使用 Promise.any() 競速：取最快成功的 API，而非依序嘗試
+  try {
+    const result = await Promise.any(
+      apis.map(async (api) => {
+        const response = await fetch(api.url, {
+          next: { revalidate: 120 },
+          signal: AbortSignal.timeout(10000)
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        const result = api.parser(data);
-
-        if (result && result.price > 50000 && result.price < 200000) {
-          console.log(`✅ ${api.name} BTC: $${result.price.toFixed(2)}`);
-          return {
-            price: result.price,
-            change: result.change,
-            changePercent: result.change
-          };
+        if (!response.ok) {
+          throw new Error(`${api.name} HTTP ${response.status}`);
         }
-      }
-    } catch (error: any) {
-      console.error(`${api.name} failed:`, error?.message);
-    }
-  }
 
-  // 所有 API 都失敗，使用備用價格
-  console.error('All BTC APIs failed, using fallback price');
-  return { price: 95000, change: 0, changePercent: 0 };
+        const data = await response.json();
+        const parsed = api.parser(data);
+
+        if (!parsed || !Number.isFinite(parsed.price) || parsed.price <= 0) {
+          throw new Error(`${api.name} returned invalid price`);
+        }
+
+        console.log(`✅ ${api.name} BTC: $${parsed.price.toFixed(2)}`);
+        return {
+          price: parsed.price,
+          change: parsed.change,
+          changePercent: parsed.change
+        };
+      })
+    );
+    return result;
+  } catch (error: any) {
+    // 所有 API 都失敗
+    console.error('All BTC APIs failed, using fallback price:', error?.message);
+    return { price: 95000, change: 0, changePercent: 0 };
+  }
 }
 
 // ============ 匯率 USD/TWD ============
@@ -176,8 +187,14 @@ export async function getExchangeRate(): Promise<number> {
     const url = `${API_CONFIG.exchangeRate.baseUrl}/USD`;
 
     const response = await fetch(url, {
-      next: { revalidate: 3600 } // 快取 1 小時
+      next: { revalidate: 3600 }, // 快取 1 小時
+      signal: AbortSignal.timeout(10000)
     });
+
+    if (!response.ok) {
+      console.error(`Exchange rate API error: ${response.status}`);
+      return 31.5;
+    }
 
     const data = await response.json();
     return data.rates?.TWD || 31.5; // 預設匯率
@@ -206,8 +223,14 @@ export async function getHistoricalExchangeRates(
 
     const response = await fetch(dailyUrl, {
       next: { revalidate: 86400 },
-      headers: { 'User-Agent': 'Mozilla/5.0' }
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+      signal: AbortSignal.timeout(10000)
     });
+
+    if (!response.ok) {
+      console.error(`Historical exchange rate API error: ${response.status}`);
+      return [];
+    }
 
     const data = await response.json();
     const result = data.chart?.result?.[0];
@@ -254,8 +277,14 @@ export async function getHistoricalExchangeRates(
       try {
         const hourlyResponse = await fetch(hourlyUrl, {
           next: { revalidate: 86400 },
-          headers: { 'User-Agent': 'Mozilla/5.0' }
+          headers: { 'User-Agent': 'Mozilla/5.0' },
+          signal: AbortSignal.timeout(10000)
         });
+
+        if (!hourlyResponse.ok) {
+          console.error(`Hourly exchange rate API error: ${hourlyResponse.status}`);
+          throw new Error('Hourly API failed');
+        }
 
         const hourlyData = await hourlyResponse.json();
         const hourlyResult = hourlyData.chart?.result?.[0];
@@ -385,13 +414,30 @@ export async function getBTCHistoricalPrices(days: number = 30): Promise<Histori
 }
 
 // ============ 市場狀態檢查 ============
-export function getMarketStatus() {
-  const now = new Date();
-  const taipeiTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Taipei" }));
-  const nyTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+// 從 Intl.DateTimeFormat 取得指定時區的時間部件（避免 toLocaleString round-trip）
+function getTimeParts(timeZone: string) {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    weekday: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+    hourCycle: 'h23',
+  });
+  const parts = formatter.formatToParts(new Date());
+  const get = (type: string) => parts.find(p => p.type === type)?.value || '';
+  const weekday = get('weekday'); // Mon, Tue, ...
+  const hour = parseInt(get('hour'), 10);
+  const minute = parseInt(get('minute'), 10);
+  const dayMap: Record<string, number> = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  return { day: dayMap[weekday] ?? 0, totalMinutes: hour * 60 + minute };
+}
 
-  const isTaiwanOpen = checkTaiwanMarket(taipeiTime);
-  const isUSOpen = checkUSMarket(nyTime);
+export function getMarketStatus() {
+  const taipei = getTimeParts('Asia/Taipei');
+  const ny = getTimeParts('America/New_York');
+
+  const isTaiwanOpen = checkTaiwanMarket(taipei.day, taipei.totalMinutes);
+  const isUSOpen = checkUSMarket(ny.day, ny.totalMinutes);
 
   return {
     taiwan: isTaiwanOpen,
@@ -400,12 +446,7 @@ export function getMarketStatus() {
   };
 }
 
-function checkTaiwanMarket(time: Date) {
-  const day = time.getDay();
-  const hour = time.getHours();
-  const minute = time.getMinutes();
-  const totalMinutes = hour * 60 + minute;
-
+function checkTaiwanMarket(day: number, totalMinutes: number) {
   const isWeekday = day >= 1 && day <= 5;
   const isOpen = isWeekday && totalMinutes >= 540 && totalMinutes <= 810; // 9:00-13:30
 
@@ -417,12 +458,7 @@ function checkTaiwanMarket(time: Date) {
   };
 }
 
-function checkUSMarket(time: Date) {
-  const day = time.getDay();
-  const hour = time.getHours();
-  const minute = time.getMinutes();
-  const totalMinutes = hour * 60 + minute;
-
+function checkUSMarket(day: number, totalMinutes: number) {
   const isWeekday = day >= 1 && day <= 5;
   const isOpen = isWeekday && totalMinutes >= 570 && totalMinutes <= 960; // 9:30-16:00
 

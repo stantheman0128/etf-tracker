@@ -95,8 +95,6 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     marketStatus,
   });
   
-  const [allData, setAllData] = useState<DailyPortfolioDetail[]>([]);
-  
   // 當前選中/hover 的資料
   const [selectedData, setSelectedData] = useState<DailyPortfolioDetail | null>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -144,8 +142,8 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     return width as 1 | 2 | 3 | 4;
   }, []);
 
-  // 處理 SWR 資料和 todayData 的合併
-  const mergedData = useMemo(() => {
+  // 處理 SWR 資料和 todayData 的合併（直接作為 allData，無需額外 state）
+  const allData = useMemo(() => {
     if (!swrData || swrData.length === 0) return [];
     
     let result = swrData;
@@ -209,13 +207,15 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     return result;
   }, [swrData, todayData]);
 
-  // 更新 allData 當 mergedData 變化
+  // 預建 date → data 的 Map，讓 crosshair 查找從 O(n) 降為 O(1)
+  const dataByDate = useMemo(() => new Map(allData.map(d => [d.date, d])), [allData]);
+
+  // 當 allData 變化時更新 selectedData 到最新一筆
   useEffect(() => {
-    if (mergedData.length > 0) {
-      setAllData(mergedData);
-      setSelectedData(mergedData[mergedData.length - 1]);
+    if (allData.length > 0) {
+      setSelectedData(allData[allData.length - 1]);
     }
-  }, [mergedData]);
+  }, [allData]);
 
   // 轉換 loading 和 error 狀態
   const loading = isLoading;
@@ -530,7 +530,7 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     const handler = (param: { time?: Time; seriesData: Map<unknown, unknown> }) => {
       if (param.time && param.seriesData.size > 0) {
         const dateStr = param.time as string;
-        const dayData = allData.find(d => d.date === dateStr);
+        const dayData = dataByDate.get(dateStr);
         if (dayData) {
           setSelectedData(dayData);
           setIsHovering(true);
@@ -539,13 +539,13 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
         setIsHovering(false);
       }
     };
-    
+
     chart.subscribeCrosshairMove(handler);
-    
+
     return () => {
       chart.unsubscribeCrosshairMove(handler);
     };
-  }, [allData]);
+  }, [allData, dataByDate]);
 
   // 滑鼠離開時顯示最新資料
   useEffect(() => {

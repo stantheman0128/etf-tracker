@@ -7,76 +7,63 @@ import {
   getMarketStatus,
   type PriceData
 } from '@/lib/api-client';
+import { INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
+import { calculateValue } from '@/lib/utils/calculate';
 import RefreshButton from '@/components/RefreshButton';
 import PortfolioChart from '@/components/PortfolioChart';
 
-// 計算持股價值
-function calculateValue(shares: number, price: number, currency: string, exchangeRate: number) {
-  if (currency === 'USD') {
-    return {
-      usd: shares * price,
-      twd: shares * price * exchangeRate
-    };
-  } else {
-    return {
-      usd: (shares * price) / exchangeRate,
-      twd: shares * price
-    };
-  }
-}
-
 // 計算固定匯率價值（用於排除匯率影響）
-const FIXED_EXCHANGE_RATE = 29.9;  // 2025-05-30 的匯率
 function calculateValueFixedRate(shares: number, price: number, currency: string) {
   if (currency === 'USD') {
-    return Math.round(shares * price * FIXED_EXCHANGE_RATE);
+    return Math.round(shares * price * INITIAL_EXCHANGE_RATE);
   } else {
     return Math.round(shares * price);
   }
 }
 
 export default async function Dashboard() {
-  // 獲取匯率
-  const exchangeRate = await getExchangeRate();
-
-  // 獲取市場狀態
+  // 獲取市場狀態（同步，無需 await）
   const marketStatus = getMarketStatus();
 
-  // 獲取所有持股價格（使用 Yahoo Finance，無需延遲）
-  const holdingsWithPrices = await Promise.all(
-    PORTFOLIO_CONFIG.holdings.map(async (holding) => {
-      let priceData: PriceData | null = null;
+  // 並行獲取匯率和所有持股價格（避免串行等待）
+  const pricePromises = PORTFOLIO_CONFIG.holdings.map(async (holding): Promise<{ holding: typeof holding; priceData: PriceData }> => {
+    let priceData: PriceData | null = null;
 
-      // 根據市場選擇 API
-      if (holding.market === 'TAIWAN') {
-        priceData = await getTWStockPrice(holding.symbol);
-      } else if (holding.market === 'CRYPTO') {
-        priceData = await getBTCPrice();
-      } else {
-        priceData = await getUSStockPrice(holding.symbol);
-      }
+    if (holding.market === 'TAIWAN') {
+      priceData = await getTWStockPrice(holding.symbol);
+    } else if (holding.market === 'CRYPTO') {
+      priceData = await getBTCPrice();
+    } else {
+      priceData = await getUSStockPrice(holding.symbol);
+    }
 
-      // 如果無法獲取價格，使用預設值
-      if (!priceData) {
-        priceData = { price: 0, change: 0, changePercent: 0 };
-      }
+    return {
+      holding,
+      priceData: priceData || { price: 0, change: 0, changePercent: 0 },
+    };
+  });
 
-      const value = calculateValue(
-        holding.shares,
-        priceData.price,
-        holding.currency,
-        exchangeRate
-      );
+  const [exchangeRate, ...priceResults] = await Promise.all([
+    getExchangeRate(),
+    ...pricePromises,
+  ]);
 
-      return {
-        ...holding,
-        currentPrice: priceData.price,
-        change: priceData.changePercent,
-        valueUSD: value.usd,
-        valueTWD: value.twd,
-      };
-    })
-  );
+  const holdingsWithPrices = priceResults.map(({ holding, priceData }) => {
+    const value = calculateValue(
+      holding.shares,
+      priceData.price,
+      holding.currency,
+      exchangeRate
+    );
+
+    return {
+      ...holding,
+      currentPrice: priceData.price,
+      change: priceData.changePercent,
+      valueUSD: value.usd,
+      valueTWD: value.twd,
+    };
+  });
 
   return (
     <div className="container mx-auto p-4 md:p-6 max-w-7xl">

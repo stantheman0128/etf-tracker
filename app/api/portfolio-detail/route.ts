@@ -7,7 +7,8 @@ import {
   getHistoricalExchangeRates
 } from '@/lib/api-client';
 import { readCache, writeCache } from '@/lib/cache';
-import { getPortfolioStartDate, getInitialHoldings, getInitialTotalValueTWD } from '@/lib/initial-data';
+import { getPortfolioStartDate, getInitialHoldings, getInitialTotalValueTWD, INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
+import { getFromCache, setToCache, CACHE_KEYS, CACHE_TTL } from '@/lib/redis-cache';
 
 // 每支股票的日明細
 interface StockDetail {
@@ -37,13 +38,26 @@ export async function GET(request: NextRequest) {
     const forceRefresh = searchParams.get('refresh') === 'true';
 
     const cacheKey = `portfolio-detail-${days}`;
+    const redisCacheKey = `${CACHE_KEYS.PORTFOLIO_HISTORY}-${days}`;
 
-    // 開發環境：嘗試讀取本地快取
-    if (IS_DEV && !forceRefresh) {
-      const cached = readCache<DailyPortfolioDetail[]>(cacheKey);
-      if (cached) {
-        devLog(`📊 Using cached portfolio detail (${cached.length} days)`);
-        return NextResponse.json(cached);
+    // 嘗試讀取快取（生產用 Redis，開發用本地檔案）
+    if (!forceRefresh) {
+      // 生產環境：Redis cache
+      if (!IS_DEV) {
+        const redisCached = await getFromCache<DailyPortfolioDetail[]>(redisCacheKey);
+        if (redisCached) {
+          console.log(`⚡ Redis cache hit: portfolio-detail (${redisCached.length} days)`);
+          return NextResponse.json(redisCached);
+        }
+      }
+
+      // 開發環境：本地檔案快取
+      if (IS_DEV) {
+        const cached = readCache<DailyPortfolioDetail[]>(cacheKey);
+        if (cached) {
+          devLog(`📊 Using cached portfolio detail (${cached.length} days)`);
+          return NextResponse.json(cached);
+        }
       }
     }
 
@@ -66,7 +80,7 @@ export async function GET(request: NextRequest) {
     console.log(`📊 Loaded ${ratesByDate.size} exchange rate entries`);
 
     // 固定匯率（使用初始日期的匯率，用於計算匯率影響）
-    const fixedExchangeRate = 29.9; // 2025-05-30 的匯率
+    const fixedExchangeRate = INITIAL_EXCHANGE_RATE;
 
     // 3. 並行獲取所有股票的歷史資料
     const historicalDataPromises = PORTFOLIO_CONFIG.holdings.map(async (holding) => {
@@ -287,9 +301,14 @@ export async function GET(request: NextRequest) {
 
     console.log(`✅ Portfolio detail: ${portfolioDetail.length} days of data`);
 
-    // 開發環境：儲存到本地快取
-    if (IS_DEV && portfolioDetail.length > 0) {
-      writeCache(cacheKey, portfolioDetail);
+    // 儲存到快取
+    if (portfolioDetail.length > 0) {
+      if (IS_DEV) {
+        writeCache(cacheKey, portfolioDetail);
+      }
+      // 生產環境：寫入 Redis（非同步，不阻塞回應）
+      setToCache(redisCacheKey, portfolioDetail, CACHE_TTL.PORTFOLIO_HISTORY)
+        .catch(err => console.error('Failed to cache portfolio-detail to Redis:', err));
     }
 
     return NextResponse.json(portfolioDetail);
