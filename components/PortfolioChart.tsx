@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { useEffect, useRef, useState, useCallback, useMemo, memo } from 'react';
 import { createChart, ColorType, IChartApi, ISeriesApi, Time, CrosshairMode, LineStyle } from 'lightweight-charts';
 import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -79,6 +79,46 @@ function AnimatedValue({
     </span>
   );
 }
+
+// 迷你趨勢圖（memoized，避免每次 render 重算 SVG path）
+const MiniSparkline = memo(function MiniSparkline({ symbol, allData }: { symbol: string; allData: DailyPortfolioDetail[] }) {
+  const recentData = allData.slice(-30);
+  const prices = recentData.map(d => {
+    const s = d.stocks.find(st => st.symbol === symbol);
+    return s?.price || 0;
+  }).filter(p => p > 0);
+
+  if (prices.length < 2) return null;
+
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const range = maxPrice - minPrice || 1;
+
+  const width = 80;
+  const height = 24;
+  const points = prices.map((p, i) => {
+    const x = (i / (prices.length - 1)) * width;
+    const y = height - ((p - minPrice) / range) * (height - 4) - 2;
+    return `${x},${y}`;
+  }).join(' ');
+
+  const trendUp = prices[prices.length - 1] >= prices[0];
+
+  return (
+    <div className="flex-1 flex items-center justify-end ml-3">
+      <svg width={width} height={height} className="opacity-70">
+        <polyline
+          points={points}
+          fill="none"
+          stroke={trendUp ? '#22c55e' : '#ef4444'}
+          strokeWidth={2.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+});
 
 export default function PortfolioChart({ className, marketStatus, todayData }: PortfolioChartProps) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
@@ -953,48 +993,9 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
                           </div>
                         </div>
                         {/* 迷你趨勢圖 - 只在表格模式顯示 */}
-                        {showFullTable && allData.length > 1 && (() => {
-                          // 取得最近 30 天的價格數據
-                          const recentData = allData.slice(-30);
-                          const prices = recentData.map(d => {
-                            const s = d.stocks.find(st => st.symbol === stock.symbol);
-                            return s?.price || 0;
-                          }).filter(p => p > 0);
-                          
-                          if (prices.length < 2) return null;
-                          
-                          const minPrice = Math.min(...prices);
-                          const maxPrice = Math.max(...prices);
-                          const range = maxPrice - minPrice || 1;
-                          
-                          // 產生 SVG 路徑
-                          const width = 80;
-                          const height = 24;
-                          const points = prices.map((p, i) => {
-                            const x = (i / (prices.length - 1)) * width;
-                            const y = height - ((p - minPrice) / range) * (height - 4) - 2;
-                            return `${x},${y}`;
-                          }).join(' ');
-                          
-                          const lastPrice = prices[prices.length - 1];
-                          const firstPrice = prices[0];
-                          const trendUp = lastPrice >= firstPrice;
-                          
-                          return (
-                            <div className="flex-1 flex items-center justify-end ml-3">
-                              <svg width={width} height={height} className="opacity-70">
-                                <polyline
-                                  points={points}
-                                  fill="none"
-                                  stroke={trendUp ? '#22c55e' : '#ef4444'}
-                                  strokeWidth={2.5}
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </div>
-                          );
-                        })()}
+                        {showFullTable && allData.length > 1 && (
+                          <MiniSparkline symbol={stock.symbol} allData={allData} />
+                        )}
                         {!showFullTable && (
                           <span className="text-sm text-gray-400 font-semibold">{weight.toFixed(0)}%</span>
                         )}

@@ -12,8 +12,12 @@ import {
   getTWStockPrice,
   getBTCPrice,
   getExchangeRate,
+  getHistoricalPrices,
+  getBTCHistoricalPrices,
+  getHistoricalExchangeRates,
   type PriceData,
 } from '@/lib/api-client';
+import { getPortfolioStartDate, getInitialHoldings, getInitialTotalValueTWD, INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
 import {
   setToCache,
   CACHE_KEYS,
@@ -54,49 +58,54 @@ export async function GET(request: NextRequest) {
   console.log('🔄 Cron: Starting cache refresh...');
 
   try {
-    // 1. 獲取匯率
-    const exchangeRate = await getExchangeRate();
+    // 1. 並行獲取匯率和所有持股價格
+    const pricePromises = PORTFOLIO_CONFIG.holdings.map(async (holding) => {
+      let priceData: PriceData | null = null;
+
+      if (holding.market === 'TAIWAN') {
+        priceData = await getTWStockPrice(holding.symbol);
+      } else if (holding.market === 'CRYPTO') {
+        priceData = await getBTCPrice();
+      } else {
+        priceData = await getUSStockPrice(holding.symbol);
+      }
+
+      if (!priceData) {
+        console.warn(`⚠️ Cron: Failed to get price for ${holding.symbol}`);
+        priceData = { price: 0, change: 0, changePercent: 0 };
+      }
+
+      return { holding, priceData };
+    });
+
+    const [exchangeRate, ...priceResults] = await Promise.all([
+      getExchangeRate(),
+      ...pricePromises,
+    ]);
+
     console.log(`💱 Cron: Exchange rate = ${exchangeRate}`);
 
-    // 2. 獲取所有持股價格
-    const holdingsWithPrices = await Promise.all(
-      PORTFOLIO_CONFIG.holdings.map(async (holding) => {
-        let priceData: PriceData | null = null;
+    // 2. 計算持股價值
+    const holdingsWithPrices = priceResults.map(({ holding, priceData }) => {
+      const value = calculateValue(
+        holding.shares,
+        priceData.price,
+        holding.currency,
+        exchangeRate
+      );
 
-        if (holding.market === 'TAIWAN') {
-          priceData = await getTWStockPrice(holding.symbol);
-        } else if (holding.market === 'CRYPTO') {
-          priceData = await getBTCPrice();
-        } else {
-          priceData = await getUSStockPrice(holding.symbol);
-        }
-
-        // 如果無法獲取價格，使用預設值
-        if (!priceData) {
-          console.warn(`⚠️ Cron: Failed to get price for ${holding.symbol}`);
-          priceData = { price: 0, change: 0, changePercent: 0 };
-        }
-
-        const value = calculateValue(
-          holding.shares,
-          priceData.price,
-          holding.currency,
-          exchangeRate
-        );
-
-        return {
-          symbol: holding.symbol,
-          name: holding.name,
-          shares: holding.shares,
-          currency: holding.currency,
-          market: holding.market,
-          currentPrice: priceData.price,
-          changePercent: priceData.changePercent,
-          valueUSD: value.usd,
-          valueTWD: value.twd,
-        };
-      })
-    );
+      return {
+        symbol: holding.symbol,
+        name: holding.name,
+        shares: holding.shares,
+        currency: holding.currency,
+        market: holding.market,
+        currentPrice: priceData.price,
+        changePercent: priceData.changePercent,
+        valueUSD: value.usd,
+        valueTWD: value.twd,
+      };
+    });
 
     // 3. 計算總值
     const totalValueTWD = holdingsWithPrices.reduce((sum, h) => sum + h.valueTWD, 0);
@@ -111,15 +120,37 @@ export async function GET(request: NextRequest) {
       holdings: holdingsWithPrices,
     };
 
-    // 5. 存入 Redis 快取
-    const [dataResult, rateResult, updateResult] = await Promise.all([
+    // 5. 存入 Redis 快取（即時資料）
+    const [dataResult, rateResult] = await Promise.all([
       setToCache(CACHE_KEYS.PORTFOLIO_DATA, portfolioData, CACHE_TTL.PORTFOLIO_DATA),
       setToCache(CACHE_KEYS.EXCHANGE_RATE, exchangeRate, CACHE_TTL.EXCHANGE_RATE),
       setToCache(CACHE_KEYS.LAST_UPDATE, new Date().toISOString(), CACHE_TTL.PORTFOLIO_DATA),
     ]);
 
+    // 6. Warm 歷史數據快取（每日一次，避免第一個用戶等待）
+    //    檢查 Redis 中是否已有歷史數據，沒有才重新建立
+    const { getFromCache } = await import('@/lib/redis-cache');
+    const historyKey = `${CACHE_KEYS.PORTFOLIO_HISTORY}-365`;
+    const existingHistory = await getFromCache(historyKey);
+
+    if (!existingHistory) {
+      console.log('📊 Cron: Warming historical data cache...');
+      try {
+        // 觸發 portfolio-detail API 來建立歷史數據快取
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : 'http://localhost:3000';
+        await fetch(`${baseUrl}/api/portfolio-detail?days=365&refresh=true`, {
+          signal: AbortSignal.timeout(25000), // 留足時間但不超過 maxDuration
+        });
+        console.log('✅ Cron: Historical data cache warmed');
+      } catch (historyError: any) {
+        console.warn('⚠️ Cron: Historical data warm failed (non-critical):', historyError?.message);
+      }
+    }
+
     const duration = Date.now() - startTime;
-    
+
     console.log(`✅ Cron: Cache refresh complete in ${duration}ms`);
     console.log(`   - Portfolio data: ${dataResult ? '✓' : '✗'}`);
     console.log(`   - Exchange rate: ${rateResult ? '✓' : '✗'}`);

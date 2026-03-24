@@ -126,7 +126,7 @@ export async function getBTCPrice(): Promise<PriceData | null> {
       parser: (data: any) => {
         const usdRate = data.data?.rates?.USD;
         if (usdRate) {
-          const price = 1 / parseFloat(usdRate);
+          const price = parseFloat(usdRate); // 1 BTC = X USD
           return { price, change: 0 }; // Coinbase 不提供漲跌幅
         }
         return null;

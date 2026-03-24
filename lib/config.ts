@@ -94,31 +94,10 @@ export const PORTFOLIO_CONFIG: PortfolioConfig = {
 
 // API 配置
 export const API_CONFIG = {
-  alphaVantage: {
-    baseUrl: 'https://www.alphavantage.co/query',
-    apiKey: process.env.ALPHA_VANTAGE_API_KEY || '',
-  },
   coinGecko: {
     baseUrl: 'https://api.coingecko.com/api/v3',
   },
   exchangeRate: {
     baseUrl: 'https://api.exchangerate-api.com/v4/latest',
   },
-  twse: {
-    // 台灣證交所 API
-    baseUrl: 'https://www.twse.com.tw/rwd/zh',
-  }
-};
-
-// 快取配置（秒）- 開發環境使用較短的快取時間
-export const CACHE_CONFIG = {
-  prices: {
-    revalidate: IS_DEV ? 30 : 60, // 開發 30 秒，生產 1 分鐘
-  },
-  exchangeRate: {
-    revalidate: IS_DEV ? 600 : 3600, // 開發 10 分鐘，生產 1 小時
-  },
-  historicalData: {
-    revalidate: IS_DEV ? 3600 : 86400, // 開發 1 小時，生產 24 小時
-  }
 };

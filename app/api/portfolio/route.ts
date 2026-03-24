@@ -45,45 +45,50 @@ interface CachedPortfolioData {
 // 直接抓取資料（當快取不存在時）
 async function fetchFreshData(): Promise<CachedPortfolioData> {
   console.log('📡 Fetching fresh portfolio data...');
-  
-  const exchangeRate = await getExchangeRate();
 
-  const holdingsWithPrices = await Promise.all(
-    PORTFOLIO_CONFIG.holdings.map(async (holding) => {
-      let priceData: PriceData | null = null;
+  // 並行獲取匯率和所有持股價格
+  const pricePromises = PORTFOLIO_CONFIG.holdings.map(async (holding) => {
+    let priceData: PriceData | null = null;
 
-      if (holding.market === 'TAIWAN') {
-        priceData = await getTWStockPrice(holding.symbol);
-      } else if (holding.market === 'CRYPTO') {
-        priceData = await getBTCPrice();
-      } else {
-        priceData = await getUSStockPrice(holding.symbol);
-      }
+    if (holding.market === 'TAIWAN') {
+      priceData = await getTWStockPrice(holding.symbol);
+    } else if (holding.market === 'CRYPTO') {
+      priceData = await getBTCPrice();
+    } else {
+      priceData = await getUSStockPrice(holding.symbol);
+    }
 
-      if (!priceData) {
-        priceData = { price: 0, change: 0, changePercent: 0 };
-      }
+    return {
+      holding,
+      priceData: priceData || { price: 0, change: 0, changePercent: 0 },
+    };
+  });
 
-      const value = calculateValue(
-        holding.shares,
-        priceData.price,
-        holding.currency,
-        exchangeRate
-      );
+  const [exchangeRate, ...priceResults] = await Promise.all([
+    getExchangeRate(),
+    ...pricePromises,
+  ]);
 
-      return {
-        symbol: holding.symbol,
-        name: holding.name,
-        shares: holding.shares,
-        currency: holding.currency,
-        market: holding.market,
-        currentPrice: priceData.price,
-        changePercent: priceData.changePercent,
-        valueUSD: value.usd,
-        valueTWD: value.twd,
-      };
-    })
-  );
+  const holdingsWithPrices = priceResults.map(({ holding, priceData }) => {
+    const value = calculateValue(
+      holding.shares,
+      priceData.price,
+      holding.currency,
+      exchangeRate
+    );
+
+    return {
+      symbol: holding.symbol,
+      name: holding.name,
+      shares: holding.shares,
+      currency: holding.currency,
+      market: holding.market,
+      currentPrice: priceData.price,
+      changePercent: priceData.changePercent,
+      valueUSD: value.usd,
+      valueTWD: value.twd,
+    };
+  });
 
   const totalValueTWD = holdingsWithPrices.reduce((sum, h) => sum + h.valueTWD, 0);
   const totalValueUSD = holdingsWithPrices.reduce((sum, h) => sum + h.valueUSD, 0);
