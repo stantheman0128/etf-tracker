@@ -14,11 +14,12 @@ import {
   getExchangeRate,
   type PriceData,
 } from '@/lib/api-client';
-import { INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
+import { INITIAL_EXCHANGE_RATE, getPortfolioStartDate } from '@/lib/initial-data';
 import {
   setToCache,
   getFromCache,
   appendIntradaySnapshot,
+  getBackfillCursor,
   CACHE_KEYS,
   CACHE_TTL,
 } from '@/lib/redis-cache';
@@ -168,6 +169,35 @@ export async function GET(request: NextRequest) {
       } catch (historyError: any) {
         console.warn('⚠️ Cron: Historical data warm failed (non-critical):', historyError?.message);
       }
+    }
+
+    // 8. 自動漸進式 backfill 歷史小時數據（每次 cron 回填 7 天，直到追上今天）
+    try {
+      const cursor = await getBackfillCursor();
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      const startDate = getPortfolioStartDate();
+
+      // 如果沒有 cursor 或 cursor 還沒追上昨天，就觸發一次 backfill
+      const needsBackfill = !cursor || cursor < yesterdayStr;
+
+      if (needsBackfill && Date.now() - startTime < 10000) {
+        // 還有足夠時間（cron 已跑不到 10 秒），觸發 backfill
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL
+          || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+        const secret = process.env.CRON_SECRET;
+        const headers: Record<string, string> = {};
+        if (secret) headers['Authorization'] = `Bearer ${secret}`;
+
+        await fetch(`${baseUrl}/api/backfill?days=7`, {
+          headers,
+          signal: AbortSignal.timeout(15000),
+        });
+        console.log(`📊 Cron: Backfill triggered (cursor: ${cursor || 'none'} → processing next 7 days)`);
+      }
+    } catch (backfillError: any) {
+      console.warn('⚠️ Cron: Auto-backfill failed (non-critical):', backfillError?.message);
     }
 
     const duration = Date.now() - startTime;
