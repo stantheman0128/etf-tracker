@@ -413,6 +413,203 @@ export async function getBTCHistoricalPrices(days: number = 30): Promise<Histori
   }
 }
 
+// ============ 每小時價格 (Yahoo Finance - 小時線) ============
+export async function getHourlyPrices(
+  symbol: string,
+  days: number = 30
+): Promise<HistoricalPrice[]> {
+  try {
+    // 為台股加上 .TW 後綴
+    const yahooSymbol = symbol.match(/^\d{4}$/) ? `${symbol}.TW` : symbol;
+
+    // Yahoo Finance 支援的時間範圍
+    let range = '1mo';
+    if (days <= 5) range = '5d';
+    else if (days <= 30) range = '1mo';
+    else if (days <= 90) range = '3mo';
+    else if (days <= 180) range = '6mo';
+    else range = '1y';
+
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbol}?range=${range}&interval=1h`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 3600 },
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+      signal: AbortSignal.timeout(15000)
+    });
+
+    if (!response.ok) {
+      console.error(`Yahoo Finance hourly data error for ${yahooSymbol}: ${response.status}`);
+      return [];
+    }
+
+    const data = await response.json();
+    const result = data.chart?.result?.[0];
+
+    if (!result || !result.timestamp || !result.indicators?.quote?.[0]) {
+      console.error('Invalid hourly data response for', yahooSymbol);
+      return [];
+    }
+
+    const timestamps = result.timestamp;
+    const quote = result.indicators.quote[0];
+
+    const hourlyData: HistoricalPrice[] = timestamps.map((timestamp: number, index: number) => ({
+      date: new Date(timestamp * 1000).toISOString(),
+      close: quote.close[index] || 0,
+      open: quote.open[index],
+      high: quote.high[index],
+      low: quote.low[index],
+      volume: quote.volume[index]
+    })).filter((item: HistoricalPrice) => item.close > 0);
+
+    console.log(`✅ Got ${hourlyData.length} hourly data points for ${yahooSymbol}`);
+    return hourlyData;
+  } catch (error: any) {
+    console.error(`Error fetching hourly data for ${symbol}:`, error?.message || error);
+    return [];
+  }
+}
+
+// ============ BTC 每小時價格 (Kraken OHLC + CoinGecko 備援) ============
+export async function getBTCHourlyPrices(
+  days: number = 30
+): Promise<HistoricalPrice[]> {
+  try {
+    const sinceTimestamp = Math.floor(Date.now() / 1000) - days * 86400;
+    const krakenUrl = `https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=60&since=${sinceTimestamp}`;
+
+    const krakenResponse = await fetch(krakenUrl, {
+      signal: AbortSignal.timeout(10000)
+    });
+
+    let krakenPrices: HistoricalPrice[] = [];
+
+    if (krakenResponse.ok) {
+      const krakenData = await krakenResponse.json();
+      const ohlcData = krakenData.result?.XXBTUSD;
+
+      if (ohlcData && Array.isArray(ohlcData)) {
+        // Kraken OHLC format: [time, open, high, low, close, vwap, volume, count]
+        krakenPrices = ohlcData.map((entry: any) => ({
+          date: new Date(entry[0] * 1000).toISOString(),
+          close: parseFloat(entry[4]),
+          open: parseFloat(entry[1]),
+          high: parseFloat(entry[2]),
+          low: parseFloat(entry[3]),
+          volume: parseFloat(entry[6])
+        })).filter((item: HistoricalPrice) => item.close > 0);
+      }
+    }
+
+    console.log(`✅ Got ${krakenPrices.length} hourly BTC data points from Kraken`);
+
+    // Kraken 最多返回 720 筆（約 30 天小時線），超過則用 CoinGecko 補齊
+    if (days > 30) {
+      try {
+        const geckoUrl = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${days}`;
+        const geckoResponse = await fetch(geckoUrl, {
+          signal: AbortSignal.timeout(10000)
+        });
+
+        if (geckoResponse.ok) {
+          const geckoData = await geckoResponse.json();
+
+          if (geckoData.prices && Array.isArray(geckoData.prices)) {
+            // CoinGecko 在 days <= 90 時返回小時線
+            const geckoPrices: HistoricalPrice[] = geckoData.prices.map(
+              ([timestamp, price]: [number, number]) => ({
+                date: new Date(timestamp).toISOString(),
+                close: price
+              })
+            );
+
+            // 合併並以小時去重（Kraken 資料優先）
+            const hourMap = new Map<string, HistoricalPrice>();
+
+            // 先放 CoinGecko（會被 Kraken 覆蓋）
+            for (const item of geckoPrices) {
+              const hourKey = item.date.slice(0, 13); // "YYYY-MM-DDTHH"
+              hourMap.set(hourKey, item);
+            }
+
+            // 再放 Kraken（覆蓋重複的小時）
+            for (const item of krakenPrices) {
+              const hourKey = item.date.slice(0, 13);
+              hourMap.set(hourKey, item);
+            }
+
+            const merged = Array.from(hourMap.values()).sort(
+              (a, b) => a.date.localeCompare(b.date)
+            );
+
+            console.log(`✅ Merged BTC hourly data: ${merged.length} points (Kraken + CoinGecko)`);
+            return merged;
+          }
+        }
+      } catch (geckoError: any) {
+        console.error('CoinGecko hourly BTC fetch failed:', geckoError?.message || geckoError);
+      }
+    }
+
+    return krakenPrices;
+  } catch (error: any) {
+    console.error('Error fetching BTC hourly prices:', error?.message || error);
+    return [];
+  }
+}
+
+// ============ 每小時匯率 (Yahoo Finance USDTWD=X 小時線) ============
+export async function getHourlyExchangeRates(
+  days: number = 30
+): Promise<HistoricalPrice[]> {
+  try {
+    const symbol = 'USDTWD=X';
+
+    let range = '1mo';
+    if (days <= 5) range = '5d';
+    else if (days <= 30) range = '1mo';
+    else if (days <= 90) range = '3mo';
+    else if (days <= 180) range = '6mo';
+    else range = '1y';
+
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=1h`;
+
+    const response = await fetch(url, {
+      next: { revalidate: 3600 },
+      headers: { 'User-Agent': 'Mozilla/5.0' },
+      signal: AbortSignal.timeout(10000)
+    });
+
+    if (!response.ok) {
+      console.error(`Hourly exchange rate API error: ${response.status}`);
+      return [];
+    }
+
+    const data = await response.json();
+    const result = data.chart?.result?.[0];
+
+    if (!result || !result.timestamp || !result.indicators?.quote?.[0]) {
+      console.error('Invalid hourly exchange rate response');
+      return [];
+    }
+
+    const timestamps = result.timestamp;
+    const closes = result.indicators.quote[0].close;
+
+    const rates: HistoricalPrice[] = timestamps.map((ts: number, i: number) => ({
+      date: new Date(ts * 1000).toISOString(),
+      close: closes[i] || 0
+    })).filter((item: HistoricalPrice) => item.close > 0);
+
+    console.log(`✅ Got ${rates.length} hourly exchange rate data points`);
+    return rates;
+  } catch (error: any) {
+    console.error('Error fetching hourly exchange rates:', error?.message || error);
+    return [];
+  }
+}
+
 // ============ 市場狀態檢查 ============
 // 從 Intl.DateTimeFormat 取得指定時區的時間部件（避免 toLocaleString round-trip）
 function getTimeParts(timeZone: string) {

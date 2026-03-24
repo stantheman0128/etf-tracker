@@ -8,6 +8,8 @@ import { TrendingUp, TrendingDown, RefreshCw } from 'lucide-react';
 import { useAnimatedNumber } from '@/lib/hooks/useAnimatedNumber';
 import { PORTFOLIO_CONFIG } from '@/lib/config';
 import { usePortfolioData, type MarketStatus } from '@/lib/hooks/usePortfolioData';
+import { useHourlyRange } from '@/lib/hooks/useIntradayData';
+import DayDrilldownPanel from '@/components/DayDrilldownPanel';
 
 interface StockDetail {
   symbol: string;
@@ -135,6 +137,11 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     marketStatus,
   });
   
+  // 盤中模式 + 日鑽取
+  const [intradayMode, setIntradayMode] = useState(false);
+  const [drilldownDate, setDrilldownDate] = useState<string | null>(null);
+  const { data: hourlyRangeData, isLoading: hourlyLoading } = useHourlyRange(365, intradayMode);
+
   // 當前選中/hover 的資料
   const [selectedData, setSelectedData] = useState<DailyPortfolioDetail | null>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -538,7 +545,36 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
 
   // 當資料變化時更新圖表
   useEffect(() => {
-    if (!chartRef.current || !mainSeriesRef.current || !returnSeriesRef.current || allData.length === 0) return;
+    if (!chartRef.current || !mainSeriesRef.current || !returnSeriesRef.current) return;
+
+    // 盤中模式：使用小時級數據（Unix timestamp）
+    if (intradayMode && hourlyRangeData?.length) {
+      const chartData = hourlyRangeData.map(d => ({
+        time: d.time as Time,
+        value: d.value,
+      }));
+      mainSeriesRef.current.setData(chartData);
+
+      const initialCost = PORTFOLIO_CONFIG.totalCostTWD;
+      const returnData = hourlyRangeData.map(d => ({
+        time: d.time as Time,
+        value: initialCost > 0 ? ((d.value - initialCost) / initialCost) * 100 : 0,
+      }));
+      returnSeriesRef.current.setData(returnData);
+
+      // 更新 timeScale 顯示時間
+      chartRef.current.applyOptions({
+        timeScale: { timeVisible: true, secondsVisible: false },
+      });
+
+      requestAnimationFrame(() => {
+        chartRef.current?.timeScale().fitContent();
+      });
+      return;
+    }
+
+    // 每日模式（原有邏輯）
+    if (allData.length === 0) return;
 
     const chartData = allData.map(d => ({
       time: d.date as Time,
@@ -546,20 +582,25 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     }));
 
     mainSeriesRef.current.setData(chartData);
-    
+
     // 計算報酬率數據（用初始成本計算）
     const initialCost = PORTFOLIO_CONFIG.totalCostTWD;
     const returnData = allData.map(d => ({
       time: d.date as Time,
       value: initialCost > 0 ? ((d.totalValueTWD - initialCost) / initialCost) * 100 : 0,
     }));
-    
+
     returnSeriesRef.current.setData(returnData);
-    
+
+    // 恢復 timeScale 隱藏時間
+    chartRef.current.applyOptions({
+      timeScale: { timeVisible: false },
+    });
+
     requestAnimationFrame(() => {
       chartRef.current?.timeScale().fitContent();
     });
-  }, [allData]);
+  }, [allData, intradayMode, hourlyRangeData]);
 
   // 訂閱 crosshair 移動
   useEffect(() => {
@@ -586,6 +627,27 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
       chart.unsubscribeCrosshairMove(handler);
     };
   }, [allData, dataByDate]);
+
+  // 圖表點擊 → 展開/關閉日鑽取面板
+  useEffect(() => {
+    if (!chartRef.current || allData.length === 0) return;
+    const chart = chartRef.current;
+
+    const clickHandler = (param: { time?: Time }) => {
+      if (!param.time) return;
+      // 在盤中模式下，從 Unix timestamp 轉換出日期
+      let dateStr: string;
+      if (typeof param.time === 'number') {
+        dateStr = new Date(param.time * 1000).toISOString().split('T')[0];
+      } else {
+        dateStr = param.time as string;
+      }
+      setDrilldownDate(prev => prev === dateStr ? null : dateStr);
+    };
+
+    chart.subscribeClick(clickHandler);
+    return () => { chart.unsubscribeClick(clickHandler); };
+  }, [allData]);
 
   // 滑鼠離開時顯示最新資料
   useEffect(() => {
@@ -637,6 +699,23 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
               </span>
             </button>
             
+            {/* 盤中模式切換 */}
+            <button
+              onClick={() => { setIntradayMode(!intradayMode); setDrilldownDate(null); }}
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg border text-sm font-medium transition-all cursor-pointer hover:shadow-md ${
+                intradayMode
+                  ? 'bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-300 ring-2 ring-emerald-200 text-emerald-700'
+                  : 'bg-gray-50 border-gray-200 text-gray-600 hover:border-gray-300'
+              }`}
+              title={intradayMode ? '切換回每日模式' : '切換到盤中模式（顯示小時級數據）'}
+            >
+              <span className="text-base">{intradayMode ? '⏱️' : '📅'}</span>
+              <span>{intradayMode ? '盤中' : '每日'}</span>
+              {intradayMode && hourlyLoading && (
+                <RefreshCw className="animate-spin" size={12} />
+              )}
+            </button>
+
             {/* 市場狀態 */}
             <div className="flex gap-2 items-center">
               <span className="px-3 py-2 rounded-lg bg-gray-50 text-sm font-medium text-gray-600 border">
@@ -855,6 +934,14 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
             </div>
           )}
         </div>
+
+        {/* 日鑽取面板 - 點擊某天展開 24 小時走勢 */}
+        {drilldownDate && (
+          <DayDrilldownPanel
+            date={drilldownDate}
+            onClose={() => setDrilldownDate(null)}
+          />
+        )}
 
         {/* 個股價值區塊 - 按佔倉位大小排序 */}
         {selectedData && selectedData.stocks && !loading && allData.length > 0 && (

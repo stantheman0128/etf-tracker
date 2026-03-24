@@ -12,18 +12,18 @@ import {
   getTWStockPrice,
   getBTCPrice,
   getExchangeRate,
-  getHistoricalPrices,
-  getBTCHistoricalPrices,
-  getHistoricalExchangeRates,
   type PriceData,
 } from '@/lib/api-client';
-import { getPortfolioStartDate, getInitialHoldings, getInitialTotalValueTWD, INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
+import { INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
 import {
   setToCache,
+  getFromCache,
+  appendIntradaySnapshot,
   CACHE_KEYS,
   CACHE_TTL,
 } from '@/lib/redis-cache';
 import { calculateValue } from '@/lib/utils/calculate';
+import type { IntradaySnapshot } from '@/lib/types/intraday';
 
 // 驗證 Cron 請求（防止外部呼叫）
 function verifyCronRequest(request: NextRequest): boolean {
@@ -127,9 +127,30 @@ export async function GET(request: NextRequest) {
       setToCache(CACHE_KEYS.LAST_UPDATE, new Date().toISOString(), CACHE_TTL.PORTFOLIO_DATA),
     ]);
 
-    // 6. Warm 歷史數據快取（每日一次，避免第一個用戶等待）
-    //    檢查 Redis 中是否已有歷史數據，沒有才重新建立
-    const { getFromCache } = await import('@/lib/redis-cache');
+    // 6. 追加盤中快照（每 5 分鐘一筆，用於 intraday 圖表）
+    const today = new Date().toISOString().split('T')[0];
+    const snapshot: IntradaySnapshot = {
+      t: Math.floor(Date.now() / 1000),
+      tv: Math.round(totalValueTWD),
+      tf: Math.round(holdingsWithPrices.reduce((sum, h) => {
+        const fixedValue = h.currency === 'USD'
+          ? h.shares * h.currentPrice * INITIAL_EXCHANGE_RATE
+          : h.shares * h.currentPrice;
+        return sum + fixedValue;
+      }, 0)),
+      fx: exchangeRate,
+      st: holdingsWithPrices.map(h => ({
+        s: h.symbol,
+        p: h.currentPrice,
+        v: Math.round(h.valueTWD),
+      })),
+    };
+
+    appendIntradaySnapshot(today, snapshot)
+      .then(ok => ok && console.log(`📈 Cron: Intraday snapshot appended for ${today}`))
+      .catch(err => console.warn('⚠️ Cron: Intraday snapshot failed (non-critical):', err));
+
+    // 7. Warm 歷史數據快取（每日一次，避免第一個用戶等待）
     const historyKey = `${CACHE_KEYS.PORTFOLIO_HISTORY}-365`;
     const existingHistory = await getFromCache(historyKey);
 

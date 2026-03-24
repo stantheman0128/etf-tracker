@@ -10,6 +10,7 @@
 
 import { Redis } from '@upstash/redis';
 import { IS_DEV, devLog } from './config';
+import { IntradaySnapshot } from './types/intraday';
 
 // 快取鍵值
 export const CACHE_KEYS = {
@@ -17,6 +18,9 @@ export const CACHE_KEYS = {
   PORTFOLIO_HISTORY: 'portfolio-history',     // 歷史資料（365天）
   LAST_UPDATE: 'last-update',                 // 上次更新時間
   EXCHANGE_RATE: 'exchange-rate',             // 匯率
+  INTRADAY_PREFIX: 'intraday:',              // 5-min collected snapshots per day
+  HOURLY_PREFIX: 'hourly:',                  // Backfilled hourly data per day
+  BACKFILL_CURSOR: 'hourly-backfill-cursor', // Last backfilled date
 } as const;
 
 // 快取 TTL（秒）
@@ -24,6 +28,7 @@ export const CACHE_TTL = {
   PORTFOLIO_DATA: 10 * 60,      // 10 分鐘（給 5 分鐘 Cron 一些緩衝）
   PORTFOLIO_HISTORY: 24 * 60 * 60,  // 24 小時
   EXCHANGE_RATE: 60 * 60,       // 1 小時
+  INTRADAY_DATA: 400 * 24 * 60 * 60,   // 400 days retention for intraday data
 } as const;
 
 // 建立 Redis 客戶端（懶加載）
@@ -106,6 +111,142 @@ export async function deleteFromCache(key: string): Promise<boolean> {
     return true;
   } catch (error) {
     console.error(`❌ Redis delete error for ${key}:`, error);
+    return false;
+  }
+}
+
+// ─── Intraday / Hourly helpers ──────────────────────────────────────
+
+/**
+ * Append a single snapshot to the intraday array for a given date.
+ * Creates the key if it doesn't exist yet.
+ */
+export async function appendIntradaySnapshot(
+  date: string,
+  snapshot: IntradaySnapshot,
+): Promise<boolean> {
+  try {
+    const redis = getRedisClient();
+    if (!redis) return false;
+
+    const key = `${CACHE_KEYS.INTRADAY_PREFIX}${date}`;
+    const existing = await redis.get<IntradaySnapshot[]>(key);
+    const arr = existing ?? [];
+    arr.push(snapshot);
+
+    await redis.set(key, arr, { ex: CACHE_TTL.INTRADAY_DATA });
+    devLog(`💾 Intraday snapshot appended: ${key} (${arr.length} snapshots)`);
+    return true;
+  } catch (error) {
+    console.error(`❌ Redis appendIntradaySnapshot error for ${date}:`, error);
+    return false;
+  }
+}
+
+/**
+ * Get all intraday snapshots for a given date.
+ */
+export async function getIntradayData(
+  date: string,
+): Promise<IntradaySnapshot[] | null> {
+  try {
+    const redis = getRedisClient();
+    if (!redis) return null;
+
+    const key = `${CACHE_KEYS.INTRADAY_PREFIX}${date}`;
+    const data = await redis.get<IntradaySnapshot[]>(key);
+
+    if (data) {
+      devLog(`✅ Intraday cache hit: ${key} (${data.length} snapshots)`);
+      return data;
+    }
+
+    devLog(`📂 Intraday cache miss: ${key}`);
+    return null;
+  } catch (error) {
+    console.error(`❌ Redis getIntradayData error for ${date}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Get hourly (backfilled) snapshots for a given date.
+ */
+export async function getHourlyData(
+  date: string,
+): Promise<IntradaySnapshot[] | null> {
+  try {
+    const redis = getRedisClient();
+    if (!redis) return null;
+
+    const key = `${CACHE_KEYS.HOURLY_PREFIX}${date}`;
+    const data = await redis.get<IntradaySnapshot[]>(key);
+
+    if (data) {
+      devLog(`✅ Hourly cache hit: ${key} (${data.length} snapshots)`);
+      return data;
+    }
+
+    devLog(`📂 Hourly cache miss: ${key}`);
+    return null;
+  } catch (error) {
+    console.error(`❌ Redis getHourlyData error for ${date}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Store hourly (backfilled) snapshots for a given date.
+ */
+export async function setHourlyData(
+  date: string,
+  snapshots: IntradaySnapshot[],
+): Promise<boolean> {
+  try {
+    const redis = getRedisClient();
+    if (!redis) return false;
+
+    const key = `${CACHE_KEYS.HOURLY_PREFIX}${date}`;
+    await redis.set(key, snapshots, { ex: CACHE_TTL.INTRADAY_DATA });
+    devLog(`💾 Hourly data set: ${key} (${snapshots.length} snapshots)`);
+    return true;
+  } catch (error) {
+    console.error(`❌ Redis setHourlyData error for ${date}:`, error);
+    return false;
+  }
+}
+
+/**
+ * Get the last backfilled date cursor.
+ */
+export async function getBackfillCursor(): Promise<string | null> {
+  try {
+    const redis = getRedisClient();
+    if (!redis) return null;
+
+    const cursor = await redis.get<string>(CACHE_KEYS.BACKFILL_CURSOR);
+    devLog(`📂 Backfill cursor: ${cursor ?? '(not set)'}`);
+    return cursor;
+  } catch (error) {
+    console.error('❌ Redis getBackfillCursor error:', error);
+    return null;
+  }
+}
+
+/**
+ * Set the last backfilled date cursor.
+ */
+export async function setBackfillCursor(date: string): Promise<boolean> {
+  try {
+    const redis = getRedisClient();
+    if (!redis) return false;
+
+    // No TTL — keep cursor indefinitely
+    await redis.set(CACHE_KEYS.BACKFILL_CURSOR, date);
+    devLog(`💾 Backfill cursor set: ${date}`);
+    return true;
+  } catch (error) {
+    console.error('❌ Redis setBackfillCursor error:', error);
     return false;
   }
 }
