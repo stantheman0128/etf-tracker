@@ -10,6 +10,7 @@ import {
 import { INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
 import { calculateValue } from '@/lib/utils/calculate';
 import RefreshButton from '@/components/RefreshButton';
+import LocalTimestamp from '@/components/LocalTimestamp';
 import PortfolioChart from '@/components/PortfolioChart';
 
 // 計算固定匯率價值（用於排除匯率影響）
@@ -75,7 +76,7 @@ export default async function Dashboard() {
               🦔 什錦雜貨鋪 ETF
             </h1>
             <p className="text-sm text-gray-500 mt-2">
-              最後更新: {new Date().toLocaleString('zh-TW')}
+              最後更新: <LocalTimestamp />
             </p>
           </div>
           <RefreshButton />

@@ -15,11 +15,13 @@ export default function DayDrilldownPanel({ date, onClose }: DayDrilldownPanelPr
   const chartRef = useRef<IChartApi | null>(null);
   const { data, isLoading } = useIntradayData(date);
 
-  // 格式化日期顯示
+  // 格式化日期顯示（直接拆字串避免 UTC 時區陷阱，手動算星期）
   const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
+    const [y, m, d] = dateStr.split('-').map(Number);
+    // 用 local midnight 建立 Date 以取得正確的星期
+    const localDate = new Date(y, m - 1, d);
     const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
-    return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} (${weekdays[d.getDay()]})`;
+    return `${y}/${m}/${d} (${weekdays[localDate.getDay()]})`;
   };
 
   // 建立和更新圖表

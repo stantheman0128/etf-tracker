@@ -446,10 +446,13 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
         fixLeftEdge: true,
         fixRightEdge: true,
         tickMarkFormatter: (time: Time) => {
-          const date = new Date(time as string);
-          const month = date.getMonth() + 1;
-          const day = date.getDate();
-          return `${month}/${day}`;
+          // 日期字串直接拆（避免 UTC 時區問題），Unix timestamp 用本地時間
+          if (typeof time === 'string') {
+            const [, m, d] = time.split('-');
+            return `${parseInt(m)}/${parseInt(d)}`;
+          }
+          const date = new Date((time as number) * 1000);
+          return `${date.getMonth() + 1}/${date.getDate()}`;
         },
       },
       rightPriceScale: {
@@ -635,10 +638,11 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
 
     const clickHandler = (param: { time?: Time }) => {
       if (!param.time) return;
-      // 在盤中模式下，從 Unix timestamp 轉換出日期
+      // 轉換成使用者本地日期
       let dateStr: string;
       if (typeof param.time === 'number') {
-        dateStr = new Date(param.time * 1000).toISOString().split('T')[0];
+        const d = new Date(param.time * 1000);
+        dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
       } else {
         dateStr = param.time as string;
       }
@@ -656,10 +660,10 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     }
   }, [isHovering, allData]);
 
-  // 格式化日期
+  // 格式化日期（直接拆字串，避免 new Date('YYYY-MM-DD') 的 UTC 時區陷阱）
   const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    const [y, m, d] = dateStr.split('-');
+    return `${y}/${parseInt(m)}/${parseInt(d)}`;
   };
 
   return (
