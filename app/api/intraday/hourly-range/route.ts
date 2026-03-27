@@ -95,11 +95,34 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Flatten into chart points
-    const chartPoints: IntradayChartPoint[] = allSnapshots.map((snap) => ({
-      time: snap.t,
-      value: snap.tv,
-    }));
+    // Build a map of date -> snapshots for gap-filling
+    const snapshotsByDate = new Map<string, IntradaySnapshot[]>();
+    for (const snap of allSnapshots) {
+      const d = new Date(snap.t * 1000).toISOString().split('T')[0];
+      const arr = snapshotsByDate.get(d) || [];
+      arr.push(snap);
+      snapshotsByDate.set(d, arr);
+    }
+
+    // Gap-fill: carry forward last known value for dates with no data (weekends/holidays)
+    const chartPoints: IntradayChartPoint[] = [];
+    let lastKnownValue: number | null = null;
+
+    for (const date of dates) {
+      const daySnapshots = snapshotsByDate.get(date);
+
+      if (daySnapshots && daySnapshots.length > 0) {
+        for (const snap of daySnapshots) {
+          chartPoints.push({ time: snap.t, value: snap.tv });
+        }
+        lastKnownValue = daySnapshots[daySnapshots.length - 1].tv;
+      } else if (lastKnownValue !== null) {
+        // No data (holiday/weekend) — insert a single point at midnight UTC
+        // to keep the chart continuous and prevent false drops
+        const midnightUTC = Math.floor(new Date(date + 'T00:00:00Z').getTime() / 1000);
+        chartPoints.push({ time: midnightUTC, value: lastKnownValue });
+      }
+    }
 
     // Sort by time ascending (should already be mostly sorted, but be safe)
     chartPoints.sort((a, b) => a.time - b.time);

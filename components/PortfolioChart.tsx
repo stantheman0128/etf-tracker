@@ -47,16 +47,7 @@ interface PortfolioChartProps {
   todayData?: TodayData;
 }
 
-// 股票圖表顏色 - 易於區分的配色（部分保留官方色，部分調整以區分）
-const STOCK_COLORS: Record<string, string> = {
-  '2330': '#6b21a8',      // 台積電 - 深紫色（避開 TSLA 紅）
-  'TSM': '#4f46e5',       // 台積電ADR - 靛藍色（與 2330 區分）
-  'NVDA': '#76b900',      // Nvidia - NVIDIA 官方綠
-  'TSLA': '#e82127',      // Tesla - Tesla 官方紅
-  'BTC': '#f7931a',       // Bitcoin - 比特幣官方橘
-  'AMZN': '#0891b2',      // Amazon - 青色（避開 BTC 橘）
-  'META': '#0082fb',      // Meta - Meta 官方藍
-};
+import { STOCK_COLORS } from '@/lib/constants';
 
 // 數字跳動顯示組件
 function AnimatedValue({ 
@@ -137,10 +128,10 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     marketStatus,
   });
   
-  // 盤中模式 + 日鑽取
-  const [intradayMode, setIntradayMode] = useState(false);
+  // 盤中模式（平滑曲線）+ 日鑽取
+  const [intradayMode, setIntradayMode] = useState(true);  // default on for smooth curves
   const [drilldownDate, setDrilldownDate] = useState<string | null>(null);
-  const { data: hourlyRangeData, isLoading: hourlyLoading } = useHourlyRange(365, intradayMode);
+  const { data: hourlyRangeData, isLoading: hourlyLoading } = useHourlyRange(365, true);  // always fetch
 
   // 當前選中/hover 的資料
   const [selectedData, setSelectedData] = useState<DailyPortfolioDetail | null>(null);
@@ -307,6 +298,19 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     });
 
     lineSeries.setData(lineData);
+
+    // Add symbol marker at the rightmost point for visibility
+    if (lineData.length > 0) {
+      const lastPoint = lineData[lineData.length - 1];
+      lineSeries.setMarkers([{
+        time: lastPoint.time,
+        position: 'inBar',
+        color,
+        shape: 'circle',
+        text: symbol,
+      }]);
+    }
+
     stockSeriesRef.current.set(symbol, lineSeries);
 
     // 設定左側價格軸（百分比）
@@ -613,7 +617,14 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     
     const handler = (param: { time?: Time; seriesData: Map<unknown, unknown> }) => {
       if (param.time && param.seriesData.size > 0) {
-        const dateStr = param.time as string;
+        // Handle both date strings (daily mode) and Unix timestamps (intraday mode)
+        let dateStr: string;
+        if (typeof param.time === 'number') {
+          const d = new Date(param.time * 1000);
+          dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        } else {
+          dateStr = param.time as string;
+        }
         const dayData = dataByDate.get(dateStr);
         if (dayData) {
           setSelectedData(dayData);
@@ -940,12 +951,11 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
         </div>
 
         {/* 日鑽取面板 - 點擊某天展開 24 小時走勢 */}
-        {drilldownDate && (
-          <DayDrilldownPanel
-            date={drilldownDate}
-            onClose={() => setDrilldownDate(null)}
-          />
-        )}
+        <DayDrilldownPanel
+          date={drilldownDate}
+          isOpen={!!drilldownDate}
+          onClose={() => setDrilldownDate(null)}
+        />
 
         {/* 個股價值區塊 - 按佔倉位大小排序 */}
         {selectedData && selectedData.stocks && !loading && allData.length > 0 && (
