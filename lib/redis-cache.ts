@@ -35,8 +35,11 @@ export const CACHE_TTL = {
 let redisClient: Redis | null = null;
 
 function getRedisClient(): Redis | null {
-  // 如果沒有設定環境變數，返回 null（優雅降級）
-  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+  // 支援兩種環境變數命名：Vercel 整合 (KV_*) 和手動設定 (UPSTASH_*)
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+
+  if (!url || !token) {
     if (IS_DEV) {
       devLog('⚠️ Redis not configured, using fallback mode');
     }
@@ -44,10 +47,7 @@ function getRedisClient(): Redis | null {
   }
 
   if (!redisClient) {
-    redisClient = new Redis({
-      url: process.env.UPSTASH_REDIS_REST_URL,
-      token: process.env.UPSTASH_REDIS_REST_TOKEN,
-    });
+    redisClient = new Redis({ url, token });
     devLog('✅ Redis client initialized');
   }
 
