@@ -160,8 +160,12 @@ export async function GET(request: NextRequest) {
     const priceIndices = allHourlyPrices.map((prices) => indexByDateAndHour(prices));
 
     // 5. Build snapshots per date and store
+    //    Carry forward: persist last known price per stock across dates,
+    //    so every snapshot includes ALL stocks (not just those with new data).
     let datesWritten = 0;
     let lastProcessedDate = cursor || '';
+    const lastKnownPrice = new Map<string, number>();
+    let lastKnownFx = INITIAL_EXCHANGE_RATE;
 
     for (const date of datesToProcess) {
       // Collect all unique hour keys that have data for at least one symbol
@@ -190,51 +194,49 @@ export async function GET(request: NextRequest) {
       const snapshots: IntradaySnapshot[] = [];
 
       for (const hourKey of sortedHourKeys) {
-        // Find exchange rate for this hour (fall back to nearest available)
-        let fx = fxDateMap?.get(hourKey) ?? 0;
-        if (fx === 0) {
-          // Try to find any fx rate for this date
-          if (fxDateMap && fxDateMap.size > 0) {
-            fx = Array.from(fxDateMap.values())[0];
-          }
-        }
-        // If still no fx, use a reasonable fallback
-        if (fx === 0) fx = INITIAL_EXCHANGE_RATE;
+        // Find exchange rate for this hour (carry forward if missing)
+        const fxPrice = fxDateMap?.get(hourKey);
+        const fx = (fxPrice && fxPrice > 0) ? fxPrice : lastKnownFx;
+        lastKnownFx = fx;
 
-        // Build per-stock data
+        // Build per-stock data — include ALL stocks via carry-forward
         const stocks: { s: string; p: number; v: number }[] = [];
         let totalValueTWD = 0;
         let totalValueFixedRate = 0;
-        let hasAnyPrice = false;
 
         for (let i = 0; i < holdings.length; i++) {
           const holding = holdings[i];
-          const price = priceIndices[i].get(date)?.get(hourKey);
+          // Use new price if available, otherwise carry forward last known
+          const newPrice = priceIndices[i].get(date)?.get(hourKey);
+          const price = (newPrice !== undefined && newPrice > 0)
+            ? newPrice
+            : lastKnownPrice.get(holding.symbol);
 
-          if (price !== undefined && price > 0) {
-            hasAnyPrice = true;
-            const value = calculateValue(holding.shares, price, holding.currency, fx);
-            const valueTWD = Math.round(value.twd);
+          if (price === undefined) continue; // stock never seen yet
 
-            stocks.push({
-              s: holding.symbol,
-              p: price,
-              v: valueTWD,
-            });
+          // Update carry-forward state
+          lastKnownPrice.set(holding.symbol, price);
 
-            totalValueTWD += value.twd;
+          const value = calculateValue(holding.shares, price, holding.currency, fx);
+          const valueTWD = Math.round(value.twd);
 
-            // Fixed rate value: USD stocks use INITIAL_EXCHANGE_RATE, TWD stocks use raw price
-            const fixedValue =
-              holding.currency === 'USD'
-                ? holding.shares * price * INITIAL_EXCHANGE_RATE
-                : holding.shares * price;
-            totalValueFixedRate += fixedValue;
-          }
+          stocks.push({
+            s: holding.symbol,
+            p: price,
+            v: valueTWD,
+          });
+
+          totalValueTWD += value.twd;
+
+          const fixedValue =
+            holding.currency === 'USD'
+              ? holding.shares * price * INITIAL_EXCHANGE_RATE
+              : holding.shares * price;
+          totalValueFixedRate += fixedValue;
         }
 
-        // Skip hours with no stock price data at all
-        if (!hasAnyPrice) continue;
+        // Skip hours where no stock has ever been seen
+        if (stocks.length === 0) continue;
 
         // Derive Unix timestamp from hourKey ("YYYY-MM-DDTHH")
         const ts = Math.floor(new Date(hourKey + ':00:00Z').getTime() / 1000);
