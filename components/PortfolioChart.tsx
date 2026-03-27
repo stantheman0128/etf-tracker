@@ -621,26 +621,7 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     }));
 
     mainSeriesRef.current.setData(chartData);
-
-    // Detect significant daily movements and add markers
-    type DailyMarker = { time: Time; position: 'aboveBar' | 'belowBar'; color: string; shape: 'arrowUp' | 'arrowDown'; text: string };
-    const dailyMarkers: DailyMarker[] = [];
-    for (let i = 1; i < allData.length; i++) {
-      const prev = allData[i - 1].totalValueTWD;
-      const curr = allData[i].totalValueTWD;
-      const changePct = prev > 0 ? ((curr - prev) / prev) * 100 : 0;
-      if (Math.abs(changePct) >= 1.5) {
-        const isUp = changePct > 0;
-        dailyMarkers.push({
-          time: allData[i].date as Time,
-          position: isUp ? 'aboveBar' : 'belowBar',
-          color: isUp ? '#16a34a' : '#dc2626',
-          shape: isUp ? 'arrowUp' : 'arrowDown',
-          text: `${isUp ? '+' : ''}${changePct.toFixed(1)}%`,
-        });
-      }
-    }
-    mainSeriesRef.current.setMarkers(dailyMarkers);
+    mainSeriesRef.current.setMarkers([]);  // No markers in daily mode
 
     // 計算報酬率數據（用初始成本計算）
     const initialCost = PORTFOLIO_CONFIG.totalCostTWD;

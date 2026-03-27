@@ -476,7 +476,10 @@ export async function getBTCHourlyPrices(
   days: number = 30
 ): Promise<HistoricalPrice[]> {
   try {
-    const sinceTimestamp = Math.floor(Date.now() / 1000) - days * 86400;
+    // Kraken limits to ~720 results. Always fetch last 30 days to get
+    // recent hourly data; CoinGecko covers older dates below.
+    const krakenDays = Math.min(days, 30);
+    const sinceTimestamp = Math.floor(Date.now() / 1000) - krakenDays * 86400;
     const krakenUrl = `https://api.kraken.com/0/public/OHLC?pair=XBTUSD&interval=60&since=${sinceTimestamp}`;
 
     const krakenResponse = await fetch(krakenUrl, {
