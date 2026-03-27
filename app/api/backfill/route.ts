@@ -192,24 +192,38 @@ export async function GET(request: NextRequest) {
     }
 
     for (const date of datesToProcess) {
-      // Collect all unique hour keys that have data for at least one symbol
-      const hourKeysSet = new Set<string>();
+      // Collect hour keys from real data sources
+      const realHourKeys = new Set<string>();
 
       for (let i = 0; i < holdings.length; i++) {
         const dateMap = priceIndices[i].get(date);
         if (dateMap) {
-          Array.from(dateMap.keys()).forEach((hk) => hourKeysSet.add(hk));
+          Array.from(dateMap.keys()).forEach((hk) => realHourKeys.add(hk));
         }
       }
 
-      // Also add exchange rate hour keys for this date
       const fxDateMap = fxIndex.get(date);
       if (fxDateMap) {
-        Array.from(fxDateMap.keys()).forEach((hk) => hourKeysSet.add(hk));
+        Array.from(fxDateMap.keys()).forEach((hk) => realHourKeys.add(hk));
+      }
+
+      // Generate all 24 hour keys for this date if we have carry-forward state.
+      // This fills weekends/holidays with smooth carry-forward points.
+      const hourKeysSet = new Set<string>();
+      if (realHourKeys.size > 0) {
+        // Date has some real data — use real hours + fill gaps
+        realHourKeys.forEach(hk => hourKeysSet.add(hk));
+      }
+      // If we have carry-forward state, pad to all 24 hours
+      if (lastKnownPrice.size > 0) {
+        const [y, m, d] = date.split('-').map(Number);
+        for (let h = 0; h < 24; h++) {
+          const hk = `${date}T${h.toString().padStart(2, '0')}`;
+          hourKeysSet.add(hk);
+        }
       }
 
       if (hourKeysSet.size === 0) {
-        // No data for this date at all — skip but advance cursor
         lastProcessedDate = date;
         continue;
       }

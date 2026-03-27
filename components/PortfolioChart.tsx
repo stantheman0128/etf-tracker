@@ -569,6 +569,38 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
       }));
       returnSeriesRef.current.setData(returnData);
 
+      // Detect significant daily movements and mark them
+      // Group hourly points by date, compare each day's close to open
+      const byDate = new Map<string, { first: number; last: number; lastTime: number }>();
+      for (const pt of hourlyRangeData) {
+        const d = new Date(pt.time * 1000).toISOString().slice(0, 10);
+        const existing = byDate.get(d);
+        if (!existing) {
+          byDate.set(d, { first: pt.value, last: pt.value, lastTime: pt.time });
+        } else {
+          existing.last = pt.value;
+          existing.lastTime = pt.time;
+        }
+      }
+
+      type MarkerItem = { time: Time; position: 'aboveBar' | 'belowBar'; color: string; shape: 'arrowUp' | 'arrowDown'; text: string };
+      const markers: MarkerItem[] = [];
+      for (const [, info] of byDate) {
+        const changePct = info.first > 0 ? ((info.last - info.first) / info.first) * 100 : 0;
+        if (Math.abs(changePct) >= 1.5) {
+          const isUp = changePct > 0;
+          markers.push({
+            time: info.lastTime as Time,
+            position: isUp ? 'aboveBar' : 'belowBar',
+            color: isUp ? '#16a34a' : '#dc2626',
+            shape: isUp ? 'arrowUp' : 'arrowDown',
+            text: `${isUp ? '+' : ''}${changePct.toFixed(1)}%`,
+          });
+        }
+      }
+      markers.sort((a, b) => (a.time as number) - (b.time as number));
+      mainSeriesRef.current.setMarkers(markers);
+
       // 更新 timeScale 顯示時間
       chartRef.current.applyOptions({
         timeScale: { timeVisible: true, secondsVisible: false },
@@ -589,6 +621,26 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     }));
 
     mainSeriesRef.current.setData(chartData);
+
+    // Detect significant daily movements and add markers
+    type DailyMarker = { time: Time; position: 'aboveBar' | 'belowBar'; color: string; shape: 'arrowUp' | 'arrowDown'; text: string };
+    const dailyMarkers: DailyMarker[] = [];
+    for (let i = 1; i < allData.length; i++) {
+      const prev = allData[i - 1].totalValueTWD;
+      const curr = allData[i].totalValueTWD;
+      const changePct = prev > 0 ? ((curr - prev) / prev) * 100 : 0;
+      if (Math.abs(changePct) >= 1.5) {
+        const isUp = changePct > 0;
+        dailyMarkers.push({
+          time: allData[i].date as Time,
+          position: isUp ? 'aboveBar' : 'belowBar',
+          color: isUp ? '#16a34a' : '#dc2626',
+          shape: isUp ? 'arrowUp' : 'arrowDown',
+          text: `${isUp ? '+' : ''}${changePct.toFixed(1)}%`,
+        });
+      }
+    }
+    mainSeriesRef.current.setMarkers(dailyMarkers);
 
     // 計算報酬率數據（用初始成本計算）
     const initialCost = PORTFOLIO_CONFIG.totalCostTWD;
