@@ -167,6 +167,23 @@ export async function GET(request: NextRequest) {
     const lastKnownPrice = new Map<string, number>();
     let lastKnownFx = INITIAL_EXCHANGE_RATE;
 
+    // Seed carry-forward state from the day before startDate
+    // so batch boundaries don't lose context
+    const seedDate = addDays(datesToProcess[0], -1);
+    for (let i = 0; i < holdings.length; i++) {
+      const dayMap = priceIndices[i].get(seedDate);
+      if (dayMap && dayMap.size > 0) {
+        // Use the last hour's price from the previous day
+        const lastHour = Array.from(dayMap.keys()).sort().pop()!;
+        lastKnownPrice.set(holdings[i].symbol, dayMap.get(lastHour)!);
+      }
+    }
+    const seedFxMap = fxIndex.get(seedDate);
+    if (seedFxMap && seedFxMap.size > 0) {
+      const lastHour = Array.from(seedFxMap.keys()).sort().pop()!;
+      lastKnownFx = seedFxMap.get(lastHour) || INITIAL_EXCHANGE_RATE;
+    }
+
     for (const date of datesToProcess) {
       // Collect all unique hour keys that have data for at least one symbol
       const hourKeysSet = new Set<string>();
