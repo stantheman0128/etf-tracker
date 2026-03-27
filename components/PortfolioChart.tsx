@@ -48,6 +48,8 @@ interface PortfolioChartProps {
 }
 
 import { STOCK_COLORS } from '@/lib/constants';
+import { getMarketHoursUTC } from '@/lib/utils/market-hours';
+import { useIntradayData } from '@/lib/hooks/useIntradayData';
 
 // 數字跳動顯示組件
 function AnimatedValue({ 
@@ -115,6 +117,7 @@ const MiniSparkline = memo(function MiniSparkline({ symbol, allData }: { symbol:
 
 export default function PortfolioChart({ className, marketStatus, todayData }: PortfolioChartProps) {
   const chartContainerRef = useRef<HTMLDivElement>(null);
+  const marketMarkersRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<IChartApi | null>(null);
   const mainSeriesRef = useRef<ISeriesApi<'Area'> | null>(null);
   const returnSeriesRef = useRef<ISeriesApi<'Line'> | null>(null);  // 報酬率序列（左軸）
@@ -132,6 +135,7 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
   const [intradayMode, setIntradayMode] = useState(true);  // default on for smooth curves
   const [drilldownDate, setDrilldownDate] = useState<string | null>(null);
   const { data: hourlyRangeData, isLoading: hourlyLoading } = useHourlyRange(365, true);  // always fetch
+  const { data: drilldownDayData } = useIntradayData(drilldownDate);  // single-day detail for drilldown
 
   // 當前選中/hover 的資料
   const [selectedData, setSelectedData] = useState<DailyPortfolioDetail | null>(null);
@@ -178,6 +182,43 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     if (width >= 4) return 4;
     if (width <= 1) return 1;
     return width as 1 | 2 | 3 | 4;
+  }, []);
+
+  // Draw market-hour dashed lines on the main chart
+  const updateMainMarketMarkers = useCallback((dateStr: string | null) => {
+    if (!chartRef.current || !marketMarkersRef.current) return;
+    const container = marketMarkersRef.current;
+    container.innerHTML = '';
+    if (!dateStr) return;
+
+    const timeScale = chartRef.current.timeScale();
+    const windows = getMarketHoursUTC(dateStr);
+
+    for (const win of windows) {
+      for (const { ts, label } of [
+        { ts: win.openUTC, label: `${win.label} 開盤` },
+        { ts: win.closeUTC, label: `${win.label} 收盤` },
+      ]) {
+        const x = timeScale.timeToCoordinate(ts as Time);
+        if (x === null || x < 0) continue;
+
+        const line = document.createElement('div');
+        line.className = 'absolute top-0 bottom-[30px]';
+        line.style.left = `${x}px`;
+        line.style.borderLeft = `1.5px dashed ${win.color}50`;
+        line.style.pointerEvents = 'none';
+
+        const tag = document.createElement('span');
+        tag.className = 'absolute top-2 text-[11px] font-semibold whitespace-nowrap px-1.5 py-0.5 rounded';
+        tag.style.left = '4px';
+        tag.style.color = win.color;
+        tag.style.backgroundColor = `${win.color}12`;
+        tag.textContent = label;
+        line.appendChild(tag);
+
+        container.appendChild(line);
+      }
+    }
   }, []);
 
   // 處理 SWR 資料和 todayData 的合併（直接作為 allData，無需額外 state）
@@ -554,8 +595,44 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
   useEffect(() => {
     if (!chartRef.current || !mainSeriesRef.current || !returnSeriesRef.current) return;
 
-    // 盤中模式：使用小時級數據（Unix timestamp）
-    if (intradayMode && hourlyRangeData?.length) {
+    // ─── Drilldown mode: zoom main chart into a single day ───
+    if (drilldownDate && drilldownDayData?.snapshots?.length) {
+      const snapshots = drilldownDayData.snapshots;
+      const chartData = snapshots.map(s => ({
+        time: s.t as Time,
+        value: s.tv,
+      }));
+      mainSeriesRef.current.setData(chartData);
+
+      const initialCost = PORTFOLIO_CONFIG.totalCostTWD;
+      const returnData = snapshots.map(s => ({
+        time: s.t as Time,
+        value: initialCost > 0 ? ((s.tv - initialCost) / initialCost) * 100 : 0,
+      }));
+      returnSeriesRef.current.setData(returnData);
+      mainSeriesRef.current.setMarkers([]);
+
+      chartRef.current.applyOptions({
+        timeScale: { timeVisible: true, secondsVisible: false },
+      });
+
+      requestAnimationFrame(() => {
+        chartRef.current?.timeScale().fitContent();
+        // Draw market hour markers after chart layout
+        requestAnimationFrame(() => updateMainMarketMarkers(drilldownDate));
+      });
+
+      // Re-draw markers on scroll/zoom
+      const handler = () => updateMainMarketMarkers(drilldownDate);
+      chartRef.current.timeScale().subscribeVisibleTimeRangeChange(handler);
+      return () => {
+        chartRef.current?.timeScale().unsubscribeVisibleTimeRangeChange(handler);
+        updateMainMarketMarkers(null);
+      };
+    }
+
+    // ─── Normal smooth mode: hourly data across all days ───
+    if (intradayMode && hourlyRangeData?.length && !drilldownDate) {
       const chartData = hourlyRangeData.map(d => ({
         time: d.time as Time,
         value: d.value,
@@ -569,8 +646,7 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
       }));
       returnSeriesRef.current.setData(returnData);
 
-      // Detect significant daily movements and mark them
-      // Group hourly points by date, compare each day's close to open
+      // Significant daily movement markers
       const byDate = new Map<string, { first: number; last: number; lastTime: number }>();
       for (const pt of hourlyRangeData) {
         const d = new Date(pt.time * 1000).toISOString().slice(0, 10);
@@ -601,10 +677,10 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
       markers.sort((a, b) => (a.time as number) - (b.time as number));
       mainSeriesRef.current.setMarkers(markers);
 
-      // 更新 timeScale 顯示時間
       chartRef.current.applyOptions({
         timeScale: { timeVisible: true, secondsVisible: false },
       });
+      updateMainMarketMarkers(null); // no market markers in overview
 
       requestAnimationFrame(() => {
         chartRef.current?.timeScale().fitContent();
@@ -612,7 +688,7 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
       return;
     }
 
-    // 每日模式（原有邏輯）
+    // ─── Daily mode (fallback) ───
     if (allData.length === 0) return;
 
     const chartData = allData.map(d => ({
@@ -621,9 +697,9 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     }));
 
     mainSeriesRef.current.setData(chartData);
-    mainSeriesRef.current.setMarkers([]);  // No markers in daily mode
+    mainSeriesRef.current.setMarkers([]);
+    updateMainMarketMarkers(null);
 
-    // 計算報酬率數據（用初始成本計算）
     const initialCost = PORTFOLIO_CONFIG.totalCostTWD;
     const returnData = allData.map(d => ({
       time: d.date as Time,
@@ -632,7 +708,6 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
 
     returnSeriesRef.current.setData(returnData);
 
-    // 恢復 timeScale 隱藏時間
     chartRef.current.applyOptions({
       timeScale: { timeVisible: false },
     });
@@ -640,7 +715,7 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     requestAnimationFrame(() => {
       chartRef.current?.timeScale().fitContent();
     });
-  }, [allData, intradayMode, hourlyRangeData]);
+  }, [allData, intradayMode, hourlyRangeData, drilldownDate, drilldownDayData, updateMainMarketMarkers]);
 
   // 訂閱 crosshair 移動
   useEffect(() => {
@@ -907,6 +982,26 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
           </div>
         )}
         
+        {/* Drilldown back button */}
+        {drilldownDate && (
+          <button
+            onClick={() => setDrilldownDate(null)}
+            className="flex items-center gap-2 mb-2 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            返回總覽
+            <span className="text-gray-400 ml-1">
+              {(() => {
+                const [y,m,d] = drilldownDate.split('-').map(Number);
+                const weekdays = ['日','一','二','三','四','五','六'];
+                return `${y}/${m}/${d} (${weekdays[new Date(y,m-1,d).getDay()]})`;
+              })()}
+            </span>
+          </button>
+        )}
+
         {/* 圖表 */}
         <div className="relative">
           <div
@@ -918,6 +1013,11 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
               setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
             }}
             onMouseLeave={() => setMousePosition(null)}
+          />
+          {/* Market hour overlay markers (shown during drilldown) */}
+          <div
+            ref={marketMarkersRef}
+            className="absolute inset-0 pointer-events-none overflow-hidden"
           />
           
           {/* 浮動提示 - 跟隨滑鼠移動 */}
