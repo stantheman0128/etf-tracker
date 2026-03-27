@@ -167,21 +167,28 @@ export async function GET(request: NextRequest) {
     const lastKnownPrice = new Map<string, number>();
     let lastKnownFx = INITIAL_EXCHANGE_RATE;
 
-    // Seed carry-forward state from the day before startDate
-    // so batch boundaries don't lose context
-    const seedDate = addDays(datesToProcess[0], -1);
+    // Seed carry-forward state by scanning backwards from startDate
+    // until we find price data for each stock (handles weekends/holidays)
+    const batchStart = datesToProcess[0];
     for (let i = 0; i < holdings.length; i++) {
-      const dayMap = priceIndices[i].get(seedDate);
-      if (dayMap && dayMap.size > 0) {
-        // Use the last hour's price from the previous day
-        const lastHour = Array.from(dayMap.keys()).sort().pop()!;
-        lastKnownPrice.set(holdings[i].symbol, dayMap.get(lastHour)!);
+      for (let back = 1; back <= 7; back++) {
+        if (lastKnownPrice.has(holdings[i].symbol)) break;
+        const seedDate = addDays(batchStart, -back);
+        const dayMap = priceIndices[i].get(seedDate);
+        if (dayMap && dayMap.size > 0) {
+          const lastHour = Array.from(dayMap.keys()).sort().pop()!;
+          lastKnownPrice.set(holdings[i].symbol, dayMap.get(lastHour)!);
+        }
       }
     }
-    const seedFxMap = fxIndex.get(seedDate);
-    if (seedFxMap && seedFxMap.size > 0) {
-      const lastHour = Array.from(seedFxMap.keys()).sort().pop()!;
-      lastKnownFx = seedFxMap.get(lastHour) || INITIAL_EXCHANGE_RATE;
+    for (let back = 1; back <= 7; back++) {
+      const seedDate = addDays(batchStart, -back);
+      const seedFxMap = fxIndex.get(seedDate);
+      if (seedFxMap && seedFxMap.size > 0) {
+        const lastHour = Array.from(seedFxMap.keys()).sort().pop()!;
+        lastKnownFx = seedFxMap.get(lastHour) || INITIAL_EXCHANGE_RATE;
+        break;
+      }
     }
 
     for (const date of datesToProcess) {
