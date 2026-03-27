@@ -9,7 +9,7 @@ import { useAnimatedNumber } from '@/lib/hooks/useAnimatedNumber';
 import { PORTFOLIO_CONFIG } from '@/lib/config';
 import { usePortfolioData, type MarketStatus } from '@/lib/hooks/usePortfolioData';
 import { useHourlyRange } from '@/lib/hooks/useIntradayData';
-import DayDrilldownPanel from '@/components/DayDrilldownPanel';
+// DayDrilldownPanel replaced by inline drilldown on main chart
 
 interface StockDetail {
   symbol: string;
@@ -205,14 +205,14 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
         const line = document.createElement('div');
         line.className = 'absolute top-0 bottom-[30px]';
         line.style.left = `${x}px`;
-        line.style.borderLeft = `1.5px dashed ${win.color}50`;
+        line.style.borderLeft = `2px dashed ${win.color}70`;
         line.style.pointerEvents = 'none';
 
         const tag = document.createElement('span');
-        tag.className = 'absolute top-2 text-[11px] font-semibold whitespace-nowrap px-1.5 py-0.5 rounded';
-        tag.style.left = '4px';
-        tag.style.color = win.color;
-        tag.style.backgroundColor = `${win.color}12`;
+        tag.className = 'absolute top-1 text-xs font-bold whitespace-nowrap px-2 py-1 rounded-md shadow-sm';
+        tag.style.left = '6px';
+        tag.style.color = '#fff';
+        tag.style.backgroundColor = win.color;
         tag.textContent = label;
         line.appendChild(tag);
 
@@ -598,12 +598,16 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
     // ─── Drilldown mode: zoom main chart into a single day ───
     if (drilldownDate && drilldownDayData?.snapshots?.length) {
       const snapshots = drilldownDayData.snapshots;
+      const chart = chartRef.current;
+
+      // Portfolio total value (area series)
       const chartData = snapshots.map(s => ({
         time: s.t as Time,
         value: s.tv,
       }));
       mainSeriesRef.current.setData(chartData);
 
+      // Return % (hidden line for left axis scale)
       const initialCost = PORTFOLIO_CONFIG.totalCostTWD;
       const returnData = snapshots.map(s => ({
         time: s.t as Time,
@@ -612,22 +616,68 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
       returnSeriesRef.current.setData(returnData);
       mainSeriesRef.current.setMarkers([]);
 
-      chartRef.current.applyOptions({
+      // Clear any previous stock overlays from normal mode
+      stockSeriesRef.current.forEach((series) => {
+        try { chart.removeSeries(series); } catch {}
+      });
+      stockSeriesRef.current.clear();
+
+      // Add per-stock % change lines directly on the main chart
+      const firstSnap = snapshots[0];
+      for (const stockSnap of firstSnap.st) {
+        const symbol = stockSnap.s;
+        const basePrice = stockSnap.p;
+        if (basePrice <= 0) continue;
+
+        const color = STOCK_COLORS[symbol] || '#888';
+        const lineSeries = chart.addLineSeries({
+          color,
+          lineWidth: 2,
+          lineStyle: LineStyle.Solid,
+          priceScaleId: 'left',
+          lastValueVisible: true,
+          priceLineVisible: false,
+          title: symbol,
+        });
+
+        const lineData = snapshots
+          .map(snap => {
+            const st = snap.st.find(s => s.s === symbol);
+            if (!st) return null;
+            return { time: snap.t as Time, value: ((st.p - basePrice) / basePrice) * 100 };
+          })
+          .filter((d): d is { time: Time; value: number } => d !== null);
+
+        lineSeries.setData(lineData);
+        stockSeriesRef.current.set(symbol, lineSeries);
+      }
+
+      chart.priceScale('left').applyOptions({
+        visible: true,
+        borderVisible: false,
+        scaleMargins: { top: 0.1, bottom: 0.1 },
+      });
+
+      chart.applyOptions({
         timeScale: { timeVisible: true, secondsVisible: false },
       });
 
       requestAnimationFrame(() => {
-        chartRef.current?.timeScale().fitContent();
-        // Draw market hour markers after chart layout
+        chart.timeScale().fitContent();
         requestAnimationFrame(() => updateMainMarketMarkers(drilldownDate));
       });
 
       // Re-draw markers on scroll/zoom
       const handler = () => updateMainMarketMarkers(drilldownDate);
-      chartRef.current.timeScale().subscribeVisibleTimeRangeChange(handler);
+      chart.timeScale().subscribeVisibleTimeRangeChange(handler);
       return () => {
-        chartRef.current?.timeScale().unsubscribeVisibleTimeRangeChange(handler);
+        chart.timeScale().unsubscribeVisibleTimeRangeChange(handler);
         updateMainMarketMarkers(null);
+        // Clean up drilldown stock series
+        stockSeriesRef.current.forEach((series) => {
+          try { chart.removeSeries(series); } catch {}
+        });
+        stockSeriesRef.current.clear();
       };
     }
 
@@ -1083,12 +1133,70 @@ export default function PortfolioChart({ className, marketStatus, todayData }: P
           )}
         </div>
 
-        {/* 日鑽取面板 - 點擊某天展開 24 小時走勢 */}
-        <DayDrilldownPanel
-          date={drilldownDate}
-          isOpen={!!drilldownDate}
-          onClose={() => setDrilldownDate(null)}
-        />
+        {/* Drilldown stock detail grid (inline, no separate chart) */}
+        {drilldownDate && drilldownDayData?.snapshots?.length ? (() => {
+          const snapshots = drilldownDayData.snapshots;
+          const firstSnap = snapshots[0];
+          const lastSnap = snapshots[snapshots.length - 1];
+          const allFlat = firstSnap.st.every(s => {
+            const last = lastSnap.st.find(x => x.s === s.s);
+            return last && Math.abs(last.p - s.p) < 0.001;
+          });
+          const dow = new Date(drilldownDate + 'T12:00:00Z').getDay();
+          const isWeekend = dow === 0 || dow === 6;
+
+          return (
+            <div className="mt-3 pt-3 border-t border-gray-200">
+              <div className="flex items-center gap-3 mb-2 px-1">
+                <span className="text-xs font-medium text-gray-500">
+                  個股當日走勢
+                </span>
+                <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                  drilldownDayData.source === 'collected'
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-blue-100 text-blue-700'
+                }`}>
+                  {drilldownDayData.source === 'collected' ? '5 分鐘' : '小時級'}
+                </span>
+                {allFlat && isWeekend && (
+                  <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-500">
+                    非交易日 — 延續收盤價
+                  </span>
+                )}
+              </div>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-2">
+                {lastSnap.st.map(stock => {
+                  const firstStock = firstSnap.st.find(s => s.s === stock.s);
+                  const change = firstStock ? ((stock.p - firstStock.p) / firstStock.p) * 100 : 0;
+                  const holding = PORTFOLIO_CONFIG.holdings.find(h => h.symbol === stock.s);
+                  const isUp = change > 0;
+                  const isFlat = Math.abs(change) < 0.001;
+                  const color = STOCK_COLORS[stock.s] || '#888';
+                  return (
+                    <div key={stock.s} className="p-2 rounded-lg bg-gray-50">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+                        <span className="text-xs font-bold text-gray-700">{stock.s}</span>
+                      </div>
+                      <div className="text-xs text-gray-500 tabular-nums">
+                        {holding?.currency === 'USD' ? '$' : 'NT$'}
+                        {stock.p < 1 ? stock.p.toFixed(4) : stock.p.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </div>
+                      <div className={`text-sm font-semibold tabular-nums ${
+                        isFlat ? 'text-gray-400' : isUp ? 'text-green-600' : 'text-red-600'
+                      }`}>
+                        {isFlat ? '—' : `${isUp ? '+' : ''}${change.toFixed(2)}%`}
+                      </div>
+                      <div className="text-[10px] text-gray-400 tabular-nums">
+                        NT$ {stock.v.toLocaleString()}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })() : null}
 
         {/* 個股價值區塊 - 按佔倉位大小排序 */}
         {selectedData && selectedData.stocks && !loading && allData.length > 0 && (
