@@ -490,7 +490,9 @@ export async function getBTCHourlyPrices(
 
     if (krakenResponse.ok) {
       const krakenData = await krakenResponse.json();
-      const ohlcData = krakenData.result?.XXBTUSD;
+      // Kraken returns pair key as XXBTZUSD (not XXBTUSD) — grab first non-"last" key
+      const resultKeys = Object.keys(krakenData.result || {}).filter((k: string) => k !== 'last');
+      const ohlcData = resultKeys.length > 0 ? krakenData.result[resultKeys[0]] : null;
 
       if (ohlcData && Array.isArray(ohlcData)) {
         // Kraken OHLC format: [time, open, high, low, close, vwap, volume, count]
