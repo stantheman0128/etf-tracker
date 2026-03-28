@@ -117,14 +117,105 @@ export async function deleteFromCache(key: string): Promise<boolean> {
 
 // ─── Intraday / Hourly helpers ──────────────────────────────────────
 
+import { dbQuery, dbInsert, isInsForgeConfigured } from './insforge';
+
+/**
+ * Fetch snapshots from PostgreSQL for a date range, reconstruct IntradaySnapshot format.
+ */
+async function fetchFromPostgres(date: string): Promise<IntradaySnapshot[] | null> {
+  if (!isInsForgeConfigured()) return null;
+
+  try {
+    const nextDate = new Date(date + 'T00:00:00Z');
+    nextDate.setUTCDate(nextDate.getUTCDate() + 1);
+    const nextDateStr = nextDate.toISOString().split('T')[0];
+
+    // PostgREST range filter: use custom query string since JS object can't have duplicate keys
+    const snapshots = await dbQuery<{
+      id: number; timestamp: string; total_value_twd: number;
+      total_value_fixed_rate: number; exchange_rate: number;
+    }>('intraday_snapshots', {
+      order: 'timestamp.asc',
+      limit: '100',
+    }, `timestamp=gte.${date}T00:00:00Z&timestamp=lt.${nextDateStr}T00:00:00Z`);
+
+    if (!snapshots.length) return null;
+
+    // Query all stock details for these snapshot IDs
+    const ids = snapshots.map(s => s.id);
+    const stockDetails = await dbQuery<{
+      snapshot_id: number; symbol: string; price: number; value_twd: number;
+    }>('intraday_stock_details', {
+      'snapshot_id': `in.(${ids.join(',')})`,
+      limit: '1000',
+    });
+
+    // Group stock details by snapshot_id
+    const stocksBySnapshotId = new Map<number, { s: string; p: number; v: number }[]>();
+    for (const sd of stockDetails) {
+      const arr = stocksBySnapshotId.get(sd.snapshot_id) || [];
+      arr.push({ s: sd.symbol, p: Number(sd.price), v: sd.value_twd });
+      stocksBySnapshotId.set(sd.snapshot_id, arr);
+    }
+
+    // Reconstruct IntradaySnapshot format
+    const result: IntradaySnapshot[] = snapshots.map(s => ({
+      t: Math.floor(new Date(s.timestamp).getTime() / 1000),
+      tv: s.total_value_twd,
+      tf: s.total_value_fixed_rate,
+      fx: Number(s.exchange_rate),
+      st: stocksBySnapshotId.get(s.id) || [],
+    }));
+
+    devLog(`✅ PostgreSQL hit: ${date} (${result.length} snapshots)`);
+    return result;
+  } catch (error) {
+    console.error(`❌ PostgreSQL fetch error for ${date}:`, error);
+    return null;
+  }
+}
+
+/**
+ * Write a snapshot to PostgreSQL (for dual-write from cron).
+ */
+export async function writeSnapshotToPostgres(snapshot: IntradaySnapshot): Promise<void> {
+  if (!isInsForgeConfigured()) return;
+
+  try {
+    const inserted = await dbInsert<{ id: number }>('intraday_snapshots', [{
+      timestamp: new Date(snapshot.t * 1000).toISOString(),
+      total_value_twd: snapshot.tv,
+      total_value_fixed_rate: snapshot.tf,
+      exchange_rate: snapshot.fx,
+      source: 'cron',
+    }]);
+
+    if (inserted.length > 0) {
+      const snapshotId = inserted[0].id;
+      const stockRecords = snapshot.st.map(st => ({
+        snapshot_id: snapshotId,
+        symbol: st.s,
+        price: st.p,
+        value_twd: st.v,
+      }));
+      await dbInsert('intraday_stock_details', stockRecords);
+    }
+  } catch (error) {
+    console.error('❌ PostgreSQL write error:', error);
+  }
+}
+
 /**
  * Append a single snapshot to the intraday array for a given date.
- * Creates the key if it doesn't exist yet.
+ * Writes to both Redis (cache) and PostgreSQL (permanent).
  */
 export async function appendIntradaySnapshot(
   date: string,
   snapshot: IntradaySnapshot,
 ): Promise<boolean> {
+  // Write to PostgreSQL (fire-and-forget, don't block Redis write)
+  writeSnapshotToPostgres(snapshot).catch(() => {});
+
   try {
     const redis = getRedisClient();
     if (!redis) return false;
@@ -145,52 +236,78 @@ export async function appendIntradaySnapshot(
 
 /**
  * Get all intraday snapshots for a given date.
+ * Redis first → PostgreSQL fallback → cache result in Redis.
  */
 export async function getIntradayData(
   date: string,
 ): Promise<IntradaySnapshot[] | null> {
   try {
+    // 1. Try Redis (hot cache)
     const redis = getRedisClient();
-    if (!redis) return null;
-
-    const key = `${CACHE_KEYS.INTRADAY_PREFIX}${date}`;
-    const data = await redis.get<IntradaySnapshot[]>(key);
-
-    if (data) {
-      devLog(`✅ Intraday cache hit: ${key} (${data.length} snapshots)`);
-      return data;
+    if (redis) {
+      const key = `${CACHE_KEYS.INTRADAY_PREFIX}${date}`;
+      const data = await redis.get<IntradaySnapshot[]>(key);
+      if (data) {
+        devLog(`✅ Intraday Redis hit: ${key} (${data.length} snapshots)`);
+        return data;
+      }
     }
 
-    devLog(`📂 Intraday cache miss: ${key}`);
+    // 2. Try PostgreSQL (permanent store)
+    const pgData = await fetchFromPostgres(date);
+    if (pgData && pgData.length > 0) {
+      // Cache back to Redis for next time
+      if (redis) {
+        const key = `${CACHE_KEYS.INTRADAY_PREFIX}${date}`;
+        await redis.set(key, pgData, { ex: CACHE_TTL.INTRADAY_DATA }).catch(() => {});
+        devLog(`💾 Cached PostgreSQL data to Redis: ${key}`);
+      }
+      return pgData;
+    }
+
+    devLog(`📂 No data found for ${date} (Redis + PostgreSQL)`);
     return null;
   } catch (error) {
-    console.error(`❌ Redis getIntradayData error for ${date}:`, error);
+    console.error(`❌ getIntradayData error for ${date}:`, error);
     return null;
   }
 }
 
 /**
  * Get hourly (backfilled) snapshots for a given date.
+ * Redis first → PostgreSQL fallback.
  */
 export async function getHourlyData(
   date: string,
 ): Promise<IntradaySnapshot[] | null> {
   try {
+    // 1. Try Redis
     const redis = getRedisClient();
-    if (!redis) return null;
-
-    const key = `${CACHE_KEYS.HOURLY_PREFIX}${date}`;
-    const data = await redis.get<IntradaySnapshot[]>(key);
-
-    if (data) {
-      devLog(`✅ Hourly cache hit: ${key} (${data.length} snapshots)`);
-      return data;
+    if (redis) {
+      const key = `${CACHE_KEYS.HOURLY_PREFIX}${date}`;
+      const data = await redis.get<IntradaySnapshot[]>(key);
+      if (data) {
+        devLog(`✅ Hourly Redis hit: ${key} (${data.length} snapshots)`);
+        return data;
+      }
     }
 
-    devLog(`📂 Hourly cache miss: ${key}`);
+    // 2. Try PostgreSQL (hourly and collected data share the same table)
+    const pgData = await fetchFromPostgres(date);
+    if (pgData && pgData.length > 0) {
+      // Cache back to Redis
+      if (redis) {
+        const key = `${CACHE_KEYS.HOURLY_PREFIX}${date}`;
+        await redis.set(key, pgData, { ex: CACHE_TTL.INTRADAY_DATA }).catch(() => {});
+        devLog(`💾 Cached PostgreSQL hourly data to Redis: ${key}`);
+      }
+      return pgData;
+    }
+
+    devLog(`📂 No hourly data for ${date}`);
     return null;
   } catch (error) {
-    console.error(`❌ Redis getHourlyData error for ${date}:`, error);
+    console.error(`❌ getHourlyData error for ${date}:`, error);
     return null;
   }
 }
