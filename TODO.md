@@ -63,8 +63,8 @@
 - next-themes
 
 ### 多投資組合
-- 需要後端資料庫（目前 Redis 只是快取）
-- 可能搭配 Supabase / PlanetScale
+- InsForge PostgreSQL 已就位，holdings 表可擴展
+- 需要加 user_id 欄位 + Authentication
 
 ### 行動 App (PWA)
 - 可安裝、離線快取、推播通知
@@ -81,12 +81,31 @@
 
 ---
 
+## 資料層 ✅ 已完成
+
+- ✅ InsForge PostgreSQL 永久儲存 (m63i3j2q.ap-southeast)
+- ✅ Redis → PostgreSQL 數據遷移 (7,507 snapshots + 52,506 stock details)
+- ✅ 兩層架構：Redis 快取 + PostgreSQL 永久，miss 時自動 fallback
+- ✅ Cron 雙寫：每 5 分鐘同時寫 Redis + PostgreSQL
+- ✅ InsForge skills 已安裝 (insforge, insforge-cli, find-skills)
+
+## 數據品質修復 ✅ 已完成
+
+- ✅ Backfill carry-forward 跨日 + 跨 batch (7 天回溯 seed)
+- ✅ 每天補滿 24 小時 carry-forward 點（週末不再空白）
+- ✅ 假日 gap-filling（hourly-range API carry-forward last known value）
+- ✅ BTC Kraken API key 修復 (XXBTZUSD vs XXBTUSD)
+- ✅ BTC 小時級數據：Kraken 永遠取最近 30 天
+
+---
+
 ## 技術架構現況
 
 ```
 前端：Next.js + lightweight-charts + SWR + Tailwind
 部署：Vercel (Hobby plan)
 快取：Upstash Redis (KV, 400 天 TTL)
+永久儲存：InsForge PostgreSQL (ap-southeast)
 排程：Upstash QStash (每 5 分鐘)
 數據：Yahoo Finance (股票) + Kraken/CoinGecko (BTC)
 ```
@@ -97,4 +116,9 @@
 - 匯率：交易日才有 (Yahoo Finance)
 - 即時 5 分鐘數據：從 2026-03-27 開始收集
 
-最後更新：2026-03-28
+### 未來可能的架構升級
+- VPS + Dokploy 自架（取代 Vercel + 多個 SaaS）
+- 自己的域名 + Traefik 反向代理
+- 多機房容災
+
+最後更新：2026-03-30
