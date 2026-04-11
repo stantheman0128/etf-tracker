@@ -9,7 +9,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PORTFOLIO_CONFIG } from '@/lib/config';
+import { PORTFOLIO_CONFIG, devLog } from '@/lib/config';
 import {
   getHourlyPrices,
   getBTCHourlyPrices,
@@ -138,7 +138,7 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    console.log(
+    devLog(
       `Backfill: processing ${datesToProcess.length} dates from ${datesToProcess[0]} to ${datesToProcess[datesToProcess.length - 1]}`,
     );
 
@@ -306,7 +306,7 @@ export async function GET(request: NextRequest) {
 
     const duration = Date.now() - startTime;
 
-    console.log(
+    devLog(
       `Backfill complete: ${datesWritten} dates written in ${duration}ms (cursor: ${lastProcessedDate})`,
     );
 

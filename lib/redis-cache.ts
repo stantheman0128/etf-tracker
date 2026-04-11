@@ -214,7 +214,7 @@ export async function appendIntradaySnapshot(
   snapshot: IntradaySnapshot,
 ): Promise<boolean> {
   // Write to PostgreSQL (fire-and-forget, don't block Redis write)
-  writeSnapshotToPostgres(snapshot).catch(() => {});
+  writeSnapshotToPostgres(snapshot).catch(err => console.error('Failed to write snapshot to PostgreSQL:', err));
 
   try {
     const redis = getRedisClient();
@@ -259,7 +259,7 @@ export async function getIntradayData(
       // Cache back to Redis for next time
       if (redis) {
         const key = `${CACHE_KEYS.INTRADAY_PREFIX}${date}`;
-        await redis.set(key, pgData, { ex: CACHE_TTL.INTRADAY_DATA }).catch(() => {});
+        await redis.set(key, pgData, { ex: CACHE_TTL.INTRADAY_DATA }).catch(err => console.error(`Failed to cache intraday data to Redis for ${key}:`, err));
         devLog(`💾 Cached PostgreSQL data to Redis: ${key}`);
       }
       return pgData;
@@ -298,7 +298,7 @@ export async function getHourlyData(
       // Cache back to Redis
       if (redis) {
         const key = `${CACHE_KEYS.HOURLY_PREFIX}${date}`;
-        await redis.set(key, pgData, { ex: CACHE_TTL.INTRADAY_DATA }).catch(() => {});
+        await redis.set(key, pgData, { ex: CACHE_TTL.INTRADAY_DATA }).catch(err => console.error(`Failed to cache hourly data to Redis for ${key}:`, err));
         devLog(`💾 Cached PostgreSQL hourly data to Redis: ${key}`);
       }
       return pgData;

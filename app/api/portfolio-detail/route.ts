@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
       if (!IS_DEV) {
         const redisCached = await getFromCache<DailyPortfolioDetail[]>(redisCacheKey);
         if (redisCached) {
-          console.log(`⚡ Redis cache hit: portfolio-detail (${redisCached.length} days)`);
+          devLog(`⚡ Redis cache hit: portfolio-detail (${redisCached.length} days)`);
           return NextResponse.json(redisCached);
         }
       }
@@ -61,7 +61,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    console.log(`📊 Fetching portfolio detail for ${days} days...`);
+    devLog(`📊 Fetching portfolio detail for ${days} days...`);
 
     // 1. 獲取當前匯率（作為備用）
     const currentExchangeRate = await getExchangeRate();
@@ -77,7 +77,7 @@ export async function GET(request: NextRequest) {
       }
     }
     
-    console.log(`📊 Loaded ${ratesByDate.size} exchange rate entries`);
+    devLog(`📊 Loaded ${ratesByDate.size} exchange rate entries`);
 
     // 固定匯率（使用初始日期的匯率，用於計算匯率影響）
     const fixedExchangeRate = INITIAL_EXCHANGE_RATE;
@@ -299,7 +299,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    console.log(`✅ Portfolio detail: ${portfolioDetail.length} days of data`);
+    devLog(`✅ Portfolio detail: ${portfolioDetail.length} days of data`);
 
     // 儲存到快取
     if (portfolioDetail.length > 0) {

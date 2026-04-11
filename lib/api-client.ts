@@ -1,6 +1,6 @@
 // API 客戶端 - 處理所有外部 API 呼叫
 
-import { API_CONFIG } from './config';
+import { API_CONFIG, devLog } from './config';
 
 export interface PriceData {
   price: number;
@@ -15,6 +15,83 @@ export interface HistoricalPrice {
   high?: number;
   low?: number;
   volume?: number;
+}
+
+// ============ API Response Types ============
+
+/** Yahoo Finance v8 chart API response */
+interface YahooFinanceQuote {
+  open: (number | null | undefined)[];
+  close: (number | null | undefined)[];
+  high: (number | null | undefined)[];
+  low: (number | null | undefined)[];
+  volume: (number | null | undefined)[];
+}
+
+interface YahooFinanceChartResult {
+  meta: {
+    regularMarketPrice: number;
+    chartPreviousClose?: number;
+    previousClose?: number;
+  };
+  timestamp?: number[];
+  indicators?: {
+    quote?: YahooFinanceQuote[];
+  };
+}
+
+interface YahooFinanceChartResponse {
+  chart?: {
+    result?: YahooFinanceChartResult[];
+  };
+}
+
+/** Kraken Ticker API response */
+interface KrakenTickerPair {
+  c?: [string, string]; // [price, lot volume]
+  o: string;            // open price
+}
+
+interface KrakenTickerResponse {
+  result?: {
+    XXBTZUSD?: KrakenTickerPair;
+  };
+}
+
+/** Kraken OHLC API response */
+type KrakenOHLCEntry = [number, string, string, string, string, string, string, number];
+// [time, open, high, low, close, vwap, volume, count]
+
+interface KrakenOHLCResponse {
+  result?: Record<string, KrakenOHLCEntry[] | number>;
+}
+
+/** CoinGecko market chart API response */
+interface CoinGeckoMarketChartResponse {
+  prices?: [number, number][]; // [timestamp, price]
+}
+
+/** Coinbase exchange rates API response */
+interface CoinbaseRatesResponse {
+  data?: {
+    rates?: {
+      USD?: string;
+    };
+  };
+}
+
+/** Blockchain.info ticker API response */
+interface BlockchainTickerResponse {
+  USD?: {
+    last?: number;
+  };
+}
+
+/** ExchangeRate-API response */
+interface ExchangeRateResponse {
+  rates?: {
+    TWD?: number;
+  };
 }
 
 // ============ 美股價格 (Yahoo Finance - 免費無需 API Key) ============
@@ -33,7 +110,7 @@ export async function getUSStockPrice(symbol: string): Promise<PriceData | null>
       return null;
     }
 
-    const data = await response.json();
+    const data: YahooFinanceChartResponse = await response.json();
     const quote = data.chart?.result?.[0];
 
     if (!quote) {
@@ -43,17 +120,18 @@ export async function getUSStockPrice(symbol: string): Promise<PriceData | null>
 
     const meta = quote.meta;
     const currentPrice = meta.regularMarketPrice;
-    const previousClose = meta.chartPreviousClose || meta.previousClose;
+    const previousClose = meta.chartPreviousClose || meta.previousClose || currentPrice;
     const change = currentPrice - previousClose;
-    const changePercent = (change / previousClose) * 100;
+    const changePercent = previousClose > 0 ? (change / previousClose) * 100 : 0;
 
     return {
       price: currentPrice,
       change: change,
       changePercent: changePercent
     };
-  } catch (error: any) {
-    console.error(`Error fetching US stock ${symbol}:`, error?.message || error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`Error fetching US stock ${symbol}:`, message);
     return null;
   }
 }
@@ -74,7 +152,7 @@ export async function getTWStockPrice(symbol: string): Promise<PriceData | null>
       return null;
     }
 
-    const data = await response.json();
+    const data: YahooFinanceChartResponse = await response.json();
     const quote = data.chart?.result?.[0];
 
     if (!quote) {
@@ -84,9 +162,9 @@ export async function getTWStockPrice(symbol: string): Promise<PriceData | null>
 
     const meta = quote.meta;
     const currentPrice = meta.regularMarketPrice;
-    const previousClose = meta.chartPreviousClose || meta.previousClose;
+    const previousClose = meta.chartPreviousClose || meta.previousClose || currentPrice;
     const change = currentPrice - previousClose;
-    const changePercent = (change / previousClose) * 100;
+    const changePercent = previousClose > 0 ? (change / previousClose) * 100 : 0;
 
     return {
       price: currentPrice,
@@ -106,10 +184,10 @@ export async function getBTCPrice(): Promise<PriceData | null> {
     {
       name: 'Kraken',
       url: 'https://api.kraken.com/0/public/Ticker?pair=BTCUSD',
-      parser: (data: any) => {
+      parser: (data: KrakenTickerResponse) => {
         const ticker = data.result?.XXBTZUSD;
         if (ticker) {
-          const currentPrice = parseFloat(ticker.c?.[0]);
+          const currentPrice = parseFloat(ticker.c?.[0] ?? '0');
           const openPrice = parseFloat(ticker.o);
           let change = 0;
           if (openPrice && openPrice > 0) {
@@ -123,7 +201,7 @@ export async function getBTCPrice(): Promise<PriceData | null> {
     {
       name: 'Coinbase',
       url: 'https://api.coinbase.com/v2/exchange-rates?currency=BTC',
-      parser: (data: any) => {
+      parser: (data: CoinbaseRatesResponse) => {
         const usdRate = data.data?.rates?.USD;
         if (usdRate) {
           const price = parseFloat(usdRate); // 1 BTC = X USD
@@ -135,7 +213,7 @@ export async function getBTCPrice(): Promise<PriceData | null> {
     {
       name: 'Blockchain.info',
       url: 'https://blockchain.info/ticker',
-      parser: (data: any) => {
+      parser: (data: BlockchainTickerResponse) => {
         const usd = data.USD;
         if (usd?.last) {
           return { price: usd.last, change: 0 };
@@ -165,7 +243,7 @@ export async function getBTCPrice(): Promise<PriceData | null> {
           throw new Error(`${api.name} returned invalid price`);
         }
 
-        console.log(`✅ ${api.name} BTC: $${parsed.price.toFixed(2)}`);
+        devLog(`✅ ${api.name} BTC: $${parsed.price.toFixed(2)}`);
         return {
           price: parsed.price,
           change: parsed.change,
@@ -174,9 +252,10 @@ export async function getBTCPrice(): Promise<PriceData | null> {
       })
     );
     return result;
-  } catch (error: any) {
+  } catch (error: unknown) {
     // 所有 API 都失敗
-    console.error('All BTC APIs failed, using fallback price:', error?.message);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('All BTC APIs failed, using fallback price:', message);
     return { price: 95000, change: 0, changePercent: 0 };
   }
 }
@@ -196,7 +275,7 @@ export async function getExchangeRate(): Promise<number> {
       return 31.5;
     }
 
-    const data = await response.json();
+    const data: ExchangeRateResponse = await response.json();
     return data.rates?.TWD || 31.5; // 預設匯率
   } catch (error) {
     console.error('Error fetching exchange rate:', error);
@@ -232,7 +311,7 @@ export async function getHistoricalExchangeRates(
       return [];
     }
 
-    const data = await response.json();
+    const data: YahooFinanceChartResponse = await response.json();
     const result = data.chart?.result?.[0];
 
     if (!result) return [];
@@ -269,7 +348,7 @@ export async function getHistoricalExchangeRates(
 
     // 如果有缺失的工作日，嘗試用小時線補齊
     if (missingDates.length > 0) {
-      console.log(`📊 Found ${missingDates.length} missing weekday exchange rates, fetching hourly data...`);
+      devLog(`📊 Found ${missingDates.length} missing weekday exchange rates, fetching hourly data...`);
       
       // 用小時線抓取整個範圍
       const hourlyUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=1h`;
@@ -286,7 +365,7 @@ export async function getHistoricalExchangeRates(
           throw new Error('Hourly API failed');
         }
 
-        const hourlyData = await hourlyResponse.json();
+        const hourlyData: YahooFinanceChartResponse = await hourlyResponse.json();
         const hourlyResult = hourlyData.chart?.result?.[0];
 
         if (hourlyResult) {
@@ -311,7 +390,7 @@ export async function getHistoricalExchangeRates(
               filledCount++;
             }
           }
-          console.log(`📊 Filled ${filledCount} missing dates from hourly data`);
+          devLog(`📊 Filled ${filledCount} missing dates from hourly data`);
         }
       } catch (hourlyError) {
         console.error('Error fetching hourly exchange rates:', hourlyError);
@@ -359,7 +438,7 @@ export async function getHistoricalPrices(
       return [];
     }
 
-    const data = await response.json();
+    const data: YahooFinanceChartResponse = await response.json();
     const result = data.chart?.result?.[0];
 
     if (!result || !result.timestamp || !result.indicators?.quote?.[0]) {
@@ -374,16 +453,17 @@ export async function getHistoricalPrices(
     const historicalData: HistoricalPrice[] = timestamps.map((timestamp: number, index: number) => ({
       date: new Date(timestamp * 1000).toISOString().split('T')[0],
       close: quote.close[index] || 0,
-      open: quote.open[index],
-      high: quote.high[index],
-      low: quote.low[index],
-      volume: quote.volume[index]
+      open: quote.open[index] ?? undefined,
+      high: quote.high[index] ?? undefined,
+      low: quote.low[index] ?? undefined,
+      volume: quote.volume[index] ?? undefined
     })).filter((item: HistoricalPrice) => item.close > 0); // 過濾掉無效資料
 
-    console.log(`✅ Got ${historicalData.length} days of historical data for ${yahooSymbol}`);
+    devLog(`✅ Got ${historicalData.length} days of historical data for ${yahooSymbol}`);
     return historicalData;
-  } catch (error: any) {
-    console.error(`Error fetching historical data for ${symbol}:`, error?.message || error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`Error fetching historical data for ${symbol}:`, message);
     return [];
   }
 }
@@ -397,13 +477,13 @@ export async function getBTCHistoricalPrices(days: number = 30): Promise<Histori
       next: { revalidate: 86400 }
     });
 
-    const data = await response.json();
+    const data: CoinGeckoMarketChartResponse = await response.json();
 
     if (!data.prices) {
       return [];
     }
 
-    return data.prices.map(([timestamp, price]: [number, number]) => ({
+    return data.prices.map(([timestamp, price]) => ({
       date: new Date(timestamp).toISOString().split('T')[0],
       close: price
     }));
@@ -443,7 +523,7 @@ export async function getHourlyPrices(
       return [];
     }
 
-    const data = await response.json();
+    const data: YahooFinanceChartResponse = await response.json();
     const result = data.chart?.result?.[0];
 
     if (!result || !result.timestamp || !result.indicators?.quote?.[0]) {
@@ -457,16 +537,17 @@ export async function getHourlyPrices(
     const hourlyData: HistoricalPrice[] = timestamps.map((timestamp: number, index: number) => ({
       date: new Date(timestamp * 1000).toISOString(),
       close: quote.close[index] || 0,
-      open: quote.open[index],
-      high: quote.high[index],
-      low: quote.low[index],
-      volume: quote.volume[index]
+      open: quote.open[index] ?? undefined,
+      high: quote.high[index] ?? undefined,
+      low: quote.low[index] ?? undefined,
+      volume: quote.volume[index] ?? undefined
     })).filter((item: HistoricalPrice) => item.close > 0);
 
-    console.log(`✅ Got ${hourlyData.length} hourly data points for ${yahooSymbol}`);
+    devLog(`✅ Got ${hourlyData.length} hourly data points for ${yahooSymbol}`);
     return hourlyData;
-  } catch (error: any) {
-    console.error(`Error fetching hourly data for ${symbol}:`, error?.message || error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`Error fetching hourly data for ${symbol}:`, message);
     return [];
   }
 }
@@ -489,14 +570,14 @@ export async function getBTCHourlyPrices(
     let krakenPrices: HistoricalPrice[] = [];
 
     if (krakenResponse.ok) {
-      const krakenData = await krakenResponse.json();
+      const krakenData: KrakenOHLCResponse = await krakenResponse.json();
       // Kraken returns pair key as XXBTZUSD (not XXBTUSD) — grab first non-"last" key
       const resultKeys = Object.keys(krakenData.result || {}).filter((k: string) => k !== 'last');
-      const ohlcData = resultKeys.length > 0 ? krakenData.result[resultKeys[0]] : null;
+      const ohlcData = resultKeys.length > 0 ? krakenData.result![resultKeys[0]] : null;
 
       if (ohlcData && Array.isArray(ohlcData)) {
         // Kraken OHLC format: [time, open, high, low, close, vwap, volume, count]
-        krakenPrices = ohlcData.map((entry: any) => ({
+        krakenPrices = (ohlcData as KrakenOHLCEntry[]).map((entry) => ({
           date: new Date(entry[0] * 1000).toISOString(),
           close: parseFloat(entry[4]),
           open: parseFloat(entry[1]),
@@ -507,7 +588,7 @@ export async function getBTCHourlyPrices(
       }
     }
 
-    console.log(`✅ Got ${krakenPrices.length} hourly BTC data points from Kraken`);
+    devLog(`✅ Got ${krakenPrices.length} hourly BTC data points from Kraken`);
 
     // Kraken 最多返回 720 筆（約 30 天小時線），超過則用 CoinGecko 補齊
     if (days > 30) {
@@ -518,12 +599,12 @@ export async function getBTCHourlyPrices(
         });
 
         if (geckoResponse.ok) {
-          const geckoData = await geckoResponse.json();
+          const geckoData: CoinGeckoMarketChartResponse = await geckoResponse.json();
 
           if (geckoData.prices && Array.isArray(geckoData.prices)) {
             // CoinGecko 在 days <= 90 時返回小時線
             const geckoPrices: HistoricalPrice[] = geckoData.prices.map(
-              ([timestamp, price]: [number, number]) => ({
+              ([timestamp, price]) => ({
                 date: new Date(timestamp).toISOString(),
                 close: price
               })
@@ -548,18 +629,20 @@ export async function getBTCHourlyPrices(
               (a, b) => a.date.localeCompare(b.date)
             );
 
-            console.log(`✅ Merged BTC hourly data: ${merged.length} points (Kraken + CoinGecko)`);
+            devLog(`✅ Merged BTC hourly data: ${merged.length} points (Kraken + CoinGecko)`);
             return merged;
           }
         }
-      } catch (geckoError: any) {
-        console.error('CoinGecko hourly BTC fetch failed:', geckoError?.message || geckoError);
+      } catch (geckoError: unknown) {
+        const message = geckoError instanceof Error ? geckoError.message : String(geckoError);
+        console.error('CoinGecko hourly BTC fetch failed:', message);
       }
     }
 
     return krakenPrices;
-  } catch (error: any) {
-    console.error('Error fetching BTC hourly prices:', error?.message || error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('Error fetching BTC hourly prices:', message);
     return [];
   }
 }
@@ -591,7 +674,7 @@ export async function getHourlyExchangeRates(
       return [];
     }
 
-    const data = await response.json();
+    const data: YahooFinanceChartResponse = await response.json();
     const result = data.chart?.result?.[0];
 
     if (!result || !result.timestamp || !result.indicators?.quote?.[0]) {
@@ -607,10 +690,11 @@ export async function getHourlyExchangeRates(
       close: closes[i] || 0
     })).filter((item: HistoricalPrice) => item.close > 0);
 
-    console.log(`✅ Got ${rates.length} hourly exchange rate data points`);
+    devLog(`✅ Got ${rates.length} hourly exchange rate data points`);
     return rates;
-  } catch (error: any) {
-    console.error('Error fetching hourly exchange rates:', error?.message || error);
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('Error fetching hourly exchange rates:', message);
     return [];
   }
 }

@@ -11,6 +11,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { devLog } from '@/lib/config';
 import {
   getIntradayData,
   getHourlyData,
@@ -59,7 +60,7 @@ export async function GET(request: NextRequest) {
     const rawDays = parseInt(searchParams.get('days') || '30', 10);
     const days = Math.min(Math.max(1, rawDays), MAX_DAYS);
 
-    console.log(`📈 Hourly-range API: fetching ${days} days of hourly data`);
+    devLog(`📈 Hourly-range API: fetching ${days} days of hourly data`);
 
     const dates = generateDateRange(days);
 
@@ -127,7 +128,7 @@ export async function GET(request: NextRequest) {
     // Sort by time ascending (should already be mostly sorted, but be safe)
     chartPoints.sort((a, b) => a.time - b.time);
 
-    console.log(`📊 Hourly-range API: returning ${chartPoints.length} chart points for ${days} days`);
+    devLog(`📊 Hourly-range API: returning ${chartPoints.length} chart points for ${days} days`);
 
     return NextResponse.json(chartPoints);
   } catch (error) {
