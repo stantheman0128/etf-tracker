@@ -6,7 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PORTFOLIO_CONFIG } from '@/lib/config';
+import { PORTFOLIO_CONFIG, devLog } from '@/lib/config';
 import {
   getUSStockPrice,
   getTWStockPrice,
@@ -49,14 +49,14 @@ export async function GET(request: NextRequest) {
   
   // 驗證請求來源
   if (!verifyCronRequest(request)) {
-    console.log('❌ Cron: Unauthorized request');
+    console.error('❌ Cron: Unauthorized request');
     return NextResponse.json(
       { error: 'Unauthorized' },
       { status: 401 }
     );
   }
 
-  console.log('🔄 Cron: Starting cache refresh...');
+  devLog('🔄 Cron: Starting cache refresh...');
 
   try {
     // 1. 並行獲取匯率和所有持股價格
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
       ...pricePromises,
     ]);
 
-    console.log(`💱 Cron: Exchange rate = ${exchangeRate}`);
+    devLog(`💱 Cron: Exchange rate = ${exchangeRate}`);
 
     // 2. 計算持股價值
     const holdingsWithPrices = priceResults.map(({ holding, priceData }) => {
@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
     };
 
     appendIntradaySnapshot(today, snapshot)
-      .then(ok => ok && console.log(`📈 Cron: Intraday snapshot appended for ${today}`))
+      .then(ok => ok && devLog(`📈 Cron: Intraday snapshot appended for ${today}`))
       .catch(err => console.warn('⚠️ Cron: Intraday snapshot failed (non-critical):', err));
 
     // 7. Warm 歷史數據快取（每日一次，避免第一個用戶等待）
@@ -156,7 +156,7 @@ export async function GET(request: NextRequest) {
     const existingHistory = await getFromCache(historyKey);
 
     if (!existingHistory) {
-      console.log('📊 Cron: Warming historical data cache...');
+      devLog('📊 Cron: Warming historical data cache...');
       try {
         // 觸發 portfolio-detail API 來建立歷史數據快取
         const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL
@@ -165,9 +165,10 @@ export async function GET(request: NextRequest) {
         await fetch(`${baseUrl}/api/portfolio-detail?days=365&refresh=true`, {
           signal: AbortSignal.timeout(25000), // 留足時間但不超過 maxDuration
         });
-        console.log('✅ Cron: Historical data cache warmed');
-      } catch (historyError: any) {
-        console.warn('⚠️ Cron: Historical data warm failed (non-critical):', historyError?.message);
+        devLog('✅ Cron: Historical data cache warmed');
+      } catch (historyError: unknown) {
+        const message = historyError instanceof Error ? historyError.message : String(historyError);
+        console.warn('⚠️ Cron: Historical data warm failed (non-critical):', message);
       }
     }
 
@@ -194,18 +195,19 @@ export async function GET(request: NextRequest) {
           headers,
           signal: AbortSignal.timeout(15000),
         });
-        console.log(`📊 Cron: Backfill triggered (cursor: ${cursor || 'none'} → processing next 7 days)`);
+        devLog(`📊 Cron: Backfill triggered (cursor: ${cursor || 'none'} → processing next 7 days)`);
       }
-    } catch (backfillError: any) {
-      console.warn('⚠️ Cron: Auto-backfill failed (non-critical):', backfillError?.message);
+    } catch (backfillError: unknown) {
+      const message = backfillError instanceof Error ? backfillError.message : String(backfillError);
+      console.warn('⚠️ Cron: Auto-backfill failed (non-critical):', message);
     }
 
     const duration = Date.now() - startTime;
 
-    console.log(`✅ Cron: Cache refresh complete in ${duration}ms`);
-    console.log(`   - Portfolio data: ${dataResult ? '✓' : '✗'}`);
-    console.log(`   - Exchange rate: ${rateResult ? '✓' : '✗'}`);
-    console.log(`   - Total value: NT$ ${Math.round(totalValueTWD).toLocaleString()}`);
+    devLog(`✅ Cron: Cache refresh complete in ${duration}ms`);
+    devLog(`   - Portfolio data: ${dataResult ? '✓' : '✗'}`);
+    devLog(`   - Exchange rate: ${rateResult ? '✓' : '✗'}`);
+    devLog(`   - Total value: NT$ ${Math.round(totalValueTWD).toLocaleString()}`);
 
     return NextResponse.json({
       success: true,

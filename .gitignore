@@ -38,3 +38,18 @@ next-env.d.ts
 
 # dev cache data
 /data/cache/
+
+# InsForge & AI agent skills
+.insforge
+.agent
+.agents
+.augment
+.claude
+.cline
+.github/copilot*
+.kilocode
+.qoder
+.qwen
+.roo
+.trae
+.windsurf

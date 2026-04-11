@@ -6,7 +6,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PORTFOLIO_CONFIG } from '@/lib/config';
+import { PORTFOLIO_CONFIG, devLog } from '@/lib/config';
 import {
   getUSStockPrice,
   getTWStockPrice,
@@ -44,7 +44,7 @@ interface CachedPortfolioData {
 
 // 直接抓取資料（當快取不存在時）
 async function fetchFreshData(): Promise<CachedPortfolioData> {
-  console.log('📡 Fetching fresh portfolio data...');
+  devLog('📡 Fetching fresh portfolio data...');
 
   // 並行獲取匯率和所有持股價格
   const pricePromises = PORTFOLIO_CONFIG.holdings.map(async (holding) => {
@@ -115,7 +115,7 @@ export async function GET(request: NextRequest) {
       
       if (cached) {
         const duration = Date.now() - startTime;
-        console.log(`⚡ Cache hit: responded in ${duration}ms`);
+        devLog(`⚡ Cache hit: responded in ${duration}ms`);
         
         return NextResponse.json({
           ...cached,
@@ -127,7 +127,7 @@ export async function GET(request: NextRequest) {
     }
 
     // 2. 快取不存在，直接抓取
-    console.log('📡 Cache miss, fetching fresh data...');
+    devLog('📡 Cache miss, fetching fresh data...');
     const freshData = await fetchFreshData();
 
     // 3. 存入快取（非同步，不等待）
@@ -135,7 +135,7 @@ export async function GET(request: NextRequest) {
       .catch(err => console.error('Failed to cache data:', err));
 
     const duration = Date.now() - startTime;
-    console.log(`📡 Fresh data: responded in ${duration}ms`);
+    devLog(`📡 Fresh data: responded in ${duration}ms`);
 
     return NextResponse.json({
       ...freshData,

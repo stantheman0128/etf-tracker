@@ -11,7 +11,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PORTFOLIO_CONFIG } from '@/lib/config';
+import { PORTFOLIO_CONFIG, devLog } from '@/lib/config';
 import {
   getHourlyPrices,
   getBTCHourlyPrices,
@@ -39,7 +39,7 @@ import type {
 async function fetchAndBuildHourlySnapshots(
   date: string,
 ): Promise<IntradaySnapshot[]> {
-  console.log(`📡 Intraday API: on-demand fetch for ${date}`);
+  devLog(`📡 Intraday API: on-demand fetch for ${date}`);
 
   // Fetch 1 day of hourly data for each stock, BTC, and exchange rate
   const stockPromises = PORTFOLIO_CONFIG.holdings
@@ -161,7 +161,7 @@ async function fetchAndBuildHourlySnapshots(
     });
   }
 
-  console.log(`📊 Intraday API: built ${snapshots.length} hourly snapshots for ${date}`);
+  devLog(`📊 Intraday API: built ${snapshots.length} hourly snapshots for ${date}`);
   return snapshots;
 }
 
@@ -200,7 +200,7 @@ export async function GET(request: NextRequest) {
     // 2. Try collected 5-min data first
     const intradaySnapshots = await getIntradayData(date);
     if (intradaySnapshots && intradaySnapshots.length > 0) {
-      console.log(`📈 Intraday API: returning collected data for ${date} (${intradaySnapshots.length} snapshots)`);
+      devLog(`📈 Intraday API: returning collected data for ${date} (${intradaySnapshots.length} snapshots)`);
       const response: IntradayDayData = {
         date,
         source: 'collected',
@@ -212,7 +212,7 @@ export async function GET(request: NextRequest) {
     // 3. Try backfilled hourly data
     const hourlySnapshots = await getHourlyData(date);
     if (hourlySnapshots && hourlySnapshots.length > 0) {
-      console.log(`📈 Intraday API: returning backfill data for ${date} (${hourlySnapshots.length} snapshots)`);
+      devLog(`📈 Intraday API: returning backfill data for ${date} (${hourlySnapshots.length} snapshots)`);
       const response: IntradayDayData = {
         date,
         source: 'backfill',
@@ -222,13 +222,13 @@ export async function GET(request: NextRequest) {
     }
 
     // 4. Neither exists — fetch on-demand
-    console.log(`📡 Intraday API: no cached data for ${date}, fetching on-demand...`);
+    devLog(`📡 Intraday API: no cached data for ${date}, fetching on-demand...`);
     const snapshots = await fetchAndBuildHourlySnapshots(date);
 
     if (snapshots.length > 0) {
       // Store in Redis for future requests
       await setHourlyData(date, snapshots);
-      console.log(`💾 Intraday API: cached ${snapshots.length} hourly snapshots for ${date}`);
+      devLog(`💾 Intraday API: cached ${snapshots.length} hourly snapshots for ${date}`);
     }
 
     const response: IntradayDayData = {
