@@ -114,6 +114,7 @@ export default async function Dashboard() {
         </div>
         <Link
           href="/strategies/momentum"
+          prefetch={true}
           className="text-sm font-medium text-[#667eea] hover:text-[#764ba2] transition-colors"
         >
           查看策略 →
