@@ -9,6 +9,7 @@ import {
 } from '@/lib/api-client';
 import { INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
 import { calculateValue } from '@/lib/utils/calculate';
+import Link from 'next/link';
 import RefreshButton from '@/components/RefreshButton';
 import LocalTimestamp from '@/components/LocalTimestamp';
 import PortfolioChart from '@/components/PortfolioChart';
@@ -102,6 +103,22 @@ export default async function Dashboard() {
           })),
         }}
       />
+
+      {/* Quant strategies link */}
+      <div className="mb-6 bg-white/95 backdrop-blur rounded-2xl shadow-lg px-6 py-4 flex items-center justify-between">
+        <div>
+          <div className="text-sm font-semibold text-gray-800">Quant Strategies</div>
+          <div className="text-xs text-gray-500 mt-0.5">
+            TOP 3 by 12M Momentum · 自動再平衡 · paper portfolio
+          </div>
+        </div>
+        <Link
+          href="/strategies/momentum"
+          className="text-sm font-medium text-[#667eea] hover:text-[#764ba2] transition-colors"
+        >
+          查看策略 →
+        </Link>
+      </div>
 
       {/* Footer */}
       <footer className="mt-12 bg-white/10 backdrop-blur rounded-2xl p-8">
