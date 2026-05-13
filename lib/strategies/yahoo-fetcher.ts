@@ -79,25 +79,31 @@ export async function fetchDailyHistory(
 }
 
 /**
- * Fetch many symbols with light politeness delay between requests.
- * Resolves with a Map; missing symbols are simply absent from the map.
+ * Fetch many symbols in parallel batches.
+ * Yahoo's public chart API tolerates ~10 concurrent requests; larger batches
+ * occasionally trigger rate limiting. Sequential was ~10-15 s for 40 symbols,
+ * batched parallel is ~1-2 s.
  */
 export async function fetchMany(
   symbols: string[],
   startUnix: number,
   endUnix?: number,
-  delayMs: number = 150,
+  batchSize: number = 10,
 ): Promise<Map<string, DailyHistory>> {
   const out = new Map<string, DailyHistory>();
-  for (const sym of symbols) {
-    const h = await fetchDailyHistory(sym, startUnix, endUnix);
-    if (h) {
-      out.set(sym, h);
-      devLog(`  ✓ ${sym}: ${h.bars.length} bars`);
-    } else {
-      devLog(`  ✗ ${sym}: failed`);
-    }
-    if (delayMs > 0) await new Promise(r => setTimeout(r, delayMs));
+  for (let i = 0; i < symbols.length; i += batchSize) {
+    const batch = symbols.slice(i, i + batchSize);
+    const results = await Promise.all(
+      batch.map(s => fetchDailyHistory(s, startUnix, endUnix)),
+    );
+    results.forEach((h, idx) => {
+      if (h) {
+        out.set(batch[idx], h);
+        devLog(`  ✓ ${batch[idx]}: ${h.bars.length} bars`);
+      } else {
+        devLog(`  ✗ ${batch[idx]}: failed`);
+      }
+    });
   }
   return out;
 }

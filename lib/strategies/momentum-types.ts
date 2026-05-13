@@ -60,6 +60,9 @@ export interface StrategyState {
   rebalances: RebalanceEvent[];
   benchmarkBasePrice: number; // benchmark price on start date, for rebasing
   lastUpdate: string;
+  // Cached daily by cron so the page doesn't have to refetch Yahoo on render
+  cachedRanking?: MomentumScore[];
+  cachedLivePrices?: Record<string, number>;
 }
 
 export interface MomentumScore {

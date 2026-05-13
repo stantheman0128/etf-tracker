@@ -16,12 +16,12 @@ import { devLog } from '@/lib/config';
 import {
   STRATEGIES, type StrategyId, type StrategyConfig, type StrategyState,
 } from '@/lib/strategies/momentum-types';
-import { fetchMany } from '@/lib/strategies/yahoo-fetcher';
+import { fetchMany, lastClose } from '@/lib/strategies/yahoo-fetcher';
 import {
   loadStrategyState, saveStrategyState,
 } from '@/lib/strategies/strategy-store';
 import {
-  initializeStrategy, applySnapshot, isFirstTradingDayOfMonth,
+  initializeStrategy, applySnapshot, isFirstTradingDayOfMonth, rankByMomentum,
 } from '@/lib/strategies/top3-momentum';
 
 const FETCH_WINDOW_DAYS = 400;
@@ -58,7 +58,16 @@ async function processStrategy(
     const startUnix = Math.floor(
       (Date.now() - FETCH_WINDOW_DAYS * 24 * 60 * 60 * 1000) / 1000,
     );
-    const histories = await fetchMany(yahooSyms, startUnix, undefined, 100);
+    const histories = await fetchMany(yahooSyms, startUnix, undefined, 10);
+
+    // Compute cached fields once per run (used by the page to skip Yahoo fetch).
+    const ranking = rankByMomentum(config, histories);
+    const livePrices: Record<string, number> = {};
+    for (const stock of config.pool) {
+      const h = histories.get(stock.yahooSym);
+      const px = h ? lastClose(h.bars) : null;
+      if (px) livePrices[stock.ticker] = px.close;
+    }
 
     let state = await loadStrategyState(config.id);
 
@@ -67,6 +76,8 @@ async function processStrategy(
       if (!seeded) {
         return { id: config.id, status: 'failed', message: 'init failed (insufficient data)' };
       }
+      seeded.cachedRanking = ranking;
+      seeded.cachedLivePrices = livePrices;
       await saveStrategyState(seeded);
       return {
         id: config.id, status: 'initialized',
@@ -87,6 +98,8 @@ async function processStrategy(
     const doRebalance = isRebalanceDay && !alreadyRebalancedToday;
 
     state = applySnapshot(state, config, histories, today, doRebalance);
+    state.cachedRanking = ranking;
+    state.cachedLivePrices = livePrices;
     await saveStrategyState(state);
 
     const lastSnap = state.navHistory[state.navHistory.length - 1];
