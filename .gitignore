@@ -38,3 +38,16 @@ next-env.d.ts
 
 # dev cache data
 /data/cache/
+
+# AI agent metadata (Cursor, Cline, Augment, etc. — do not commit)
+.agents/
+.augment/
+.claude/
+.insforge/
+.kilocode/
+.qoder/
+.qwen/
+.roo/
+.trae/
+.windsurf/
+skills-lock.json

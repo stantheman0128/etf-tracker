@@ -1,0 +1,15 @@
+# Cached data — too large for git, rebuildable via fetch scripts
+.cache/
+*_cache.json
+*.log
+
+# Large generated data (rebuildable from fetch scripts)
+historical-constituents/pit_membership_full.json
+historical-constituents/pit_universe.json
+historical-constituents/pit_constituents.csv
+
+# Generated plots
+*.png
+
+# Notebooks checkpoints
+.ipynb_checkpoints/

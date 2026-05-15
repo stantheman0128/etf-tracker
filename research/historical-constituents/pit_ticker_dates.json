@@ -1,0 +1,6237 @@
+{
+  "JWN": {
+    "first_in": "1996-01-02",
+    "last_in": "2020-05-22",
+    "currently_in": false
+  },
+  "CFL-199804": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-04-27",
+    "currently_in": false
+  },
+  "TEX": {
+    "first_in": "2006-12-20",
+    "last_in": "2008-11-05",
+    "currently_in": false
+  },
+  "SFS-200008": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-07-25",
+    "currently_in": false
+  },
+  "MAR": {
+    "first_in": "1998-05-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SUB-200102": {
+    "first_in": "1998-01-28",
+    "last_in": "2001-02-27",
+    "currently_in": false
+  },
+  "HLT": {
+    "first_in": "2017-06-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EMN": {
+    "first_in": "1996-01-02",
+    "last_in": "2025-11-03",
+    "currently_in": false
+  },
+  "APD": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LW": {
+    "first_in": "2018-12-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ORCL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AGN": {
+    "first_in": "1999-04-12",
+    "last_in": "2020-04-06",
+    "currently_in": false
+  },
+  "CTX-200908": {
+    "first_in": "1996-01-02",
+    "last_in": "2009-08-18",
+    "currently_in": false
+  },
+  "HPE": {
+    "first_in": "2015-11-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MTLQQ-201103": {
+    "first_in": "1996-01-02",
+    "last_in": "2009-05-29",
+    "currently_in": false
+  },
+  "FANG": {
+    "first_in": "2018-12-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NWL": {
+    "first_in": "1996-01-02",
+    "last_in": "2023-08-30",
+    "currently_in": false
+  },
+  "SNI-201803": {
+    "first_in": "2008-07-01",
+    "last_in": "2018-02-28",
+    "currently_in": false
+  },
+  "UNM": {
+    "first_in": "1996-01-02",
+    "last_in": "2021-08-30",
+    "currently_in": false
+  },
+  "TWTR": {
+    "first_in": "2018-06-07",
+    "last_in": "2022-10-12",
+    "currently_in": false
+  },
+  "TIN-201202": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-12-27",
+    "currently_in": false
+  },
+  "SWN": {
+    "first_in": "2008-06-06",
+    "last_in": "2017-03-30",
+    "currently_in": false
+  },
+  "EXC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NAE-199708": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-08-06",
+    "currently_in": false
+  },
+  "ESV": {
+    "first_in": "2007-01-04",
+    "last_in": "2016-03-29",
+    "currently_in": false
+  },
+  "WU": {
+    "first_in": "2006-10-02",
+    "last_in": "2021-12-14",
+    "currently_in": false
+  },
+  "ETFC": {
+    "first_in": "2004-04-01",
+    "last_in": "2020-09-21",
+    "currently_in": false
+  },
+  "CRH": {
+    "first_in": "2025-12-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PODD": {
+    "first_in": "2023-03-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CTRA": {
+    "first_in": "2021-10-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VRSN": {
+    "first_in": "2006-02-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BT-199906": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-06-03",
+    "currently_in": false
+  },
+  "VLTO": {
+    "first_in": "2023-10-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PANW": {
+    "first_in": "2023-06-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SVU": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-04-30",
+    "currently_in": false
+  },
+  "LU-200611": {
+    "first_in": "1996-10-01",
+    "last_in": "2006-11-22",
+    "currently_in": false
+  },
+  "ERIE": {
+    "first_in": "2024-09-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PLL-201508": {
+    "first_in": "1996-01-02",
+    "last_in": "2015-08-25",
+    "currently_in": false
+  },
+  "JNJ": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GM": {
+    "first_in": "2013-06-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EME": {
+    "first_in": "2025-09-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CXO": {
+    "first_in": "2016-02-22",
+    "last_in": "2021-01-07",
+    "currently_in": false
+  },
+  "CINF": {
+    "first_in": "1997-12-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WYND": {
+    "first_in": "2006-08-01",
+    "last_in": "2018-05-24",
+    "currently_in": false
+  },
+  "MET": {
+    "first_in": "2000-12-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CMVT-201302": {
+    "first_in": "1999-10-27",
+    "last_in": "2007-01-24",
+    "currently_in": false
+  },
+  "GNRC": {
+    "first_in": "2021-03-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EQIX": {
+    "first_in": "2015-03-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FBO-199603": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-03-12",
+    "currently_in": false
+  },
+  "CBH-200803": {
+    "first_in": "2006-06-06",
+    "last_in": "2008-03-18",
+    "currently_in": false
+  },
+  "EL": {
+    "first_in": "2006-01-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WM": {
+    "first_in": "1998-07-17",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RRC": {
+    "first_in": "2007-12-21",
+    "last_in": "2018-06-15",
+    "currently_in": false
+  },
+  "PM": {
+    "first_in": "2008-03-31",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FLR": {
+    "first_in": "2000-12-22",
+    "last_in": "2019-06-01",
+    "currently_in": false
+  },
+  "CZR": {
+    "first_in": "2021-03-22",
+    "last_in": "2025-08-28",
+    "currently_in": false
+  },
+  "EA": {
+    "first_in": "2002-07-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DTE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LNC": {
+    "first_in": "1996-01-02",
+    "last_in": "2023-08-30",
+    "currently_in": false
+  },
+  "FHN": {
+    "first_in": "2002-05-06",
+    "last_in": "2013-06-19",
+    "currently_in": false
+  },
+  "PGL-200702": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-02-16",
+    "currently_in": false
+  },
+  "SGP-200911": {
+    "first_in": "1996-01-02",
+    "last_in": "2009-10-29",
+    "currently_in": false
+  },
+  "DUK": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AW-200812": {
+    "first_in": "1999-08-02",
+    "last_in": "2008-12-04",
+    "currently_in": false
+  },
+  "NSI-200306": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-11-30",
+    "currently_in": false
+  },
+  "MNR-199809": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-09-24",
+    "currently_in": false
+  },
+  "CMA": {
+    "first_in": "1996-01-02",
+    "last_in": "2024-05-08",
+    "currently_in": false
+  },
+  "LVS": {
+    "first_in": "2019-10-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NOW": {
+    "first_in": "2019-11-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NMK-200201": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-01-31",
+    "currently_in": false
+  },
+  "FBF-200403": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-03-29",
+    "currently_in": false
+  },
+  "LYB": {
+    "first_in": "2012-09-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "INFO": {
+    "first_in": "2017-06-02",
+    "last_in": "2022-02-17",
+    "currently_in": false
+  },
+  "BX": {
+    "first_in": "2023-09-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MKC": {
+    "first_in": "2003-03-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KO": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SRCL": {
+    "first_in": "2008-11-19",
+    "last_in": "2018-11-29",
+    "currently_in": false
+  },
+  "USH-199706": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-06-16",
+    "currently_in": false
+  },
+  "CRWD": {
+    "first_in": "2024-06-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EKDKQ-201309": {
+    "first_in": "1996-01-02",
+    "last_in": "2010-12-17",
+    "currently_in": false
+  },
+  "TSG-200703": {
+    "first_in": "2000-03-16",
+    "last_in": "2007-03-30",
+    "currently_in": false
+  },
+  "VIAV": {
+    "first_in": "2000-07-27",
+    "last_in": "2013-12-18",
+    "currently_in": false
+  },
+  "SOV-200901": {
+    "first_in": "2004-07-01",
+    "last_in": "2009-01-28",
+    "currently_in": false
+  },
+  "EXR": {
+    "first_in": "2016-01-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JH-200705": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-03-30",
+    "currently_in": false
+  },
+  "DF": {
+    "first_in": "2006-04-03",
+    "last_in": "2013-05-17",
+    "currently_in": false
+  },
+  "FJ-200011": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-11-22",
+    "currently_in": false
+  },
+  "EIX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BOAT-199701": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-01-03",
+    "currently_in": false
+  },
+  "GD": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "OK-200104": {
+    "first_in": "1999-12-02",
+    "last_in": "2001-03-30",
+    "currently_in": false
+  },
+  "ALXN": {
+    "first_in": "2012-05-25",
+    "last_in": "2021-06-04",
+    "currently_in": false
+  },
+  "GPU-200111": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-11-05",
+    "currently_in": false
+  },
+  "TECH": {
+    "first_in": "2021-08-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LUV": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WB-200812": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-12-29",
+    "currently_in": false
+  },
+  "KVUE": {
+    "first_in": "2023-08-25",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "QCOM": {
+    "first_in": "1999-07-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CF-200408": {
+    "first_in": "2000-06-19",
+    "last_in": "2004-08-26",
+    "currently_in": false
+  },
+  "TAP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DG": {
+    "first_in": "2012-12-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ENDP": {
+    "first_in": "2015-01-27",
+    "last_in": "2017-03-01",
+    "currently_in": false
+  },
+  "MD-199707": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-07-29",
+    "currently_in": false
+  },
+  "BLL": {
+    "first_in": "1996-01-02",
+    "last_in": "2022-04-11",
+    "currently_in": false
+  },
+  "EOP-200702": {
+    "first_in": "2001-10-10",
+    "last_in": "2007-02-09",
+    "currently_in": false
+  },
+  "MRO": {
+    "first_in": "1996-01-02",
+    "last_in": "2024-10-01",
+    "currently_in": false
+  },
+  "AMP-199904": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-03-30",
+    "currently_in": false
+  },
+  "SIVB": {
+    "first_in": "2018-03-19",
+    "last_in": "2023-01-04",
+    "currently_in": false
+  },
+  "CSR-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-15",
+    "currently_in": false
+  },
+  "EVHC-201810": {
+    "first_in": "2016-12-02",
+    "last_in": "2018-10-10",
+    "currently_in": false
+  },
+  "GR-201207": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-07-26",
+    "currently_in": false
+  },
+  "DHR": {
+    "first_in": "1998-11-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CAH": {
+    "first_in": "1997-05-27",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "POM-201603": {
+    "first_in": "2007-11-09",
+    "last_in": "2016-03-18",
+    "currently_in": false
+  },
+  "AMAT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CLX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CE-200402": {
+    "first_in": "2001-04-02",
+    "last_in": "2004-02-26",
+    "currently_in": false
+  },
+  "INTC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "OTIS": {
+    "first_in": "2020-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WYNN": {
+    "first_in": "2008-11-14",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UTX": {
+    "first_in": "1996-01-02",
+    "last_in": "2020-03-03",
+    "currently_in": false
+  },
+  "BMET-200709": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-07-10",
+    "currently_in": false
+  },
+  "CHTR": {
+    "first_in": "2016-09-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HCR-200712": {
+    "first_in": "1998-09-28",
+    "last_in": "2007-11-05",
+    "currently_in": false
+  },
+  "RAD": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-07-19",
+    "currently_in": false
+  },
+  "CMX-200703": {
+    "first_in": "2004-03-25",
+    "last_in": "2007-03-22",
+    "currently_in": false
+  },
+  "CHK": {
+    "first_in": "2006-03-03",
+    "last_in": "2018-03-16",
+    "currently_in": false
+  },
+  "BSC-200805": {
+    "first_in": "1998-07-01",
+    "last_in": "2008-05-29",
+    "currently_in": false
+  },
+  "HM-200112": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-12-14",
+    "currently_in": false
+  },
+  "DNR": {
+    "first_in": "2009-04-02",
+    "last_in": "2015-03-19",
+    "currently_in": false
+  },
+  "KEY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TPL": {
+    "first_in": "2024-11-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "IPG": {
+    "first_in": "1996-01-02",
+    "last_in": "2025-11-11",
+    "currently_in": false
+  },
+  "KRI-200606": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-06-20",
+    "currently_in": false
+  },
+  "BAX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GDW-200609": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-09-28",
+    "currently_in": false
+  },
+  "DI-199809": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-09-29",
+    "currently_in": false
+  },
+  "HFS-199712": {
+    "first_in": "1996-08-16",
+    "last_in": "1997-12-12",
+    "currently_in": false
+  },
+  "UPC-200406": {
+    "first_in": "1998-10-01",
+    "last_in": "2004-06-28",
+    "currently_in": false
+  },
+  "MBI": {
+    "first_in": "1996-12-03",
+    "last_in": "2009-12-17",
+    "currently_in": false
+  },
+  "PH": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HOLX": {
+    "first_in": "2016-03-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PCG": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HOG": {
+    "first_in": "2000-01-31",
+    "last_in": "2020-05-22",
+    "currently_in": false
+  },
+  "HCBK-201510": {
+    "first_in": "2007-02-15",
+    "last_in": "2015-10-28",
+    "currently_in": false
+  },
+  "DLR": {
+    "first_in": "2016-05-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ONE-200406": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-06-28",
+    "currently_in": false
+  },
+  "GX-200201": {
+    "first_in": "1999-09-29",
+    "last_in": "2001-10-04",
+    "currently_in": false
+  },
+  "LB": {
+    "first_in": "1996-01-02",
+    "last_in": "2021-07-21",
+    "currently_in": false
+  },
+  "HES": {
+    "first_in": "1996-01-02",
+    "last_in": "2025-07-18",
+    "currently_in": false
+  },
+  "TFX": {
+    "first_in": "2019-01-18",
+    "last_in": "2024-12-23",
+    "currently_in": false
+  },
+  "CHD": {
+    "first_in": "2015-12-29",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "T": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TSS": {
+    "first_in": "2008-01-02",
+    "last_in": "2019-08-09",
+    "currently_in": false
+  },
+  "TDY": {
+    "first_in": "2020-06-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BFO-200010": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-10-02",
+    "currently_in": false
+  },
+  "GGP": {
+    "first_in": "2007-07-02",
+    "last_in": "2017-12-29",
+    "currently_in": false
+  },
+  "ALGN": {
+    "first_in": "2017-06-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DELL-201310": {
+    "first_in": "1996-09-06",
+    "last_in": "2013-10-18",
+    "currently_in": false
+  },
+  "COTY": {
+    "first_in": "2016-10-03",
+    "last_in": "2020-09-18",
+    "currently_in": false
+  },
+  "S": {
+    "first_in": "1996-01-02",
+    "last_in": "2013-07-02",
+    "currently_in": false
+  },
+  "ACN": {
+    "first_in": "2011-07-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "XYL": {
+    "first_in": "2011-11-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FRO-199909": {
+    "first_in": "1997-01-02",
+    "last_in": "1999-09-21",
+    "currently_in": false
+  },
+  "TDM-199708": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-08-26",
+    "currently_in": false
+  },
+  "HRL": {
+    "first_in": "2009-03-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MNST": {
+    "first_in": "2012-06-29",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AVY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UPR-200007": {
+    "first_in": "1996-10-16",
+    "last_in": "2000-07-14",
+    "currently_in": false
+  },
+  "SEG-200011": {
+    "first_in": "1996-08-16",
+    "last_in": "2000-11-20",
+    "currently_in": false
+  },
+  "TX-200110": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-10-04",
+    "currently_in": false
+  },
+  "GPN": {
+    "first_in": "2016-04-25",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TMO": {
+    "first_in": "1997-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BG": {
+    "first_in": "2023-03-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FRC": {
+    "first_in": "2019-01-02",
+    "last_in": "2023-03-20",
+    "currently_in": false
+  },
+  "NLOK": {
+    "first_in": "2019-11-05",
+    "last_in": "2022-11-01",
+    "currently_in": false
+  },
+  "GPS": {
+    "first_in": "1996-01-02",
+    "last_in": "2022-01-10",
+    "currently_in": false
+  },
+  "BIG": {
+    "first_in": "1998-01-20",
+    "last_in": "2013-02-06",
+    "currently_in": false
+  },
+  "JP-200603": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-03-30",
+    "currently_in": false
+  },
+  "VTR": {
+    "first_in": "2009-03-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "OI": {
+    "first_in": "1997-08-04",
+    "last_in": "2016-11-29",
+    "currently_in": false
+  },
+  "BC": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-06-18",
+    "currently_in": false
+  },
+  "ITT-199802": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-02-13",
+    "currently_in": false
+  },
+  "PLD": {
+    "first_in": "2011-06-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MDP": {
+    "first_in": "1996-01-02",
+    "last_in": "2010-12-31",
+    "currently_in": false
+  },
+  "TKR": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-08-06",
+    "currently_in": false
+  },
+  "M": {
+    "first_in": "1996-01-02",
+    "last_in": "2020-04-03",
+    "currently_in": false
+  },
+  "BDK-201003": {
+    "first_in": "1996-01-02",
+    "last_in": "2010-03-11",
+    "currently_in": false
+  },
+  "CMI": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CCI": {
+    "first_in": "2012-03-13",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MDT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MFE-201102": {
+    "first_in": "2008-12-23",
+    "last_in": "2011-02-28",
+    "currently_in": false
+  },
+  "DALRQ-200704": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-08-18",
+    "currently_in": false
+  },
+  "MSCI": {
+    "first_in": "2018-04-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RCL": {
+    "first_in": "2014-12-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HLT-200710": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-10-24",
+    "currently_in": false
+  },
+  "BTUUQ-201704": {
+    "first_in": "2006-11-20",
+    "last_in": "2014-09-19",
+    "currently_in": false
+  },
+  "ROL": {
+    "first_in": "2018-10-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ES": {
+    "first_in": "2009-03-17",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AGN-201503": {
+    "first_in": "1996-01-02",
+    "last_in": "2015-03-13",
+    "currently_in": false
+  },
+  "KMG-200608": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-08-10",
+    "currently_in": false
+  },
+  "CIN-200603": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-03-30",
+    "currently_in": false
+  },
+  "AIT-199910": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-10-07",
+    "currently_in": false
+  },
+  "GAS-201112": {
+    "first_in": "1996-01-02",
+    "last_in": "2011-12-09",
+    "currently_in": false
+  },
+  "AME": {
+    "first_in": "2013-09-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ESRX-201812": {
+    "first_in": "2016-01-04",
+    "last_in": "2018-12-19",
+    "currently_in": false
+  },
+  "FG-199804": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-04-16",
+    "currently_in": false
+  },
+  "RML-200608": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-12-11",
+    "currently_in": false
+  },
+  "PPG": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HSH-201408": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-06-25",
+    "currently_in": false
+  },
+  "GGP-201808": {
+    "first_in": "2007-07-02",
+    "last_in": "2018-08-20",
+    "currently_in": false
+  },
+  "NXTL-200508": {
+    "first_in": "1998-04-01",
+    "last_in": "2005-08-12",
+    "currently_in": false
+  },
+  "CBOE": {
+    "first_in": "2017-03-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BMC-201309": {
+    "first_in": "1998-10-01",
+    "last_in": "2013-09-09",
+    "currently_in": false
+  },
+  "AMD": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ISRG": {
+    "first_in": "2008-06-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SOLV": {
+    "first_in": "2024-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AIG": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DXCM": {
+    "first_in": "2020-05-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SCI": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-03-15",
+    "currently_in": false
+  },
+  "AVB": {
+    "first_in": "2007-01-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "COL": {
+    "first_in": "2001-07-02",
+    "last_in": "2018-09-18",
+    "currently_in": false
+  },
+  "HON-199912": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-12-01",
+    "currently_in": false
+  },
+  "TKO": {
+    "first_in": "2025-03-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "REGN": {
+    "first_in": "2013-05-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NLV-200001": {
+    "first_in": "1996-04-01",
+    "last_in": "2000-01-05",
+    "currently_in": false
+  },
+  "CCB-199602": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-02-01",
+    "currently_in": false
+  },
+  "SK-199805": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-03-30",
+    "currently_in": false
+  },
+  "ARES": {
+    "first_in": "2025-12-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ADBE": {
+    "first_in": "1997-05-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RE": {
+    "first_in": "2017-06-19",
+    "last_in": "2023-06-20",
+    "currently_in": false
+  },
+  "HFC": {
+    "first_in": "2018-06-18",
+    "last_in": "2021-05-14",
+    "currently_in": false
+  },
+  "EMC-201609": {
+    "first_in": "1996-03-28",
+    "last_in": "2016-09-06",
+    "currently_in": false
+  },
+  "PBG-201002": {
+    "first_in": "2001-05-14",
+    "last_in": "2010-02-26",
+    "currently_in": false
+  },
+  "TER": {
+    "first_in": "1999-11-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BMGCA-200101": {
+    "first_in": "1996-07-22",
+    "last_in": "1999-08-06",
+    "currently_in": false
+  },
+  "MUR": {
+    "first_in": "2005-08-15",
+    "last_in": "2017-07-25",
+    "currently_in": false
+  },
+  "EHC": {
+    "first_in": "1997-01-08",
+    "last_in": "2003-03-20",
+    "currently_in": false
+  },
+  "CYM-199912": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-10-14",
+    "currently_in": false
+  },
+  "WYE-200910": {
+    "first_in": "1996-01-02",
+    "last_in": "2009-10-15",
+    "currently_in": false
+  },
+  "CAR": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-07-31",
+    "currently_in": false
+  },
+  "ACGL": {
+    "first_in": "2022-11-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PKI": {
+    "first_in": "1996-01-02",
+    "last_in": "2023-05-04",
+    "currently_in": false
+  },
+  "CCE": {
+    "first_in": "1998-10-08",
+    "last_in": "2016-05-24",
+    "currently_in": false
+  },
+  "KIM": {
+    "first_in": "2006-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ETN": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SBAC": {
+    "first_in": "2017-09-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NTRS": {
+    "first_in": "1998-01-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UN": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-07-18",
+    "currently_in": false
+  },
+  "AEP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DD-201708": {
+    "first_in": "1996-01-02",
+    "last_in": "2017-08-31",
+    "currently_in": false
+  },
+  "RYAN-200610": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-12-27",
+    "currently_in": false
+  },
+  "BAC-199809": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-09-30",
+    "currently_in": false
+  },
+  "ATI": {
+    "first_in": "1996-01-02",
+    "last_in": "2015-07-01",
+    "currently_in": false
+  },
+  "CSGP": {
+    "first_in": "2022-09-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MRK": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "XL-201809": {
+    "first_in": "2001-09-04",
+    "last_in": "2018-09-11",
+    "currently_in": false
+  },
+  "FDX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WAB": {
+    "first_in": "2019-02-27",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ALTR-201512": {
+    "first_in": "2000-04-18",
+    "last_in": "2015-12-21",
+    "currently_in": false
+  },
+  "COIN": {
+    "first_in": "2025-05-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MU": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SIG": {
+    "first_in": "2015-07-29",
+    "last_in": "2018-03-16",
+    "currently_in": false
+  },
+  "BIIB": {
+    "first_in": "2003-11-13",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MPC": {
+    "first_in": "2011-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ARG-201605": {
+    "first_in": "2009-09-09",
+    "last_in": "2016-05-20",
+    "currently_in": false
+  },
+  "BAC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BR-200603": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-03-30",
+    "currently_in": false
+  },
+  "AMZN": {
+    "first_in": "2005-11-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FDO-201507": {
+    "first_in": "2001-08-06",
+    "last_in": "2015-07-06",
+    "currently_in": false
+  },
+  "SWKS": {
+    "first_in": "2015-03-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "STO-199811": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-11-17",
+    "currently_in": false
+  },
+  "BXLT-201606": {
+    "first_in": "2015-07-01",
+    "last_in": "2016-06-01",
+    "currently_in": false
+  },
+  "CPQ-200205": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-05-01",
+    "currently_in": false
+  },
+  "HDLM-201301": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-03-05",
+    "currently_in": false
+  },
+  "CERN": {
+    "first_in": "2010-04-30",
+    "last_in": "2022-05-10",
+    "currently_in": false
+  },
+  "KMX": {
+    "first_in": "2010-06-28",
+    "last_in": "2025-10-30",
+    "currently_in": false
+  },
+  "SMS-200007": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-07",
+    "currently_in": false
+  },
+  "ITW": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "XL": {
+    "first_in": "2001-09-04",
+    "last_in": "2017-12-29",
+    "currently_in": false
+  },
+  "ZBRA": {
+    "first_in": "2019-12-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HIG": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RAL-200112": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-12-06",
+    "currently_in": false
+  },
+  "WRB": {
+    "first_in": "2019-12-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "IKN-200810": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-27",
+    "currently_in": false
+  },
+  "DVA": {
+    "first_in": "2008-07-31",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DIS": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SCG-201812": {
+    "first_in": "2016-01-04",
+    "last_in": "2018-12-24",
+    "currently_in": false
+  },
+  "TGNA": {
+    "first_in": "1996-01-02",
+    "last_in": "2017-05-23",
+    "currently_in": false
+  },
+  "HAR-201703": {
+    "first_in": "2006-02-01",
+    "last_in": "2017-03-10",
+    "currently_in": false
+  },
+  "WY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VRTS-200507": {
+    "first_in": "2000-04-03",
+    "last_in": "2005-06-30",
+    "currently_in": false
+  },
+  "SPG": {
+    "first_in": "2002-06-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RYC-199908": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-08-11",
+    "currently_in": false
+  },
+  "SAI-199812": {
+    "first_in": "1997-07-17",
+    "last_in": "1998-12-31",
+    "currently_in": false
+  },
+  "CMS": {
+    "first_in": "1999-05-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KATE-201707": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-11-28",
+    "currently_in": false
+  },
+  "VIAB": {
+    "first_in": "2006-01-03",
+    "last_in": "2019-11-21",
+    "currently_in": false
+  },
+  "ADSK": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AMP": {
+    "first_in": "2005-10-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "IVZ": {
+    "first_in": "2008-08-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AMCR": {
+    "first_in": "2019-06-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DISCA": {
+    "first_in": "2010-03-01",
+    "last_in": "2022-04-04",
+    "currently_in": false
+  },
+  "PPL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BKR": {
+    "first_in": "2019-10-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BRCM-201601": {
+    "first_in": "2000-07-03",
+    "last_in": "2016-01-26",
+    "currently_in": false
+  },
+  "BCO": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-01-12",
+    "currently_in": false
+  },
+  "DGX": {
+    "first_in": "2002-12-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DG-200707": {
+    "first_in": "1998-07-16",
+    "last_in": "2007-07-06",
+    "currently_in": false
+  },
+  "WMT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SEBL-200601": {
+    "first_in": "2000-05-05",
+    "last_in": "2006-01-30",
+    "currently_in": false
+  },
+  "DRI": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PWR": {
+    "first_in": "2009-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LOW": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MCIC-199809": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-09-08",
+    "currently_in": false
+  },
+  "TRMB": {
+    "first_in": "2021-01-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "IFF": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GLD-199705": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-04-29",
+    "currently_in": false
+  },
+  "TOY-200507": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-07-21",
+    "currently_in": false
+  },
+  "IQV": {
+    "first_in": "2017-08-29",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BEAM-201404": {
+    "first_in": "1996-01-02",
+    "last_in": "2014-04-22",
+    "currently_in": false
+  },
+  "CCL": {
+    "first_in": "1998-12-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MLM": {
+    "first_in": "2014-07-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AMGN": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FMC": {
+    "first_in": "1996-01-02",
+    "last_in": "2024-12-23",
+    "currently_in": false
+  },
+  "ABKFQ-201304": {
+    "first_in": "2000-12-11",
+    "last_in": "2008-06-10",
+    "currently_in": false
+  },
+  "ARC-200004": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-04-10",
+    "currently_in": false
+  },
+  "PZE-199908": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-12-24",
+    "currently_in": false
+  },
+  "WBA": {
+    "first_in": "1996-01-02",
+    "last_in": "2025-08-08",
+    "currently_in": false
+  },
+  "HPH-199912": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-06-08",
+    "currently_in": false
+  },
+  "SWK": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PEG": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LVLT-201710": {
+    "first_in": "2014-11-05",
+    "last_in": "2017-10-10",
+    "currently_in": false
+  },
+  "K": {
+    "first_in": "1996-01-02",
+    "last_in": "2025-11-28",
+    "currently_in": false
+  },
+  "ENPH": {
+    "first_in": "2021-01-07",
+    "last_in": "2025-08-28",
+    "currently_in": false
+  },
+  "AMTM": {
+    "first_in": "2024-09-30",
+    "last_in": "2024-11-26",
+    "currently_in": false
+  },
+  "FDS": {
+    "first_in": "2021-12-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VIAC": {
+    "first_in": "2019-12-05",
+    "last_in": "2022-02-15",
+    "currently_in": false
+  },
+  "SNV": {
+    "first_in": "1997-12-01",
+    "last_in": "2007-12-31",
+    "currently_in": false
+  },
+  "FMCC": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-09-08",
+    "currently_in": false
+  },
+  "INVH": {
+    "first_in": "2022-09-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LUB": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-12-27",
+    "currently_in": false
+  },
+  "SEDG": {
+    "first_in": "2021-12-20",
+    "last_in": "2023-10-02",
+    "currently_in": false
+  },
+  "SHLD": {
+    "first_in": "2005-03-28",
+    "last_in": "2012-08-23",
+    "currently_in": false
+  },
+  "BMS": {
+    "first_in": "1996-01-02",
+    "last_in": "2014-12-04",
+    "currently_in": false
+  },
+  "RBK-200601": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-01-30",
+    "currently_in": false
+  },
+  "YUM": {
+    "first_in": "1997-10-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HP": {
+    "first_in": "1996-01-02",
+    "last_in": "2020-05-12",
+    "currently_in": false
+  },
+  "CA": {
+    "first_in": "1996-01-02",
+    "last_in": "2018-09-18",
+    "currently_in": false
+  },
+  "ABI-200811": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-11-20",
+    "currently_in": false
+  },
+  "CAT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WB-200108": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-08-31",
+    "currently_in": false
+  },
+  "NXPI": {
+    "first_in": "2021-03-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SOLS": {
+    "first_in": "2025-10-30",
+    "last_in": "2025-12-11",
+    "currently_in": false
+  },
+  "GNT-199806": {
+    "first_in": "1996-03-13",
+    "last_in": "1998-06-30",
+    "currently_in": false
+  },
+  "WHR": {
+    "first_in": "1996-01-02",
+    "last_in": "2024-03-04",
+    "currently_in": false
+  },
+  "DJ-200712": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-12-12",
+    "currently_in": false
+  },
+  "G-200509": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-09-28",
+    "currently_in": false
+  },
+  "RSHCQ-201510": {
+    "first_in": "1996-01-02",
+    "last_in": "2011-06-30",
+    "currently_in": false
+  },
+  "MAC": {
+    "first_in": "2013-05-09",
+    "last_in": "2019-12-10",
+    "currently_in": false
+  },
+  "INCY": {
+    "first_in": "2017-02-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MEDI-200706": {
+    "first_in": "2000-06-16",
+    "last_in": "2007-05-31",
+    "currently_in": false
+  },
+  "TDC": {
+    "first_in": "2007-10-01",
+    "last_in": "2017-06-16",
+    "currently_in": false
+  },
+  "OWENQ-200610": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-09-27",
+    "currently_in": false
+  },
+  "USHC-199607": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-07-18",
+    "currently_in": false
+  },
+  "FITB": {
+    "first_in": "1996-03-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PALM-201006": {
+    "first_in": "2000-07-28",
+    "last_in": "2002-08-09",
+    "currently_in": false
+  },
+  "PNR": {
+    "first_in": "2012-10-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CCI-199810": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-10-07",
+    "currently_in": false
+  },
+  "DCNAQ-200801": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-03-02",
+    "currently_in": false
+  },
+  "GS": {
+    "first_in": "2002-07-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WCOEQ-200404": {
+    "first_in": "1996-04-01",
+    "last_in": "2002-05-14",
+    "currently_in": false
+  },
+  "DISH": {
+    "first_in": "2017-03-13",
+    "last_in": "2023-06-07",
+    "currently_in": false
+  },
+  "GLK-200507": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-06-30",
+    "currently_in": false
+  },
+  "PSA": {
+    "first_in": "2005-08-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GRA-199803": {
+    "first_in": "1996-09-17",
+    "last_in": "1998-03-30",
+    "currently_in": false
+  },
+  "HSIC": {
+    "first_in": "2015-03-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TTWO": {
+    "first_in": "2018-03-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "X": {
+    "first_in": "1996-01-02",
+    "last_in": "2014-07-01",
+    "currently_in": false
+  },
+  "SANM": {
+    "first_in": "2000-06-21",
+    "last_in": "2007-06-26",
+    "currently_in": false
+  },
+  "SJM": {
+    "first_in": "2008-11-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KMI": {
+    "first_in": "2012-05-25",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NFLX": {
+    "first_in": "2010-12-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ULTA": {
+    "first_in": "2016-04-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ADM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CAM-201604": {
+    "first_in": "2008-01-29",
+    "last_in": "2016-03-31",
+    "currently_in": false
+  },
+  "GP-200512": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-12-16",
+    "currently_in": false
+  },
+  "DRE": {
+    "first_in": "2017-07-26",
+    "last_in": "2022-09-19",
+    "currently_in": false
+  },
+  "UCL-200508": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-08-10",
+    "currently_in": false
+  },
+  "PAYC": {
+    "first_in": "2020-01-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CYR-199606": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-03-25",
+    "currently_in": false
+  },
+  "PSX": {
+    "first_in": "2012-05-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PD-200703": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-03-16",
+    "currently_in": false
+  },
+  "KSS": {
+    "first_in": "1998-08-14",
+    "last_in": "2020-09-18",
+    "currently_in": false
+  },
+  "GAS-201606": {
+    "first_in": "2011-12-13",
+    "last_in": "2016-06-27",
+    "currently_in": false
+  },
+  "KKR": {
+    "first_in": "2024-06-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VRTX": {
+    "first_in": "2013-09-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ASO-200611": {
+    "first_in": "1999-03-10",
+    "last_in": "2006-10-31",
+    "currently_in": false
+  },
+  "JNPR": {
+    "first_in": "2006-06-02",
+    "last_in": "2025-05-19",
+    "currently_in": false
+  },
+  "PENN": {
+    "first_in": "2021-03-22",
+    "last_in": "2022-06-28",
+    "currently_in": false
+  },
+  "IT": {
+    "first_in": "2017-04-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WOR": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-12-16",
+    "currently_in": false
+  },
+  "HII": {
+    "first_in": "2018-01-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GIS": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CCK": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-12-08",
+    "currently_in": false
+  },
+  "MTB": {
+    "first_in": "2004-02-27",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PVT-199906": {
+    "first_in": "1998-08-31",
+    "last_in": "1999-06-30",
+    "currently_in": false
+  },
+  "VAT-199609": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-08-28",
+    "currently_in": false
+  },
+  "FIS": {
+    "first_in": "2006-11-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PRD-200110": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-12-11",
+    "currently_in": false
+  },
+  "BLS-200612": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-12-29",
+    "currently_in": false
+  },
+  "SDS-200508": {
+    "first_in": "2002-07-22",
+    "last_in": "2005-08-11",
+    "currently_in": false
+  },
+  "MST-199808": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-08-13",
+    "currently_in": false
+  },
+  "FI": {
+    "first_in": "2023-06-07",
+    "last_in": "2025-11-04",
+    "currently_in": false
+  },
+  "VRSK": {
+    "first_in": "2015-10-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UMG-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-13",
+    "currently_in": false
+  },
+  "RTN": {
+    "first_in": "1996-01-02",
+    "last_in": "2020-04-03",
+    "currently_in": false
+  },
+  "BALL": {
+    "first_in": "2022-05-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ALL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JPM-200012": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-12-29",
+    "currently_in": false
+  },
+  "MTCH": {
+    "first_in": "2021-09-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WFC-199811": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-11-02",
+    "currently_in": false
+  },
+  "SUN-201210": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-10-04",
+    "currently_in": false
+  },
+  "HCA": {
+    "first_in": "2015-01-27",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CFN-201503": {
+    "first_in": "2009-09-01",
+    "last_in": "2015-03-13",
+    "currently_in": false
+  },
+  "TEN": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-10-29",
+    "currently_in": false
+  },
+  "LNT": {
+    "first_in": "2016-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SPGI": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BHGE": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-10-03",
+    "currently_in": false
+  },
+  "CTLT": {
+    "first_in": "2020-09-21",
+    "last_in": "2024-11-26",
+    "currently_in": false
+  },
+  "LDW.B-200012": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-12-07",
+    "currently_in": false
+  },
+  "COP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RIG": {
+    "first_in": "1999-12-31",
+    "last_in": "2017-07-25",
+    "currently_in": false
+  },
+  "BEV-200603": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-12-02",
+    "currently_in": false
+  },
+  "KM-200212": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-01-15",
+    "currently_in": false
+  },
+  "BIO": {
+    "first_in": "2020-06-22",
+    "last_in": "2024-07-08",
+    "currently_in": false
+  },
+  "CR": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-12-16",
+    "currently_in": false
+  },
+  "DWD-199705": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-05-30",
+    "currently_in": false
+  },
+  "FCN-199810": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-10-01",
+    "currently_in": false
+  },
+  "A": {
+    "first_in": "2000-06-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FISV": {
+    "first_in": "2001-04-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NKE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CARR": {
+    "first_in": "2020-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RHT": {
+    "first_in": "2009-07-27",
+    "last_in": "2019-07-01",
+    "currently_in": false
+  },
+  "KSU": {
+    "first_in": "1999-04-05",
+    "last_in": "2021-10-04",
+    "currently_in": false
+  },
+  "SPLS-201709": {
+    "first_in": "1998-10-07",
+    "last_in": "2017-09-12",
+    "currently_in": false
+  },
+  "HBI": {
+    "first_in": "2015-03-23",
+    "last_in": "2021-12-14",
+    "currently_in": false
+  },
+  "PG": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CE": {
+    "first_in": "2018-12-24",
+    "last_in": "2024-12-23",
+    "currently_in": false
+  },
+  "CMG": {
+    "first_in": "2011-04-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NVLS-201206": {
+    "first_in": "2000-06-19",
+    "last_in": "2012-06-04",
+    "currently_in": false
+  },
+  "PARA": {
+    "first_in": "2022-02-17",
+    "last_in": "2025-07-23",
+    "currently_in": false
+  },
+  "FCX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CEG-201203": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-03-02",
+    "currently_in": false
+  },
+  "ALLE": {
+    "first_in": "2013-12-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ILMN": {
+    "first_in": "2015-11-19",
+    "last_in": "2024-05-08",
+    "currently_in": false
+  },
+  "SNDK": {
+    "first_in": "2025-11-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EQT": {
+    "first_in": "2008-12-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HCA-200611": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-11-17",
+    "currently_in": false
+  },
+  "PCP-201601": {
+    "first_in": "2007-06-01",
+    "last_in": "2016-01-26",
+    "currently_in": false
+  },
+  "WFT": {
+    "first_in": "2005-07-22",
+    "last_in": "2009-02-25",
+    "currently_in": false
+  },
+  "F": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MHK": {
+    "first_in": "2013-12-23",
+    "last_in": "2025-12-11",
+    "currently_in": false
+  },
+  "ASC-199906": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-06-23",
+    "currently_in": false
+  },
+  "XOM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CNXT-201104": {
+    "first_in": "2000-01-31",
+    "last_in": "2002-06-19",
+    "currently_in": false
+  },
+  "THC": {
+    "first_in": "1996-01-02",
+    "last_in": "2016-04-15",
+    "currently_in": false
+  },
+  "VTRS": {
+    "first_in": "2020-11-17",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DDOG": {
+    "first_in": "2025-07-09",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "QLGC-201608": {
+    "first_in": "2000-12-12",
+    "last_in": "2011-01-12",
+    "currently_in": false
+  },
+  "CPNLQ-200802": {
+    "first_in": "2000-12-01",
+    "last_in": "2005-11-28",
+    "currently_in": false
+  },
+  "USB-200102": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-02-20",
+    "currently_in": false
+  },
+  "ANF": {
+    "first_in": "2007-03-29",
+    "last_in": "2013-12-18",
+    "currently_in": false
+  },
+  "JOY-201704": {
+    "first_in": "2011-02-28",
+    "last_in": "2015-10-05",
+    "currently_in": false
+  },
+  "MMC": {
+    "first_in": "1996-01-02",
+    "last_in": "2025-12-22",
+    "currently_in": false
+  },
+  "ICE": {
+    "first_in": "2007-09-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DDS": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-10-16",
+    "currently_in": false
+  },
+  "BVSN": {
+    "first_in": "2000-11-06",
+    "last_in": "2001-08-31",
+    "currently_in": false
+  },
+  "AIV": {
+    "first_in": "2003-03-14",
+    "last_in": "2020-11-17",
+    "currently_in": false
+  },
+  "HPQ": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ECO-200301": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-01-15",
+    "currently_in": false
+  },
+  "PLTR": {
+    "first_in": "2024-09-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "COL-201811": {
+    "first_in": "2016-01-04",
+    "last_in": "2018-11-15",
+    "currently_in": false
+  },
+  "CPB": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KMI-200705": {
+    "first_in": "2000-12-12",
+    "last_in": "2007-05-24",
+    "currently_in": false
+  },
+  "H-200107": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-06-25",
+    "currently_in": false
+  },
+  "ANTM": {
+    "first_in": "2002-07-25",
+    "last_in": "2022-06-21",
+    "currently_in": false
+  },
+  "NOV": {
+    "first_in": "2005-03-14",
+    "last_in": "2021-08-30",
+    "currently_in": false
+  },
+  "MSFT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CCTYQ-201009": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-03-18",
+    "currently_in": false
+  },
+  "MTD": {
+    "first_in": "2016-09-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "INTU": {
+    "first_in": "2000-12-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SNA": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CITGQ-200912": {
+    "first_in": "2004-10-27",
+    "last_in": "2009-07-17",
+    "currently_in": false
+  },
+  "AS-199909": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-11-23",
+    "currently_in": false
+  },
+  "HBAN": {
+    "first_in": "1997-08-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BBBY": {
+    "first_in": "1999-10-01",
+    "last_in": "2017-07-25",
+    "currently_in": false
+  },
+  "AAL": {
+    "first_in": "2015-03-23",
+    "last_in": "2024-07-08",
+    "currently_in": false
+  },
+  "COO": {
+    "first_in": "2016-09-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WLP-200411": {
+    "first_in": "1999-06-09",
+    "last_in": "2004-11-26",
+    "currently_in": false
+  },
+  "MAS": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CHRS-201206": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-04-07",
+    "currently_in": false
+  },
+  "IBM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PX-201810": {
+    "first_in": "2016-01-04",
+    "last_in": "2018-10-25",
+    "currently_in": false
+  },
+  "CDW": {
+    "first_in": "2019-09-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WAMUQ-201203": {
+    "first_in": "1997-07-02",
+    "last_in": "2008-09-26",
+    "currently_in": false
+  },
+  "VSTNQ-201010": {
+    "first_in": "2000-06-29",
+    "last_in": "2005-12-29",
+    "currently_in": false
+  },
+  "WRK": {
+    "first_in": "2015-07-02",
+    "last_in": "2024-06-24",
+    "currently_in": false
+  },
+  "MYG-200603": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-03-30",
+    "currently_in": false
+  },
+  "CVX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ETSY": {
+    "first_in": "2020-09-21",
+    "last_in": "2024-07-08",
+    "currently_in": false
+  },
+  "SRE": {
+    "first_in": "1998-06-29",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TIE-201301": {
+    "first_in": "2007-10-29",
+    "last_in": "2012-12-21",
+    "currently_in": false
+  },
+  "MOH": {
+    "first_in": "2022-03-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LKQ": {
+    "first_in": "2016-05-23",
+    "last_in": "2025-12-11",
+    "currently_in": false
+  },
+  "FRT": {
+    "first_in": "2016-02-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AWK": {
+    "first_in": "2016-03-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BBY": {
+    "first_in": "1999-06-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PEP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CG-200011": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-10-30",
+    "currently_in": false
+  },
+  "SCHW": {
+    "first_in": "1997-06-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BNI-201002": {
+    "first_in": "1996-01-02",
+    "last_in": "2010-02-10",
+    "currently_in": false
+  },
+  "JEC": {
+    "first_in": "2007-10-26",
+    "last_in": "2019-12-09",
+    "currently_in": false
+  },
+  "GWF-199707": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-06-26",
+    "currently_in": false
+  },
+  "CB": {
+    "first_in": "2002-01-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CIT.A-200106": {
+    "first_in": "2000-07-17",
+    "last_in": "2001-05-31",
+    "currently_in": false
+  },
+  "OXY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CF": {
+    "first_in": "2008-08-27",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AAMRQ-201312": {
+    "first_in": "1996-01-02",
+    "last_in": "2003-03-10",
+    "currently_in": false
+  },
+  "EVRG": {
+    "first_in": "2018-06-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SSP": {
+    "first_in": "2005-12-20",
+    "last_in": "2008-06-30",
+    "currently_in": false
+  },
+  "TWX-200101": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-01-09",
+    "currently_in": false
+  },
+  "ABX": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-07-18",
+    "currently_in": false
+  },
+  "LXK-201611": {
+    "first_in": "1999-08-13",
+    "last_in": "2012-09-25",
+    "currently_in": false
+  },
+  "NGH-200012": {
+    "first_in": "1998-09-16",
+    "last_in": "2000-12-11",
+    "currently_in": false
+  },
+  "KBH": {
+    "first_in": "1996-01-02",
+    "last_in": "2009-12-17",
+    "currently_in": false
+  },
+  "FTI": {
+    "first_in": "2017-01-17",
+    "last_in": "2021-01-21",
+    "currently_in": false
+  },
+  "CGP-200101": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-01-29",
+    "currently_in": false
+  },
+  "URI": {
+    "first_in": "2014-09-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MIL-201007": {
+    "first_in": "1996-01-02",
+    "last_in": "2010-07-12",
+    "currently_in": false
+  },
+  "AMG": {
+    "first_in": "2014-07-01",
+    "last_in": "2019-12-10",
+    "currently_in": false
+  },
+  "GME": {
+    "first_in": "2007-12-14",
+    "last_in": "2016-04-20",
+    "currently_in": false
+  },
+  "AET-201811": {
+    "first_in": "2016-01-04",
+    "last_in": "2018-11-28",
+    "currently_in": false
+  },
+  "PFG": {
+    "first_in": "2002-07-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KDP": {
+    "first_in": "2008-10-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TEG-201506": {
+    "first_in": "2007-02-22",
+    "last_in": "2015-06-24",
+    "currently_in": false
+  },
+  "C-199811": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-11-05",
+    "currently_in": false
+  },
+  "TROW": {
+    "first_in": "1999-10-13",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EDS-200808": {
+    "first_in": "1998-08-11",
+    "last_in": "2008-08-25",
+    "currently_in": false
+  },
+  "MOS": {
+    "first_in": "2011-09-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NOC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CELG": {
+    "first_in": "2006-11-06",
+    "last_in": "2019-11-05",
+    "currently_in": false
+  },
+  "RAI-201707": {
+    "first_in": "2002-09-04",
+    "last_in": "2017-07-20",
+    "currently_in": false
+  },
+  "HET-200801": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-01-24",
+    "currently_in": false
+  },
+  "ACAS-201701": {
+    "first_in": "2007-07-09",
+    "last_in": "2009-03-02",
+    "currently_in": false
+  },
+  "EXE": {
+    "first_in": "2025-03-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NSM-201109": {
+    "first_in": "1996-01-02",
+    "last_in": "2011-09-21",
+    "currently_in": false
+  },
+  "RRD": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-12-07",
+    "currently_in": false
+  },
+  "STI": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-12-05",
+    "currently_in": false
+  },
+  "WWY-200810": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-10-06",
+    "currently_in": false
+  },
+  "KORS": {
+    "first_in": "2013-11-13",
+    "last_in": "2018-09-18",
+    "currently_in": false
+  },
+  "DD": {
+    "first_in": "2019-06-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UAWGQ-200303": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-05-14",
+    "currently_in": false
+  },
+  "CNG-200001": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-01-28",
+    "currently_in": false
+  },
+  "ABBV": {
+    "first_in": "2013-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AFL": {
+    "first_in": "1999-05-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ANRZQ-201607": {
+    "first_in": "2011-06-02",
+    "last_in": "2012-10-01",
+    "currently_in": false
+  },
+  "SOTR-200410": {
+    "first_in": "1999-03-01",
+    "last_in": "2004-10-28",
+    "currently_in": false
+  },
+  "HST": {
+    "first_in": "2007-03-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SNPS": {
+    "first_in": "2017-03-16",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ZBH": {
+    "first_in": "2001-08-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CEPH-201110": {
+    "first_in": "2008-11-17",
+    "last_in": "2011-10-11",
+    "currently_in": false
+  },
+  "BLY-199612": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-12-18",
+    "currently_in": false
+  },
+  "CVG": {
+    "first_in": "2000-06-13",
+    "last_in": "2009-12-17",
+    "currently_in": false
+  },
+  "ASH": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-11-13",
+    "currently_in": false
+  },
+  "APCC-200702": {
+    "first_in": "2000-06-01",
+    "last_in": "2007-02-14",
+    "currently_in": false
+  },
+  "NYT": {
+    "first_in": "1996-01-02",
+    "last_in": "2010-12-17",
+    "currently_in": false
+  },
+  "DOW-201708": {
+    "first_in": "1996-01-02",
+    "last_in": "2017-08-31",
+    "currently_in": false
+  },
+  "MNK": {
+    "first_in": "2014-08-19",
+    "last_in": "2017-07-25",
+    "currently_in": false
+  },
+  "DGN-199910": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-10-12",
+    "currently_in": false
+  },
+  "GL": {
+    "first_in": "2019-08-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ROK": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AVP": {
+    "first_in": "1996-01-02",
+    "last_in": "2015-03-19",
+    "currently_in": false
+  },
+  "AZO": {
+    "first_in": "1997-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CI": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "J": {
+    "first_in": "2019-12-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MIR-201012": {
+    "first_in": "2001-04-03",
+    "last_in": "2003-07-16",
+    "currently_in": false
+  },
+  "NWS": {
+    "first_in": "2015-09-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TGT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ROST": {
+    "first_in": "2009-12-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NC": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-02",
+    "currently_in": false
+  },
+  "CIEN": {
+    "first_in": "2001-08-30",
+    "last_in": "2009-12-17",
+    "currently_in": false
+  },
+  "WFM-201708": {
+    "first_in": "2006-01-03",
+    "last_in": "2017-08-17",
+    "currently_in": false
+  },
+  "STE": {
+    "first_in": "2019-12-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PHB-199910": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-10-01",
+    "currently_in": false
+  },
+  "NI": {
+    "first_in": "2000-11-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "YRCW": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-10-28",
+    "currently_in": false
+  },
+  "ROH-200904": {
+    "first_in": "1996-01-02",
+    "last_in": "2009-04-01",
+    "currently_in": false
+  },
+  "UVN-200703": {
+    "first_in": "2001-02-07",
+    "last_in": "2007-03-28",
+    "currently_in": false
+  },
+  "JKHY": {
+    "first_in": "2018-11-13",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "USS-199810": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-10-01",
+    "currently_in": false
+  },
+  "BF.B": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NWSA": {
+    "first_in": "2013-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RDC": {
+    "first_in": "1996-01-02",
+    "last_in": "2014-08-13",
+    "currently_in": false
+  },
+  "USW-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-29",
+    "currently_in": false
+  },
+  "DOC": {
+    "first_in": "2024-03-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VICI": {
+    "first_in": "2022-06-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GEN": {
+    "first_in": "2022-11-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CB-201601": {
+    "first_in": "1996-01-02",
+    "last_in": "2016-01-12",
+    "currently_in": false
+  },
+  "TNB-201205": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-07-29",
+    "currently_in": false
+  },
+  "CBE-201211": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-11-27",
+    "currently_in": false
+  },
+  "IGT-201504": {
+    "first_in": "2001-09-04",
+    "last_in": "2014-06-19",
+    "currently_in": false
+  },
+  "HNZ-201306": {
+    "first_in": "1996-01-02",
+    "last_in": "2013-06-06",
+    "currently_in": false
+  },
+  "PXD": {
+    "first_in": "2008-09-24",
+    "last_in": "2024-04-03",
+    "currently_in": false
+  },
+  "TT-200806": {
+    "first_in": "2002-05-13",
+    "last_in": "2008-06-05",
+    "currently_in": false
+  },
+  "PWER-201307": {
+    "first_in": "2000-10-23",
+    "last_in": "2005-03-09",
+    "currently_in": false
+  },
+  "ASND-199906": {
+    "first_in": "1998-06-12",
+    "last_in": "1999-06-24",
+    "currently_in": false
+  },
+  "BK": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ODP": {
+    "first_in": "1999-06-24",
+    "last_in": "2010-12-17",
+    "currently_in": false
+  },
+  "TRV": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BBWI": {
+    "first_in": "2021-08-03",
+    "last_in": "2024-09-30",
+    "currently_in": false
+  },
+  "TRGP": {
+    "first_in": "2022-10-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FLT": {
+    "first_in": "2018-06-20",
+    "last_in": "2024-03-18",
+    "currently_in": false
+  },
+  "COF": {
+    "first_in": "1998-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PEL-199706": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-06-18",
+    "currently_in": false
+  },
+  "CA-201811": {
+    "first_in": "2016-01-04",
+    "last_in": "2018-10-31",
+    "currently_in": false
+  },
+  "BNL-199806": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-06-30",
+    "currently_in": false
+  },
+  "TOS-200109": {
+    "first_in": "1999-09-20",
+    "last_in": "2001-09-10",
+    "currently_in": false
+  },
+  "FBHS": {
+    "first_in": "2016-06-24",
+    "last_in": "2022-11-08",
+    "currently_in": false
+  },
+  "AON": {
+    "first_in": "1996-04-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VZ": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ECL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CPRT": {
+    "first_in": "2018-07-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WBD": {
+    "first_in": "2022-04-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EFU-200011": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-10-30",
+    "currently_in": false
+  },
+  "CSX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HOT-201609": {
+    "first_in": "2000-11-17",
+    "last_in": "2016-09-16",
+    "currently_in": false
+  },
+  "GMCR-201603": {
+    "first_in": "2014-03-24",
+    "last_in": "2016-02-26",
+    "currently_in": false
+  },
+  "CNP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ACV-201105": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-11-16",
+    "currently_in": false
+  },
+  "PDG-200603": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-07-18",
+    "currently_in": false
+  },
+  "USB": {
+    "first_in": "1999-01-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AAPL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BSX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "USBC-199708": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-08-01",
+    "currently_in": false
+  },
+  "UA": {
+    "first_in": "2016-04-08",
+    "last_in": "2022-06-09",
+    "currently_in": false
+  },
+  "HAS": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SWY-201501": {
+    "first_in": "1998-11-13",
+    "last_in": "2015-01-15",
+    "currently_in": false
+  },
+  "AXON": {
+    "first_in": "2023-05-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ABC": {
+    "first_in": "2001-08-30",
+    "last_in": "2023-08-25",
+    "currently_in": false
+  },
+  "FDC-200709": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-09-24",
+    "currently_in": false
+  },
+  "QTRN-200309": {
+    "first_in": "1999-11-16",
+    "last_in": "2003-09-16",
+    "currently_in": false
+  },
+  "WELL": {
+    "first_in": "2009-01-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DOV": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PBI": {
+    "first_in": "1996-01-02",
+    "last_in": "2017-02-28",
+    "currently_in": false
+  },
+  "SW": {
+    "first_in": "2024-07-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VMC": {
+    "first_in": "1999-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CPGX-201606": {
+    "first_in": "2015-07-02",
+    "last_in": "2016-06-27",
+    "currently_in": false
+  },
+  "SII-201008": {
+    "first_in": "2006-10-02",
+    "last_in": "2010-08-19",
+    "currently_in": false
+  },
+  "PKG": {
+    "first_in": "2017-07-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MWW-201610": {
+    "first_in": "2001-06-04",
+    "last_in": "2011-12-14",
+    "currently_in": false
+  },
+  "FPC-200011": {
+    "first_in": "1999-06-22",
+    "last_in": "2000-11-29",
+    "currently_in": false
+  },
+  "MGM": {
+    "first_in": "2017-07-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LYV": {
+    "first_in": "2019-12-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TCOMA-199903": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-03-08",
+    "currently_in": false
+  },
+  "PBY-201602": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-03-29",
+    "currently_in": false
+  },
+  "ADT-201604": {
+    "first_in": "2012-10-02",
+    "last_in": "2016-04-28",
+    "currently_in": false
+  },
+  "BGG": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-04-02",
+    "currently_in": false
+  },
+  "FSH-200611": {
+    "first_in": "2004-08-03",
+    "last_in": "2006-11-07",
+    "currently_in": false
+  },
+  "FLIR": {
+    "first_in": "2009-01-02",
+    "last_in": "2021-04-20",
+    "currently_in": false
+  },
+  "FL": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-08-08",
+    "currently_in": false
+  },
+  "H-200704": {
+    "first_in": "2006-08-01",
+    "last_in": "2007-04-05",
+    "currently_in": false
+  },
+  "MYL": {
+    "first_in": "2004-04-23",
+    "last_in": "2020-10-12",
+    "currently_in": false
+  },
+  "JAVA-201001": {
+    "first_in": "1996-01-02",
+    "last_in": "2010-01-21",
+    "currently_in": false
+  },
+  "L": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SLM": {
+    "first_in": "1998-07-01",
+    "last_in": "2014-04-22",
+    "currently_in": false
+  },
+  "UST-200901": {
+    "first_in": "1996-01-02",
+    "last_in": "2009-01-05",
+    "currently_in": false
+  },
+  "AL-200711": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-07-18",
+    "currently_in": false
+  },
+  "AAL-199702": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-01-13",
+    "currently_in": false
+  },
+  "PWJ-200011": {
+    "first_in": "1999-06-04",
+    "last_in": "2000-11-03",
+    "currently_in": false
+  },
+  "RX-201002": {
+    "first_in": "1996-11-04",
+    "last_in": "2010-02-23",
+    "currently_in": false
+  },
+  "BHF": {
+    "first_in": "2017-08-07",
+    "last_in": "2019-02-27",
+    "currently_in": false
+  },
+  "DHI": {
+    "first_in": "2005-07-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SHW": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ON": {
+    "first_in": "2022-06-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UCM-200010": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-10-19",
+    "currently_in": false
+  },
+  "FLS": {
+    "first_in": "2008-10-02",
+    "last_in": "2021-02-12",
+    "currently_in": false
+  },
+  "MCK": {
+    "first_in": "1999-01-13",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CCEP": {
+    "first_in": "2016-01-04",
+    "last_in": "2016-05-24",
+    "currently_in": false
+  },
+  "MEE-201106": {
+    "first_in": "1996-01-02",
+    "last_in": "2011-05-23",
+    "currently_in": false
+  },
+  "GRMN": {
+    "first_in": "2012-12-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PCAR": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RBD-199903": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-03-24",
+    "currently_in": false
+  },
+  "BLK": {
+    "first_in": "2011-04-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CVH-201305": {
+    "first_in": "2005-08-30",
+    "last_in": "2013-05-02",
+    "currently_in": false
+  },
+  "TXT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AEE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ENS-199708": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-08-05",
+    "currently_in": false
+  },
+  "NRTLQ-201510": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-07-18",
+    "currently_in": false
+  },
+  "UHS": {
+    "first_in": "2014-09-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DPZ": {
+    "first_in": "2020-05-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HRS": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-04-02",
+    "currently_in": false
+  },
+  "TPR": {
+    "first_in": "2004-09-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KR": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EW": {
+    "first_in": "2011-04-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BR": {
+    "first_in": "2018-06-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WPX": {
+    "first_in": "2012-01-03",
+    "last_in": "2014-03-12",
+    "currently_in": false
+  },
+  "DISCK": {
+    "first_in": "2014-08-07",
+    "last_in": "2022-04-04",
+    "currently_in": false
+  },
+  "LEHMQ-201203": {
+    "first_in": "1998-01-12",
+    "last_in": "2008-09-16",
+    "currently_in": false
+  },
+  "V": {
+    "first_in": "2009-12-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MSI": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DAL": {
+    "first_in": "2013-09-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DXC": {
+    "first_in": "1996-01-02",
+    "last_in": "2023-09-18",
+    "currently_in": false
+  },
+  "BGEN-200311": {
+    "first_in": "2000-01-31",
+    "last_in": "2003-11-12",
+    "currently_in": false
+  },
+  "LLX-199710": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-10-14",
+    "currently_in": false
+  },
+  "DO": {
+    "first_in": "2009-02-26",
+    "last_in": "2016-09-28",
+    "currently_in": false
+  },
+  "SYK": {
+    "first_in": "2000-12-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MWI-200402": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-05-19",
+    "currently_in": false
+  },
+  "NRG": {
+    "first_in": "2010-01-29",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ADS": {
+    "first_in": "2013-12-23",
+    "last_in": "2020-05-22",
+    "currently_in": false
+  },
+  "DELL": {
+    "first_in": "2024-09-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GENZ-201104": {
+    "first_in": "2001-12-14",
+    "last_in": "2011-04-01",
+    "currently_in": false
+  },
+  "CSE-199911": {
+    "first_in": "1996-01-22",
+    "last_in": "1999-11-12",
+    "currently_in": false
+  },
+  "THY-199708": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-10-08",
+    "currently_in": false
+  },
+  "ZTS": {
+    "first_in": "2013-06-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ANSS": {
+    "first_in": "2017-06-19",
+    "last_in": "2025-07-09",
+    "currently_in": false
+  },
+  "TT": {
+    "first_in": "2020-03-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CAL": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-07-19",
+    "currently_in": false
+  },
+  "NE": {
+    "first_in": "2001-01-16",
+    "last_in": "2015-07-15",
+    "currently_in": false
+  },
+  "AKAM": {
+    "first_in": "2007-07-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LMT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MAT": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-06-03",
+    "currently_in": false
+  },
+  "FOSL": {
+    "first_in": "2012-04-04",
+    "last_in": "2016-01-04",
+    "currently_in": false
+  },
+  "AVGO": {
+    "first_in": "2014-05-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NLC-199912": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-07-30",
+    "currently_in": false
+  },
+  "JOS-200005": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-05-09",
+    "currently_in": false
+  },
+  "TXU-200710": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-10-09",
+    "currently_in": false
+  },
+  "RDS.A": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-07-18",
+    "currently_in": false
+  },
+  "NAVI": {
+    "first_in": "2014-05-01",
+    "last_in": "2018-06-01",
+    "currently_in": false
+  },
+  "MCO": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "D": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SNDK-201605": {
+    "first_in": "2006-04-20",
+    "last_in": "2016-05-11",
+    "currently_in": false
+  },
+  "CEN-200711": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-03-30",
+    "currently_in": false
+  },
+  "ALK": {
+    "first_in": "2016-05-13",
+    "last_in": "2023-10-02",
+    "currently_in": false
+  },
+  "TMC-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-09",
+    "currently_in": false
+  },
+  "MCHP": {
+    "first_in": "2007-09-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WLL-200203": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-02-07",
+    "currently_in": false
+  },
+  "DEC-199806": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-06-08",
+    "currently_in": false
+  },
+  "NCC-200812": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-12-29",
+    "currently_in": false
+  },
+  "TJX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ABT": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CMCSK-201512": {
+    "first_in": "2015-09-21",
+    "last_in": "2015-12-09",
+    "currently_in": false
+  },
+  "NEM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VNO": {
+    "first_in": "2005-08-12",
+    "last_in": "2022-12-22",
+    "currently_in": false
+  },
+  "JEF": {
+    "first_in": "2007-08-27",
+    "last_in": "2019-09-23",
+    "currently_in": false
+  },
+  "TSLA": {
+    "first_in": "2020-12-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WSM": {
+    "first_in": "2025-03-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GHC": {
+    "first_in": "2007-12-31",
+    "last_in": "2014-09-19",
+    "currently_in": false
+  },
+  "VO-200012": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-12-08",
+    "currently_in": false
+  },
+  "WLTW": {
+    "first_in": "2016-01-05",
+    "last_in": "2021-12-20",
+    "currently_in": false
+  },
+  "PMCS-201601": {
+    "first_in": "2001-08-03",
+    "last_in": "2007-06-26",
+    "currently_in": false
+  },
+  "MII-199906": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-06-21",
+    "currently_in": false
+  },
+  "ELV": {
+    "first_in": "2022-06-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PX": {
+    "first_in": "1996-01-02",
+    "last_in": "2018-09-17",
+    "currently_in": false
+  },
+  "BAY-199808": {
+    "first_in": "1996-02-12",
+    "last_in": "1998-08-28",
+    "currently_in": false
+  },
+  "FB": {
+    "first_in": "2013-12-23",
+    "last_in": "2022-06-08",
+    "currently_in": false
+  },
+  "NVR": {
+    "first_in": "2019-09-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UDR": {
+    "first_in": "2016-03-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GIDL-199709": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-07-09",
+    "currently_in": false
+  },
+  "CHIR-200604": {
+    "first_in": "2000-11-24",
+    "last_in": "2006-04-19",
+    "currently_in": false
+  },
+  "CDNS": {
+    "first_in": "2017-09-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NBL": {
+    "first_in": "2007-10-08",
+    "last_in": "2020-10-07",
+    "currently_in": false
+  },
+  "HUBB": {
+    "first_in": "2023-10-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RMD": {
+    "first_in": "2017-07-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PSKY": {
+    "first_in": "2025-08-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CSCO": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GT": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-02-15",
+    "currently_in": false
+  },
+  "DTV-201507": {
+    "first_in": "2006-12-04",
+    "last_in": "2015-07-23",
+    "currently_in": false
+  },
+  "SYY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RSG": {
+    "first_in": "2008-12-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PAS-201002": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-01-29",
+    "currently_in": false
+  },
+  "BBT": {
+    "first_in": "1997-12-04",
+    "last_in": "2019-12-05",
+    "currently_in": false
+  },
+  "WDC": {
+    "first_in": "2009-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PYPL": {
+    "first_in": "2015-07-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RYI-200710": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-06-30",
+    "currently_in": false
+  },
+  "GWW": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SBNY": {
+    "first_in": "2021-12-20",
+    "last_in": "2023-01-04",
+    "currently_in": false
+  },
+  "FFIV": {
+    "first_in": "2010-12-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FCPT": {
+    "first_in": "2015-11-10",
+    "last_in": "2015-11-10",
+    "currently_in": false
+  },
+  "TEL": {
+    "first_in": "2007-07-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AT-200711": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-11-16",
+    "currently_in": false
+  },
+  "FAST": {
+    "first_in": "2008-09-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LLY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ADP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "COV-201501": {
+    "first_in": "2007-07-02",
+    "last_in": "2015-01-15",
+    "currently_in": false
+  },
+  "RTX": {
+    "first_in": "2020-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CRL": {
+    "first_in": "2021-05-14",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CTL": {
+    "first_in": "1999-03-25",
+    "last_in": "2020-06-22",
+    "currently_in": false
+  },
+  "HON": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CBRE": {
+    "first_in": "2006-11-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LHX": {
+    "first_in": "2019-06-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ASN-200710": {
+    "first_in": "2004-12-20",
+    "last_in": "2007-10-04",
+    "currently_in": false
+  },
+  "PTV-201011": {
+    "first_in": "1999-11-05",
+    "last_in": "2010-11-08",
+    "currently_in": false
+  },
+  "CFG": {
+    "first_in": "2016-02-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SYMC": {
+    "first_in": "2003-03-31",
+    "last_in": "2019-10-18",
+    "currently_in": false
+  },
+  "MAA": {
+    "first_in": "2016-12-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SEE": {
+    "first_in": "1998-04-01",
+    "last_in": "2023-10-02",
+    "currently_in": false
+  },
+  "UIS": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-11-07",
+    "currently_in": false
+  },
+  "MOLX-201312": {
+    "first_in": "1999-12-01",
+    "last_in": "2013-12-03",
+    "currently_in": false
+  },
+  "BWA": {
+    "first_in": "2011-12-19",
+    "last_in": "2024-12-23",
+    "currently_in": false
+  },
+  "IP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RNB-199912": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-12-31",
+    "currently_in": false
+  },
+  "PAC-199703": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-03-19",
+    "currently_in": false
+  },
+  "LPX": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-11-07",
+    "currently_in": false
+  },
+  "MKTX": {
+    "first_in": "2019-07-01",
+    "last_in": "2025-08-28",
+    "currently_in": false
+  },
+  "MRSH": {
+    "first_in": "2026-01-14",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AMH-199709": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-09-08",
+    "currently_in": false
+  },
+  "Q": {
+    "first_in": "2025-11-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HOOD": {
+    "first_in": "2025-09-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JNS-201705": {
+    "first_in": "2000-07-13",
+    "last_in": "2011-11-18",
+    "currently_in": false
+  },
+  "EOG": {
+    "first_in": "2000-11-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GDDY": {
+    "first_in": "2024-06-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GEV": {
+    "first_in": "2024-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UPS": {
+    "first_in": "2002-07-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "YNR-200010": {
+    "first_in": "2000-01-06",
+    "last_in": "2000-10-02",
+    "currently_in": false
+  },
+  "RHI": {
+    "first_in": "2000-12-05",
+    "last_in": "2024-05-08",
+    "currently_in": false
+  },
+  "ESS": {
+    "first_in": "2014-04-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "QRVO": {
+    "first_in": "2015-06-12",
+    "last_in": "2024-11-26",
+    "currently_in": false
+  },
+  "CTXS": {
+    "first_in": "1999-12-01",
+    "last_in": "2022-09-19",
+    "currently_in": false
+  },
+  "ATO": {
+    "first_in": "2019-02-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UBER": {
+    "first_in": "2023-10-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CRR-199706": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-05-19",
+    "currently_in": false
+  },
+  "ZION": {
+    "first_in": "2001-06-25",
+    "last_in": "2024-03-04",
+    "currently_in": false
+  },
+  "GDT-200604": {
+    "first_in": "1996-12-19",
+    "last_in": "2006-04-21",
+    "currently_in": false
+  },
+  "WDAY": {
+    "first_in": "2024-12-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HSP-201509": {
+    "first_in": "2004-05-03",
+    "last_in": "2015-09-01",
+    "currently_in": false
+  },
+  "GSX-199810": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-10-06",
+    "currently_in": false
+  },
+  "COC.B-200208": {
+    "first_in": "1999-08-09",
+    "last_in": "2002-08-29",
+    "currently_in": false
+  },
+  "FTR": {
+    "first_in": "2001-02-27",
+    "last_in": "2017-03-17",
+    "currently_in": false
+  },
+  "WEC": {
+    "first_in": "2008-10-31",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NOVL-201104": {
+    "first_in": "1996-01-02",
+    "last_in": "2011-04-25",
+    "currently_in": false
+  },
+  "MJN-201706": {
+    "first_in": "2009-12-21",
+    "last_in": "2017-06-07",
+    "currently_in": false
+  },
+  "AGC-200108": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-08-20",
+    "currently_in": false
+  },
+  "TEK-200711": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-11-13",
+    "currently_in": false
+  },
+  "BKNG": {
+    "first_in": "2009-11-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MIR-200005": {
+    "first_in": "1997-08-07",
+    "last_in": "2000-05-30",
+    "currently_in": false
+  },
+  "AES": {
+    "first_in": "1998-10-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MXIM": {
+    "first_in": "2000-05-10",
+    "last_in": "2021-08-03",
+    "currently_in": false
+  },
+  "MCD": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ITT": {
+    "first_in": "1996-01-02",
+    "last_in": "2011-10-31",
+    "currently_in": false
+  },
+  "PGN-201207": {
+    "first_in": "1996-01-02",
+    "last_in": "2012-06-29",
+    "currently_in": false
+  },
+  "META": {
+    "first_in": "2022-06-09",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "XTO-201006": {
+    "first_in": "2004-12-29",
+    "last_in": "2010-06-21",
+    "currently_in": false
+  },
+  "ODFL": {
+    "first_in": "2019-12-09",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NCLH": {
+    "first_in": "2017-10-13",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BCR-201712": {
+    "first_in": "1996-01-02",
+    "last_in": "2017-12-27",
+    "currently_in": false
+  },
+  "SAPE-201502": {
+    "first_in": "2000-05-05",
+    "last_in": "2002-05-10",
+    "currently_in": false
+  },
+  "APH": {
+    "first_in": "2008-09-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "COG": {
+    "first_in": "2008-06-23",
+    "last_in": "2021-09-20",
+    "currently_in": false
+  },
+  "RJF": {
+    "first_in": "2017-03-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AHM-199810": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-09-30",
+    "currently_in": false
+  },
+  "DYN-201804": {
+    "first_in": "2000-10-03",
+    "last_in": "2009-12-17",
+    "currently_in": false
+  },
+  "SMCI": {
+    "first_in": "2024-03-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PLD-201106": {
+    "first_in": "2003-07-17",
+    "last_in": "2011-06-02",
+    "currently_in": false
+  },
+  "IBKR": {
+    "first_in": "2025-08-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SXCL-201702": {
+    "first_in": "1999-10-01",
+    "last_in": "2001-05-10",
+    "currently_in": false
+  },
+  "RF": {
+    "first_in": "1998-08-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VFC": {
+    "first_in": "1996-01-02",
+    "last_in": "2024-03-25",
+    "currently_in": false
+  },
+  "AFS.A-200011": {
+    "first_in": "1998-04-08",
+    "last_in": "2000-11-29",
+    "currently_in": false
+  },
+  "ATVI": {
+    "first_in": "2015-08-31",
+    "last_in": "2023-10-02",
+    "currently_in": false
+  },
+  "FTV": {
+    "first_in": "2016-07-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FSLR": {
+    "first_in": "2009-10-16",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EG": {
+    "first_in": "2023-07-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HUM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HBOC-199901": {
+    "first_in": "1997-10-23",
+    "last_in": "1999-01-07",
+    "currently_in": false
+  },
+  "AKS": {
+    "first_in": "2008-07-01",
+    "last_in": "2011-12-14",
+    "currently_in": false
+  },
+  "GILD": {
+    "first_in": "2004-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DLX": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-12-16",
+    "currently_in": false
+  },
+  "LIFE-201402": {
+    "first_in": "2008-11-24",
+    "last_in": "2014-01-22",
+    "currently_in": false
+  },
+  "KHC": {
+    "first_in": "2015-07-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TMC.A-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-09",
+    "currently_in": false
+  },
+  "CBSS-200709": {
+    "first_in": "2004-12-20",
+    "last_in": "2007-09-04",
+    "currently_in": false
+  },
+  "BKB-199909": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-09-30",
+    "currently_in": false
+  },
+  "ABNB": {
+    "first_in": "2023-09-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BDX": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MWV-201507": {
+    "first_in": "1996-01-02",
+    "last_in": "2015-07-01",
+    "currently_in": false
+  },
+  "PGR": {
+    "first_in": "1997-08-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NBR": {
+    "first_in": "2000-10-18",
+    "last_in": "2015-03-19",
+    "currently_in": false
+  },
+  "WLA-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-19",
+    "currently_in": false
+  },
+  "TE-201606": {
+    "first_in": "2001-10-10",
+    "last_in": "2016-06-27",
+    "currently_in": false
+  },
+  "CBB-199801": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-01-26",
+    "currently_in": false
+  },
+  "KG-201102": {
+    "first_in": "2000-10-03",
+    "last_in": "2010-12-17",
+    "currently_in": false
+  },
+  "IAC": {
+    "first_in": "2006-12-01",
+    "last_in": "2008-08-18",
+    "currently_in": false
+  },
+  "JBHT": {
+    "first_in": "2015-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CNC-200208": {
+    "first_in": "1997-01-15",
+    "last_in": "2002-07-24",
+    "currently_in": false
+  },
+  "TXN": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LM": {
+    "first_in": "2006-04-24",
+    "last_in": "2016-11-29",
+    "currently_in": false
+  },
+  "STR-201609": {
+    "first_in": "2006-12-01",
+    "last_in": "2010-06-29",
+    "currently_in": false
+  },
+  "SUNEQ-201712": {
+    "first_in": "2007-05-31",
+    "last_in": "2011-12-14",
+    "currently_in": false
+  },
+  "UNH": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EVHC": {
+    "first_in": "2016-12-02",
+    "last_in": "2018-09-18",
+    "currently_in": false
+  },
+  "CAG": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AYI": {
+    "first_in": "2016-05-03",
+    "last_in": "2018-06-15",
+    "currently_in": false
+  },
+  "MON-201806": {
+    "first_in": "2002-08-14",
+    "last_in": "2018-06-06",
+    "currently_in": false
+  },
+  "REG": {
+    "first_in": "2017-03-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CNW-201510": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-11-27",
+    "currently_in": false
+  },
+  "HAL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LOR-199604": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-04-22",
+    "currently_in": false
+  },
+  "XEC": {
+    "first_in": "2014-06-20",
+    "last_in": "2020-01-28",
+    "currently_in": false
+  },
+  "NAV": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-12-11",
+    "currently_in": false
+  },
+  "STT": {
+    "first_in": "1997-08-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CDAY": {
+    "first_in": "2021-09-20",
+    "last_in": "2023-10-18",
+    "currently_in": false
+  },
+  "DECK": {
+    "first_in": "2024-03-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TSCO": {
+    "first_in": "2014-01-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FICO": {
+    "first_in": "2023-03-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WFC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NKTR": {
+    "first_in": "2018-03-19",
+    "last_in": "2019-09-26",
+    "currently_in": false
+  },
+  "ACS-201002": {
+    "first_in": "2004-04-02",
+    "last_in": "2010-02-02",
+    "currently_in": false
+  },
+  "POOL": {
+    "first_in": "2020-10-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LO-201506": {
+    "first_in": "2008-06-11",
+    "last_in": "2015-06-11",
+    "currently_in": false
+  },
+  "OMC": {
+    "first_in": "1997-12-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CPWR-201412": {
+    "first_in": "1999-01-04",
+    "last_in": "2011-12-30",
+    "currently_in": false
+  },
+  "MER-200812": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-12-29",
+    "currently_in": false
+  },
+  "NCR": {
+    "first_in": "2000-01-04",
+    "last_in": "2007-09-28",
+    "currently_in": false
+  },
+  "PVN-199706": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-06-06",
+    "currently_in": false
+  },
+  "ALB": {
+    "first_in": "2016-07-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PSFT-200501": {
+    "first_in": "1998-10-02",
+    "last_in": "2004-12-27",
+    "currently_in": false
+  },
+  "IR": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JHF-200404": {
+    "first_in": "2001-06-29",
+    "last_in": "2004-04-28",
+    "currently_in": false
+  },
+  "ANDV": {
+    "first_in": "2007-09-27",
+    "last_in": "2018-09-18",
+    "currently_in": false
+  },
+  "ADI": {
+    "first_in": "1999-10-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LII": {
+    "first_in": "2024-12-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NTAP": {
+    "first_in": "1999-06-25",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BEN": {
+    "first_in": "1998-04-29",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EMR": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GRN-199812": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-12-14",
+    "currently_in": false
+  },
+  "BA": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MTG": {
+    "first_in": "1996-07-19",
+    "last_in": "2008-10-28",
+    "currently_in": false
+  },
+  "EXPE": {
+    "first_in": "2007-10-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "IEX": {
+    "first_in": "2019-08-09",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GRA": {
+    "first_in": "1998-03-24",
+    "last_in": "2000-12-08",
+    "currently_in": false
+  },
+  "STZ": {
+    "first_in": "2005-07-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LEG": {
+    "first_in": "1999-10-18",
+    "last_in": "2021-12-14",
+    "currently_in": false
+  },
+  "DFS": {
+    "first_in": "2007-07-02",
+    "last_in": "2025-03-24",
+    "currently_in": false
+  },
+  "INCLF-200701": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-07-18",
+    "currently_in": false
+  },
+  "NDAQ": {
+    "first_in": "2008-10-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WMB": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CPT": {
+    "first_in": "2022-04-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LSI-201405": {
+    "first_in": "1996-01-02",
+    "last_in": "2014-05-06",
+    "currently_in": false
+  },
+  "LDG-200810": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-06-29",
+    "currently_in": false
+  },
+  "KLAC": {
+    "first_in": "1997-09-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JPM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PHA-200304": {
+    "first_in": "1996-01-02",
+    "last_in": "2003-04-07",
+    "currently_in": false
+  },
+  "XRAY": {
+    "first_in": "2008-11-14",
+    "last_in": "2024-03-25",
+    "currently_in": false
+  },
+  "CHA-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-16",
+    "currently_in": false
+  },
+  "SFA-200602": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-02-17",
+    "currently_in": false
+  },
+  "SBL-200701": {
+    "first_in": "2000-12-11",
+    "last_in": "2007-01-05",
+    "currently_in": false
+  },
+  "GOOGL": {
+    "first_in": "2006-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ETR": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FOXA": {
+    "first_in": "2004-12-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "S-200503": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-03-21",
+    "currently_in": false
+  },
+  "FTNT": {
+    "first_in": "2018-10-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "OKE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KSE-200708": {
+    "first_in": "2000-08-21",
+    "last_in": "2007-08-24",
+    "currently_in": false
+  },
+  "ATI-199906": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-06-29",
+    "currently_in": false
+  },
+  "GE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "STX": {
+    "first_in": "2012-07-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CFC-200806": {
+    "first_in": "1997-06-18",
+    "last_in": "2008-06-30",
+    "currently_in": false
+  },
+  "ORLY": {
+    "first_in": "2009-03-27",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HPC-200811": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-11-13",
+    "currently_in": false
+  },
+  "OAT-200108": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-07-31",
+    "currently_in": false
+  },
+  "ETS-200603": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-08-03",
+    "currently_in": false
+  },
+  "FNMA": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-09-08",
+    "currently_in": false
+  },
+  "AM-201308": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-04-30",
+    "currently_in": false
+  },
+  "MMM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CTB": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-07-11",
+    "currently_in": false
+  },
+  "VAR": {
+    "first_in": "2007-02-12",
+    "last_in": "2021-03-22",
+    "currently_in": false
+  },
+  "Q-201103": {
+    "first_in": "2000-07-06",
+    "last_in": "2011-03-23",
+    "currently_in": false
+  },
+  "SE-201702": {
+    "first_in": "2007-01-03",
+    "last_in": "2017-02-24",
+    "currently_in": false
+  },
+  "TDG": {
+    "first_in": "2016-06-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AXP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PFE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NYN-199708": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-08-14",
+    "currently_in": false
+  },
+  "GTW-200710": {
+    "first_in": "1998-04-27",
+    "last_in": "2006-07-31",
+    "currently_in": false
+  },
+  "EPAM": {
+    "first_in": "2021-12-14",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "OGN": {
+    "first_in": "2021-06-04",
+    "last_in": "2023-10-02",
+    "currently_in": false
+  },
+  "XEL": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "RL": {
+    "first_in": "2007-02-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AAP": {
+    "first_in": "2015-07-09",
+    "last_in": "2023-07-10",
+    "currently_in": false
+  },
+  "DLTR": {
+    "first_in": "2011-12-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "COMS-201004": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-07-27",
+    "currently_in": false
+  },
+  "SNT-199910": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-10-25",
+    "currently_in": false
+  },
+  "WNDXQ-200611": {
+    "first_in": "1996-01-02",
+    "last_in": "2004-12-02",
+    "currently_in": false
+  },
+  "IPGP": {
+    "first_in": "2018-03-07",
+    "last_in": "2022-06-09",
+    "currently_in": false
+  },
+  "FLMIQ-200408": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-12-19",
+    "currently_in": false
+  },
+  "MA": {
+    "first_in": "2008-07-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "XRX": {
+    "first_in": "1996-01-02",
+    "last_in": "2021-02-12",
+    "currently_in": false
+  },
+  "CMB-199603": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-03-29",
+    "currently_in": false
+  },
+  "AOS": {
+    "first_in": "2017-07-26",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MKG-200010": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-10-17",
+    "currently_in": false
+  },
+  "GPC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CEG": {
+    "first_in": "2022-02-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FTI-201701": {
+    "first_in": "2009-06-05",
+    "last_in": "2017-01-13",
+    "currently_in": false
+  },
+  "HD": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CVS": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NEE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ORX-199902": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-02-26",
+    "currently_in": false
+  },
+  "PNU-200003": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-03-29",
+    "currently_in": false
+  },
+  "NFB-200611": {
+    "first_in": "2002-07-17",
+    "last_in": "2006-11-22",
+    "currently_in": false
+  },
+  "IRM": {
+    "first_in": "2009-01-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SB-199711": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-11-21",
+    "currently_in": false
+  },
+  "KRB-200512": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-12-29",
+    "currently_in": false
+  },
+  "BLDR": {
+    "first_in": "2023-10-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JCI": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TWX-201806": {
+    "first_in": "1999-01-04",
+    "last_in": "2018-06-14",
+    "currently_in": false
+  },
+  "HI-200303": {
+    "first_in": "1996-01-02",
+    "last_in": "2003-03-28",
+    "currently_in": false
+  },
+  "TIF": {
+    "first_in": "2000-06-21",
+    "last_in": "2020-12-21",
+    "currently_in": false
+  },
+  "APA": {
+    "first_in": "1997-07-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AN-199812": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-12-31",
+    "currently_in": false
+  },
+  "RLM-200005": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-04-27",
+    "currently_in": false
+  },
+  "CBS": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-11-21",
+    "currently_in": false
+  },
+  "JCI-201609": {
+    "first_in": "1996-01-02",
+    "last_in": "2016-09-02",
+    "currently_in": false
+  },
+  "MMI-201205": {
+    "first_in": "2011-01-04",
+    "last_in": "2012-05-15",
+    "currently_in": false
+  },
+  "PET-199806": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-06-26",
+    "currently_in": false
+  },
+  "PNW": {
+    "first_in": "1999-10-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DOW": {
+    "first_in": "2019-04-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LDOS": {
+    "first_in": "2009-12-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WAI-199808": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-08-06",
+    "currently_in": false
+  },
+  "AWE-200410": {
+    "first_in": "2001-07-09",
+    "last_in": "2004-10-26",
+    "currently_in": false
+  },
+  "DIGI-199809": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-08-26",
+    "currently_in": false
+  },
+  "URBN": {
+    "first_in": "2010-02-08",
+    "last_in": "2017-03-17",
+    "currently_in": false
+  },
+  "ABMD": {
+    "first_in": "2018-05-31",
+    "last_in": "2022-12-19",
+    "currently_in": false
+  },
+  "HRB": {
+    "first_in": "1996-01-02",
+    "last_in": "2020-09-18",
+    "currently_in": false
+  },
+  "WAT": {
+    "first_in": "2002-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PRU": {
+    "first_in": "2002-07-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BUD-200811": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-11-17",
+    "currently_in": false
+  },
+  "LUMN": {
+    "first_in": "2020-09-18",
+    "last_in": "2023-03-15",
+    "currently_in": false
+  },
+  "EQR": {
+    "first_in": "2001-12-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WTW": {
+    "first_in": "2022-01-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PCS-200404": {
+    "first_in": "1998-11-24",
+    "last_in": "2004-04-19",
+    "currently_in": false
+  },
+  "CNC": {
+    "first_in": "2016-03-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NVDA": {
+    "first_in": "2001-11-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ESRX": {
+    "first_in": "2003-09-26",
+    "last_in": "2018-09-18",
+    "currently_in": false
+  },
+  "ROP": {
+    "first_in": "2009-12-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "APTV": {
+    "first_in": "2012-12-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CBS-200005": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-04-27",
+    "currently_in": false
+  },
+  "SLR-200710": {
+    "first_in": "1998-12-31",
+    "last_in": "2007-10-01",
+    "currently_in": false
+  },
+  "SRR-200708": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-10-06",
+    "currently_in": false
+  },
+  "ANV-199904": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-04-08",
+    "currently_in": false
+  },
+  "ANDW-200712": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-09-28",
+    "currently_in": false
+  },
+  "DPHIQ-200910": {
+    "first_in": "1999-05-28",
+    "last_in": "2005-10-10",
+    "currently_in": false
+  },
+  "WCG": {
+    "first_in": "2018-09-17",
+    "last_in": "2019-12-23",
+    "currently_in": false
+  },
+  "CNX": {
+    "first_in": "2006-06-28",
+    "last_in": "2016-03-03",
+    "currently_in": false
+  },
+  "AZA.A-200106": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-06-20",
+    "currently_in": false
+  },
+  "CVNA": {
+    "first_in": "2025-12-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DNB": {
+    "first_in": "2008-12-02",
+    "last_in": "2017-04-04",
+    "currently_in": false
+  },
+  "DASH": {
+    "first_in": "2025-03-24",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MEL-200706": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-06-26",
+    "currently_in": false
+  },
+  "COST": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CME": {
+    "first_in": "2006-08-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JNY-201404": {
+    "first_in": "2001-12-17",
+    "last_in": "2009-03-02",
+    "currently_in": false
+  },
+  "GTE-200006": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-29",
+    "currently_in": false
+  },
+  "HSY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SCG": {
+    "first_in": "2009-01-02",
+    "last_in": "2018-09-17",
+    "currently_in": false
+  },
+  "GOOG": {
+    "first_in": "2014-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TSN": {
+    "first_in": "2005-08-11",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "OM-199709": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-09-30",
+    "currently_in": false
+  },
+  "XYZ": {
+    "first_in": "2025-07-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TRIP": {
+    "first_in": "2011-12-21",
+    "last_in": "2019-12-10",
+    "currently_in": false
+  },
+  "WMX-199807": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-07-16",
+    "currently_in": false
+  },
+  "VST": {
+    "first_in": "2024-05-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KRFT-201507": {
+    "first_in": "2012-10-02",
+    "last_in": "2015-07-02",
+    "currently_in": false
+  },
+  "ARNC": {
+    "first_in": "1996-01-02",
+    "last_in": "2020-04-03",
+    "currently_in": false
+  },
+  "LH": {
+    "first_in": "2004-11-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ANDV-201809": {
+    "first_in": "2016-01-04",
+    "last_in": "2018-09-24",
+    "currently_in": false
+  },
+  "ANET": {
+    "first_in": "2018-08-28",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FIX": {
+    "first_in": "2025-12-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "INGR-200611": {
+    "first_in": "1996-01-02",
+    "last_in": "1997-07-25",
+    "currently_in": false
+  },
+  "FTL.A-200004": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-09-30",
+    "currently_in": false
+  },
+  "RVTY": {
+    "first_in": "2023-05-16",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WST": {
+    "first_in": "2020-05-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AR-199911": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-10-26",
+    "currently_in": false
+  },
+  "AYE-201102": {
+    "first_in": "2000-12-11",
+    "last_in": "2011-02-23",
+    "currently_in": false
+  },
+  "SYF": {
+    "first_in": "2015-11-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EXPD": {
+    "first_in": "2007-10-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NFX": {
+    "first_in": "2010-12-20",
+    "last_in": "2019-01-18",
+    "currently_in": false
+  },
+  "TUP": {
+    "first_in": "1996-05-31",
+    "last_in": "2004-03-17",
+    "currently_in": false
+  },
+  "PCL-201602": {
+    "first_in": "2002-01-17",
+    "last_in": "2016-02-16",
+    "currently_in": false
+  },
+  "HMA-201401": {
+    "first_in": "2001-11-07",
+    "last_in": "2007-02-26",
+    "currently_in": false
+  },
+  "MERQ-200611": {
+    "first_in": "2000-06-29",
+    "last_in": "2006-01-03",
+    "currently_in": false
+  },
+  "PETM-201503": {
+    "first_in": "2012-10-05",
+    "last_in": "2015-03-11",
+    "currently_in": false
+  },
+  "CMCSA": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PRGO": {
+    "first_in": "2011-12-19",
+    "last_in": "2021-08-30",
+    "currently_in": false
+  },
+  "FRX-201406": {
+    "first_in": "2000-11-22",
+    "last_in": "2014-06-24",
+    "currently_in": false
+  },
+  "KWP-199911": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-11-15",
+    "currently_in": false
+  },
+  "PMI-199911": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-05-30",
+    "currently_in": false
+  },
+  "MTW": {
+    "first_in": "2007-11-16",
+    "last_in": "2009-08-31",
+    "currently_in": false
+  },
+  "IMNX-200207": {
+    "first_in": "2001-09-21",
+    "last_in": "2002-07-10",
+    "currently_in": false
+  },
+  "SAF-200809": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-09-22",
+    "currently_in": false
+  },
+  "LLL": {
+    "first_in": "2004-12-01",
+    "last_in": "2019-06-07",
+    "currently_in": false
+  },
+  "GRA-199609": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-09-20",
+    "currently_in": false
+  },
+  "GAPTQ-201203": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-08-25",
+    "currently_in": false
+  },
+  "RATL-200302": {
+    "first_in": "2002-02-01",
+    "last_in": "2003-02-18",
+    "currently_in": false
+  },
+  "DWDP": {
+    "first_in": "2017-09-01",
+    "last_in": "2019-06-01",
+    "currently_in": false
+  },
+  "CTSH": {
+    "first_in": "2006-11-17",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ABS-200606": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-05-31",
+    "currently_in": false
+  },
+  "GEHC": {
+    "first_in": "2023-01-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TRW-200212": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-12-09",
+    "currently_in": false
+  },
+  "TA-199907": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-07-20",
+    "currently_in": false
+  },
+  "PNC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SGID-200610": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-20",
+    "currently_in": false
+  },
+  "AIZ": {
+    "first_in": "2007-04-10",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UK-200102": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-01-31",
+    "currently_in": false
+  },
+  "AN": {
+    "first_in": "2003-02-24",
+    "last_in": "2017-08-07",
+    "currently_in": false
+  },
+  "MHS-201203": {
+    "first_in": "2003-08-20",
+    "last_in": "2012-03-22",
+    "currently_in": false
+  },
+  "AMT": {
+    "first_in": "2007-11-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TLAB-201312": {
+    "first_in": "1996-01-02",
+    "last_in": "2011-12-20",
+    "currently_in": false
+  },
+  "ADCT-201012": {
+    "first_in": "1999-08-02",
+    "last_in": "2007-06-26",
+    "currently_in": false
+  },
+  "ACKH-200211": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-11-08",
+    "currently_in": false
+  },
+  "XLNX": {
+    "first_in": "1999-11-08",
+    "last_in": "2022-02-02",
+    "currently_in": false
+  },
+  "FSL-200612": {
+    "first_in": "2004-12-03",
+    "last_in": "2006-12-01",
+    "currently_in": false
+  },
+  "CLF": {
+    "first_in": "2009-12-21",
+    "last_in": "2014-04-01",
+    "currently_in": false
+  },
+  "APC": {
+    "first_in": "1997-07-28",
+    "last_in": "2019-08-08",
+    "currently_in": false
+  },
+  "MRNA": {
+    "first_in": "2021-07-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "IDXX": {
+    "first_in": "2017-01-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BJS-201004": {
+    "first_in": "2002-05-15",
+    "last_in": "2010-04-21",
+    "currently_in": false
+  },
+  "PDCO": {
+    "first_in": "2005-10-11",
+    "last_in": "2018-03-16",
+    "currently_in": false
+  },
+  "CTVA": {
+    "first_in": "2019-06-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "APP": {
+    "first_in": "2025-09-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CPRI": {
+    "first_in": "2016-01-04",
+    "last_in": "2020-04-06",
+    "currently_in": false
+  },
+  "R": {
+    "first_in": "1996-01-02",
+    "last_in": "2017-06-16",
+    "currently_in": false
+  },
+  "PVN-200509": {
+    "first_in": "1997-06-11",
+    "last_in": "2005-09-28",
+    "currently_in": false
+  },
+  "LRCX": {
+    "first_in": "2012-06-05",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PHM": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "QEP": {
+    "first_in": "2010-07-01",
+    "last_in": "2015-06-30",
+    "currently_in": false
+  },
+  "CHRW": {
+    "first_in": "2007-03-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BOL-200710": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-10-26",
+    "currently_in": false
+  },
+  "APOL-201702": {
+    "first_in": "2002-05-15",
+    "last_in": "2013-06-27",
+    "currently_in": false
+  },
+  "BMY": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TFC": {
+    "first_in": "2019-12-09",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "COV-200203": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-08-08",
+    "currently_in": false
+  },
+  "CCU-200807": {
+    "first_in": "1997-09-02",
+    "last_in": "2008-07-29",
+    "currently_in": false
+  },
+  "FLTWQ-200907": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-01-28",
+    "currently_in": false
+  },
+  "GFS.A-199810": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-07-13",
+    "currently_in": false
+  },
+  "CVC-201606": {
+    "first_in": "2010-12-20",
+    "last_in": "2016-06-20",
+    "currently_in": false
+  },
+  "MEA-200201": {
+    "first_in": "1996-01-02",
+    "last_in": "2002-01-28",
+    "currently_in": false
+  },
+  "EFX": {
+    "first_in": "1997-06-19",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BRL-200812": {
+    "first_in": "2006-02-27",
+    "last_in": "2008-12-22",
+    "currently_in": false
+  },
+  "OMX-201311": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-06-18",
+    "currently_in": false
+  },
+  "MZIAQ-201010": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-06-27",
+    "currently_in": false
+  },
+  "NDSN": {
+    "first_in": "2022-02-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WIN": {
+    "first_in": "2006-07-18",
+    "last_in": "2015-03-31",
+    "currently_in": false
+  },
+  "BFI-199907": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-07-30",
+    "currently_in": false
+  },
+  "STLD": {
+    "first_in": "2022-12-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FII": {
+    "first_in": "2003-04-16",
+    "last_in": "2012-12-28",
+    "currently_in": false
+  },
+  "ED": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TRB-200712": {
+    "first_in": "1996-01-02",
+    "last_in": "2007-12-17",
+    "currently_in": false
+  },
+  "AET": {
+    "first_in": "1996-01-02",
+    "last_in": "2018-09-18",
+    "currently_in": false
+  },
+  "HWM": {
+    "first_in": "2020-04-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MOB-199911": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-11-30",
+    "currently_in": false
+  },
+  "ENRNQ-200411": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-11-26",
+    "currently_in": false
+  },
+  "UNP": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NYX-201311": {
+    "first_in": "2007-10-25",
+    "last_in": "2013-11-07",
+    "currently_in": false
+  },
+  "SIAL-201511": {
+    "first_in": "1996-01-02",
+    "last_in": "2015-11-17",
+    "currently_in": false
+  },
+  "STJ-201701": {
+    "first_in": "1996-01-02",
+    "last_in": "2017-01-03",
+    "currently_in": false
+  },
+  "NLSN": {
+    "first_in": "2013-07-09",
+    "last_in": "2022-10-03",
+    "currently_in": false
+  },
+  "SLG": {
+    "first_in": "2015-03-23",
+    "last_in": "2021-02-12",
+    "currently_in": false
+  },
+  "PTC": {
+    "first_in": "1997-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "UCC-199904": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-04-28",
+    "currently_in": false
+  },
+  "PEAK": {
+    "first_in": "2019-11-05",
+    "last_in": "2024-02-01",
+    "currently_in": false
+  },
+  "UAA": {
+    "first_in": "2014-05-01",
+    "last_in": "2022-06-09",
+    "currently_in": false
+  },
+  "CPAY": {
+    "first_in": "2024-03-25",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "AJG": {
+    "first_in": "2016-05-31",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "GLW": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "COR": {
+    "first_in": "2023-08-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LULU": {
+    "first_in": "2023-10-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MAY-200508": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-08-22",
+    "currently_in": false
+  },
+  "LEN": {
+    "first_in": "2005-10-04",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MPWR": {
+    "first_in": "2021-02-12",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MI-201107": {
+    "first_in": "2002-02-11",
+    "last_in": "2011-07-05",
+    "currently_in": false
+  },
+  "NSC": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SHN-200007": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-12-27",
+    "currently_in": false
+  },
+  "SMI-200109": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-12-11",
+    "currently_in": false
+  },
+  "BXP": {
+    "first_in": "2006-04-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "NUE": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "LLTC-201703": {
+    "first_in": "2000-04-03",
+    "last_in": "2017-03-10",
+    "currently_in": false
+  },
+  "GNW": {
+    "first_in": "2005-12-02",
+    "last_in": "2015-11-17",
+    "currently_in": false
+  },
+  "FMY-199905": {
+    "first_in": "1998-07-10",
+    "last_in": "1999-05-19",
+    "currently_in": false
+  },
+  "PCH": {
+    "first_in": "1996-01-02",
+    "last_in": "2001-07-03",
+    "currently_in": false
+  },
+  "EBAY": {
+    "first_in": "2002-07-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TTD": {
+    "first_in": "2025-07-18",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CRM": {
+    "first_in": "2008-09-15",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "O": {
+    "first_in": "2015-04-07",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "EQ-200906": {
+    "first_in": "2006-05-18",
+    "last_in": "2009-06-30",
+    "currently_in": false
+  },
+  "CTAS": {
+    "first_in": "2001-03-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "SO": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KMB": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "MTL-199909": {
+    "first_in": "1998-02-23",
+    "last_in": "1999-09-17",
+    "currently_in": false
+  },
+  "BBI-199801": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-01-05",
+    "currently_in": false
+  },
+  "T-200511": {
+    "first_in": "1996-01-02",
+    "last_in": "2005-11-17",
+    "currently_in": false
+  },
+  "ATGE": {
+    "first_in": "2009-06-09",
+    "last_in": "2012-09-25",
+    "currently_in": false
+  },
+  "VTSS-201504": {
+    "first_in": "2000-12-12",
+    "last_in": "2002-08-19",
+    "currently_in": false
+  },
+  "SLB": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "CSRA-201804": {
+    "first_in": "2015-11-30",
+    "last_in": "2018-04-02",
+    "currently_in": false
+  },
+  "TMK": {
+    "first_in": "1996-01-02",
+    "last_in": "2019-07-15",
+    "currently_in": false
+  },
+  "EC-200606": {
+    "first_in": "1996-01-02",
+    "last_in": "2006-06-05",
+    "currently_in": false
+  },
+  "DVN": {
+    "first_in": "2000-08-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FOX": {
+    "first_in": "2015-09-21",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "DDR": {
+    "first_in": "2007-03-23",
+    "last_in": "2009-03-27",
+    "currently_in": false
+  },
+  "TYL": {
+    "first_in": "2020-06-22",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "FWLT-201412": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-01-28",
+    "currently_in": false
+  },
+  "VNT": {
+    "first_in": "2020-10-12",
+    "last_in": "2021-02-12",
+    "currently_in": false
+  },
+  "AV-200710": {
+    "first_in": "2000-10-02",
+    "last_in": "2007-10-25",
+    "currently_in": false
+  },
+  "AABA": {
+    "first_in": "1999-12-08",
+    "last_in": "2017-06-16",
+    "currently_in": false
+  },
+  "BRK.B": {
+    "first_in": "2010-02-16",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "I-199603": {
+    "first_in": "1996-01-02",
+    "last_in": "1996-03-29",
+    "currently_in": false
+  },
+  "SBUX": {
+    "first_in": "2000-06-08",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "WEN-200809": {
+    "first_in": "1996-01-02",
+    "last_in": "2008-09-26",
+    "currently_in": false
+  },
+  "EP-201205": {
+    "first_in": "1999-10-26",
+    "last_in": "2012-05-23",
+    "currently_in": false
+  },
+  "MDR": {
+    "first_in": "1996-01-02",
+    "last_in": "2003-08-18",
+    "currently_in": false
+  },
+  "MO": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PAYX": {
+    "first_in": "1998-10-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "HCP": {
+    "first_in": "2008-03-31",
+    "last_in": "2019-10-18",
+    "currently_in": false
+  },
+  "BRO": {
+    "first_in": "2021-09-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "C": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "BHMSQ-200401": {
+    "first_in": "1996-01-02",
+    "last_in": "2000-12-08",
+    "currently_in": false
+  },
+  "AMCC-201701": {
+    "first_in": "2001-01-02",
+    "last_in": "2006-05-10",
+    "currently_in": false
+  },
+  "UAL": {
+    "first_in": "2015-09-03",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "PPW-199911": {
+    "first_in": "1996-01-02",
+    "last_in": "1999-11-29",
+    "currently_in": false
+  },
+  "PVH": {
+    "first_in": "2013-02-14",
+    "last_in": "2022-06-28",
+    "currently_in": false
+  },
+  "PBCT": {
+    "first_in": "2008-11-13",
+    "last_in": "2022-03-02",
+    "currently_in": false
+  },
+  "MS": {
+    "first_in": "1996-01-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TWC-201605": {
+    "first_in": "2009-03-30",
+    "last_in": "2016-05-17",
+    "currently_in": false
+  },
+  "MDLZ": {
+    "first_in": "2007-04-02",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "APO": {
+    "first_in": "2024-12-23",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "TMUS": {
+    "first_in": "2009-06-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "KEYS": {
+    "first_in": "2018-11-06",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ECH-199807": {
+    "first_in": "1996-01-02",
+    "last_in": "1998-07-09",
+    "currently_in": false
+  },
+  "DAY": {
+    "first_in": "2024-02-01",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "JCP": {
+    "first_in": "1996-01-02",
+    "last_in": "2013-11-27",
+    "currently_in": false
+  },
+  "NCE-200008": {
+    "first_in": "1998-11-03",
+    "last_in": "2000-08-17",
+    "currently_in": false
+  },
+  "JBL": {
+    "first_in": "2001-01-30",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "VLO": {
+    "first_in": "2004-04-29",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  },
+  "ARE": {
+    "first_in": "2017-03-20",
+    "last_in": "2026-01-14",
+    "currently_in": true
+  }
+}

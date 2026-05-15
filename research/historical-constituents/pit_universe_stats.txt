@@ -1,0 +1,31 @@
+=== PIT Universe Stats ===
+Date range:                1996-01-02  ->  2026-01-14
+Total snapshot dates:      2705
+Total unique tickers:      1247
+Currently in SP500:        502
+Ghost tickers (delisted):  745
+New since 2019-01-12:      120
+
+=== Sample ghost tickers (10) ===
+  AABA                  in:1999-12-08  out:2017-06-16
+  AAL                   in:2015-03-23  out:2024-07-08
+  AAL-199702            in:1996-01-02  out:1997-01-13
+  AAMRQ-201312          in:1996-01-02  out:2003-03-10
+  AAP                   in:2015-07-09  out:2023-07-10
+  ABC                   in:2001-08-30  out:2023-08-25
+  ABI-200811            in:1996-01-02  out:2008-11-20
+  ABKFQ-201304          in:2000-12-11  out:2008-06-10
+  ABMD                  in:2018-05-31  out:2022-12-19
+  ABS-200606            in:1996-01-02  out:2006-05-31
+
+=== Sample new-since-2019 tickers (10) ===
+  ABNB                  added:2023-09-18
+  ACGL                  added:2022-11-01
+  AMCR                  added:2019-06-07
+  APO                   added:2024-12-23
+  APP                   added:2025-09-22
+  ARES                  added:2025-12-11
+  ATO                   added:2019-02-15
+  AXON                  added:2023-05-04
+  BALL                  added:2022-05-10
+  BG                    added:2023-03-15

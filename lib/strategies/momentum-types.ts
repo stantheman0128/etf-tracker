@@ -97,6 +97,11 @@ const US_POOL: PoolStock[] = [
   { ticker: 'ORCL',  yahooSym: 'ORCL',  name: 'Oracle' },
   { ticker: 'COST',  yahooSym: 'COST',  name: 'Costco' },
   { ticker: 'PG',    yahooSym: 'PG',    name: 'Procter & Gamble' },
+  // ADRs — added 2026-05-16 after PIT validation confirmed size+momentum robustness.
+  // These three are SP500-equivalent mega-caps non-US-domiciled but widely held by US investors.
+  { ticker: 'TSM',   yahooSym: 'TSM',   name: 'Taiwan Semiconductor (ADR)' },
+  { ticker: 'ASML',  yahooSym: 'ASML',  name: 'ASML Holding' },
+  { ticker: 'NVO',   yahooSym: 'NVO',   name: 'Novo Nordisk (ADR)' },
 ];
 
 const TW_POOL: PoolStock[] = [
