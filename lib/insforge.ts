@@ -57,16 +57,6 @@ export async function dbInsert<T = Record<string, unknown>>(
   return res.json();
 }
 
-/** Raw SQL query via CLI-compatible admin endpoint */
-export async function dbRawQuery<T = Record<string, unknown>>(
-  sql: string,
-): Promise<T[]> {
-  // Raw SQL requires admin API key, not available from anon key
-  // Use dbQuery for PostgREST-style queries instead
-  console.warn('dbRawQuery not available from anon key');
-  return [];
-}
-
 /** Check if InsForge is configured */
 export function isInsForgeConfigured(): boolean {
   return !!(BASE_URL && ANON_KEY);
