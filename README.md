@@ -2,7 +2,7 @@
 
 個人投資組合追蹤工具，支援台股、美股與加密貨幣的即時價格追蹤與歷史走勢分析。
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-38bdf8)
 
@@ -12,7 +12,7 @@
 - 📈 **歷史曲線圖** - 查看過去 30 天的價格走勢
 - 💰 **資產總覽** - 一目了然的投資組合價值與報酬率
 - 📱 **響應式設計** - 完美支援手機、平板與桌面
-- ⚡ **快速載入** - Next.js 14 + SSR，< 1 秒載入
+- ⚡ **快速載入** - Next.js 16 + SSR，< 1 秒載入
 - 🎨 **現代化 UI** - Tailwind CSS + shadcn/ui
 
 ## 🚀 快速開始
@@ -31,7 +31,7 @@ npm install
 cp .env.example .env.local
 ```
 
-**注意：** 本專案主要使用免費的 Yahoo Finance API，**不需要** API Key 即可運行！Alpha Vantage API Key 已經不再需要。
+**注意：** 本專案主要使用免費的 Yahoo Finance API，**不需要** API Key 即可運行！
 
 ### 3. 設定你的投資組合
 
@@ -82,7 +82,7 @@ etf-tracker/
 
 ## 🔧 技術棧
 
-- **框架**: [Next.js 14](https://nextjs.org/) (App Router)
+- **框架**: [Next.js 16](https://nextjs.org/) (App Router)
 - **語言**: [TypeScript](https://www.typescriptlang.org/)
 - **樣式**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI 元件**: [shadcn/ui](https://ui.shadcn.com/)
@@ -174,5 +174,4 @@ Made with 🦔 by Stan Shih
 
 - [Next.js](https://nextjs.org/)
 - [shadcn/ui](https://ui.shadcn.com/)
-- [Alpha Vantage](https://www.alphavantage.co/)
 - [TradingView](https://www.tradingview.com/)
