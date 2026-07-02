@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.3 — 2026-07-02
+
+倉庫清理:移除殘留檔案,不動任何執行程式。
+
+- 刪掉 `reference/old-version/`(codev2.gs / indexV8.html,舊 Google Apps Script 版本)與 `reference/` 下的一次性腳本(analyze-dates / check-consistency / test-api / test-csv / test-stan-csv / verify-image / verify-logic),原始碼零引用。`reference/README.md` 保留。
+- 移除磁碟上空的 AI 編輯器目錄(.augment / .kilocode / .qoder / .qwen / .roo / .trae / .windsurf,皆已在 .gitignore、未追蹤)。`.gitignore` 早已涵蓋這些名單,防止再生。
+- `.insforge/`(Insforge 專案設定)與 `.agents/`(Insforge SDK skill 文件)保留,本 app 實際使用 Insforge。
+
 ## 0.1.2 — 2026-07-02
 
 重構:把 `components/PortfolioChart.tsx`(1445 行)拆成薄組裝層 + `components/portfolio-chart/` 子模組。行為與畫面不變。
