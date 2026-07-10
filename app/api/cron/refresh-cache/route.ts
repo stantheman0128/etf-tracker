@@ -162,7 +162,9 @@ export async function GET(request: NextRequest) {
         const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.VERCEL_URL
           ? `https://${process.env.VERCEL_URL}`
           : 'http://localhost:3000';
+        const refreshSecret = process.env.CRON_SECRET;
         await fetch(`${baseUrl}/api/portfolio-detail?days=365&refresh=true`, {
+          headers: refreshSecret ? { Authorization: `Bearer ${refreshSecret}` } : {},
           signal: AbortSignal.timeout(25000), // 留足時間但不超過 maxDuration
         });
         console.log('✅ Cron: Historical data cache warmed');

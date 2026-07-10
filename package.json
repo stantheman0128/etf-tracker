@@ -1,13 +1,14 @@
 {
   "name": "etf-tracker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "🦔 什錦雜貨鋪 ETF - Personal Portfolio Tracker",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest run"
   },
   "dependencies": {
     "@insforge/sdk": "^1.2.2",
@@ -33,6 +34,7 @@
     "eslint-config-next": "14.2.18",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.9"
   }
 }

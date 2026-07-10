@@ -9,6 +9,7 @@ import {
 import { readCache, writeCache } from '@/lib/cache';
 import { getPortfolioStartDate, getInitialHoldings, getInitialTotalValueTWD, INITIAL_EXCHANGE_RATE } from '@/lib/initial-data';
 import { getFromCache, setToCache, CACHE_KEYS, CACHE_TTL } from '@/lib/redis-cache';
+import { isAuthorizedRefresh } from '@/lib/refresh-auth';
 
 // 每支股票的日明細
 interface StockDetail {
@@ -35,7 +36,9 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const days = parseInt(searchParams.get('days') || '365');
-    const forceRefresh = searchParams.get('refresh') === 'true';
+    // Force-refresh bypasses cache and hits external APIs hard, so gate it behind
+    // the cron secret. Unauthorized refresh=true is ignored and served from cache.
+    const forceRefresh = searchParams.get('refresh') === 'true' && isAuthorizedRefresh(request);
 
     const cacheKey = `portfolio-detail-${days}`;
     const redisCacheKey = `${CACHE_KEYS.PORTFOLIO_HISTORY}-${days}`;

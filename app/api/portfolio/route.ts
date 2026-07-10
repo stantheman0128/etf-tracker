@@ -7,6 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { PORTFOLIO_CONFIG } from '@/lib/config';
+import { isAuthorizedRefresh } from '@/lib/refresh-auth';
 import {
   getUSStockPrice,
   getTWStockPrice,
@@ -107,7 +108,8 @@ export async function GET(request: NextRequest) {
   
   try {
     const searchParams = request.nextUrl.searchParams;
-    const forceRefresh = searchParams.get('refresh') === 'true';
+    // Gate force-refresh behind the cron secret; unauthorized refresh serves cache.
+    const forceRefresh = searchParams.get('refresh') === 'true' && isAuthorizedRefresh(request);
 
     // 1. 嘗試從快取讀取
     if (!forceRefresh) {
